@@ -1,0 +1,25 @@
+# For tmux/Cygwin/Vim to play nice
+set -g default-terminal xterm-256color
+
+# Binding to C-a
+unbind C-b
+set -g prefix C-a
+bind C-a send-prefix
+
+#enabling history
+set -g history-limit 10000
+
+#http://www.mattjmorrison.com/today-i-learned/2014/09/25/learned.html
+bind-key -n C-S-Up resize-pane -U 15
+bind-key -n C-S-Down resize-pane -D 15
+bind-key -n C-S-Left resize-pane -L 25
+bind-key -n C-S-Right resize-pane -R 25
+
+#no delay for pressing escape
+set -sg escape-time 0
+
+# vi-style copy-pasting
+set-window-option -g mode-keys vi
+
+# (mainly to stop emacs binding conflict) Use { and } to swap panes instead
+unbind C-o

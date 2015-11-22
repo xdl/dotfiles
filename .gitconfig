@@ -1,0 +1,8 @@
+[alias]
+	cm = "commit"
+	st = "status"
+[user]
+	name = "Eddie Li"
+	email = "marubark@gmail.com"
+[core]
+	autocrlf = input
