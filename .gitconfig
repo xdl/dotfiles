@@ -1,6 +1,7 @@
 [alias]
 	cm = "commit"
 	st = "status"
+	pom = "push origin master"
 [user]
 	name = "Eddie Li"
 	email = "marubark@gmail.com"
