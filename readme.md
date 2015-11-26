@@ -1,3 +1,3 @@
 # Dotfiles
 
-Configurations for various utilities
+Configuration files for various tools and shells
