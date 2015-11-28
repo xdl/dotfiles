@@ -2,6 +2,7 @@
 rm ~/.gitconfig;
 rm ~/.bashrc;
 rm ~/.tmux.conf;
+rm ~/.vimrc;
 
 # hard linking over those other ones
 ln ~/dotfiles/.gitconfig ~/.gitconfig;

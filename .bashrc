@@ -1,3 +1,9 @@
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 # disable C-q and C-s
 # from http://unix.stackexchange.com/a/12108
 stty -ixon
