@@ -9,12 +9,11 @@ execute pathogen#infect()
 filetype plugin indent on
 set tabstop=4 "how many spaces the tab key counts for in insert mode
 set shiftwidth=4 "how many spaces of text is indented when using the << and >> operations in normal mode
+set expandtab "tabs converted into spaces for all files
 set softtabstop=4 "how many spaces the backspace key can delete insert mode (and how many spaces the tab key counts for, as well)
 set autoindent
 set encoding=utf-8 "allows non-ASCII characters to be displayed
 
-autocmd Filetype python setlocal expandtab "use expandtab for Python
-autocmd Filetype lilypond setlocal expandtab "use expandtab for Lilypond
 autocmd BufRead,BufNewFile *.es set filetype=javascript "Emcascript syntax as javascript (ES6)
 autocmd Bufread,BufNewFile *.hss set filetype=haskell.script "for vim-slime
 autocmd Bufread,BufNewFile *.as set filetype=actionscript "overriding .as extension from Atlas to ActionScript3
