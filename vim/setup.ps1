@@ -30,9 +30,7 @@ git clone https://github.com/jpalardy/vim-slime.git;
 
 git clone https://github.com/scrooloose/syntastic.git;
 
-git clone https://github.com/tomtom/tlib_vim.git;
-git clone https://github.com/MarcWeber/vim-addon-mw-utils.git;
-git clone https://github.com/garbas/vim-snipmate.git;
+git clone https://github.com/SirVer/ultisnips.git
 git clone https://github.com/xdl/vim-snippets.git;
 
 git clone https://github.com/bling/vim-airline;
@@ -45,14 +43,14 @@ git clone https://github.com/godlygeek/tabular.git;
 
 # Syntax
 
-git clone https://github.com/fatih/vim-go.git;
+#git clone https://github.com/fatih/vim-go.git;
 
-git clone https://github.com/pangloss/vim-javascript;
-git clone https://github.com/leafgarland/typescript-vim.git;
+#git clone https://github.com/pangloss/vim-javascript;
+#git clone https://github.com/leafgarland/typescript-vim.git;
 
-git clone https://github.com/mattn/emmet-vim.git;
+#git clone https://github.com/mattn/emmet-vim.git;
 
-git clone https://github.com/PProvost/vim-ps1.git;
+#git clone https://github.com/PProvost/vim-ps1.git;
 
 # Colorschemes
 
