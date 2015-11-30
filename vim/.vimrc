@@ -311,5 +311,8 @@ au FileType haskell.script nnoremap <buffer> <silent> <LocalLeader>i :HdevtoolsI
 
 "vim-markdown
 "----------------------------
-nnoremap <leader>mc :Toc<CR>
+"contents
+nnoremap <LocalLeader>c :Toc<CR>
+
+" don't autofold
 autocmd Syntax markdown normal zR
