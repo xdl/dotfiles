@@ -6,7 +6,7 @@ mkdir ~/.vim/autoload  && \
 mkdir ~/.vim/bundle && \
 mkdir ~/.vim/tmpfiles;
 
-# pathogen
+# installing pathogen
 echo "installing pathogen..."
 mkdir ~/.vim/tmp && \
 pushd ~/.vim/tmp && \
@@ -19,8 +19,7 @@ popd;
 echo "installing everything else..."
 pushd ~/.vim/bundle;
 
-# "Essential"
-
+# Barebones, low impact
 git clone https://github.com/scrooloose/nerdtree.git;
 git clone https://github.com/scrooloose/nerdcommenter.git;
 
@@ -30,9 +29,6 @@ git clone https://github.com/tpope/vim-surround;
 git clone https://github.com/tpope/vim-repeat;
 git clone https://github.com/tpope/vim-fugitive;
 
-
-# "Nice" to have
-
 git clone https://github.com/jpalardy/vim-slime.git;
 
 git clone https://github.com/scrooloose/syntastic.git;
@@ -40,12 +36,14 @@ git clone https://github.com/scrooloose/syntastic.git;
 git clone https://github.com/SirVer/ultisnips.git
 git clone https://github.com/xdl/vim-snippets.git;
 
+# Useful, but may cause performance hit
+
 git clone https://github.com/bling/vim-airline;
 
+# Rarely used
+
 git clone https://github.com/terryma/vim-expand-region;
-
 git clone https://github.com/xdl/vim-replr.git;
-
 git clone https://github.com/godlygeek/tabular.git;
 
 # Syntax
@@ -63,6 +61,7 @@ git clone https://github.com/godlygeek/tabular.git;
 
 git clone https://github.com/morhetz/gruvbox.git;
 git clone https://github.com/sjl/badwolf;
+
 popd;
 
 echo "done!"
