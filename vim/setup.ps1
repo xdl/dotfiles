@@ -34,7 +34,6 @@ git clone https://github.com/scrooloose/syntastic.git;
 git clone https://github.com/SirVer/ultisnips.git
 git clone https://github.com/xdl/vim-snippets.git;
 
-
 # Useful, but may cause performance hit
 
 git clone https://github.com/bling/vim-airline;

@@ -316,3 +316,8 @@ nnoremap <LocalLeader>c :Toc<CR>
 
 " don't autofold
 autocmd Syntax markdown normal zR
+
+"YouCompleteMe
+"----------------------------
+nnoremap <leader>ct :YouCompleteMe GoTo<CR>
+nnoremap <leader>cd :YcmCompleter GetDoc<CR>
