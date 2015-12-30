@@ -51,7 +51,7 @@ nnoremap <C-t> :tabnew<CR>
 
 "consistent <C-S> mappings
 noremap <C-S> :update<CR>
-vnoremap <C-S> <C-C>:update<CR>
+vnoremap <C-S> <ESC>:update<CR>
 inoremap <C-S> <C-O>:update<CR><ESC>
 
 "copies path of current buffer to clipboard
@@ -319,5 +319,5 @@ autocmd Syntax markdown normal zR
 
 "YouCompleteMe
 "----------------------------
-nnoremap <leader>ct :YouCompleteMe GoTo<CR>
+nnoremap <leader>ct :YcmCompleter GoTo<CR>
 nnoremap <leader>cd :YcmCompleter GetDoc<CR>
