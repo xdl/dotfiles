@@ -14,7 +14,7 @@ if (Test-Path $home\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
 	Remove-Item $home\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1;
 }
 
-fsutil hardlink create $home\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1 $home\dotfiles\Microsoft.PowerShell_profile.ps1;
-fsutil hardlink create $home\.gitconfig $home\dotfiles\.gitconfig;
-fsutil hardlink create $home\_vimrc $home\dotfiles\vim\.vimrc;
-fsutil hardlink create $home\_gvimrc $home\dotfiles\vim\.gvimrc;
+cmd /c mklink $home\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1 $home\dotfiles\Microsoft.PowerShell_profile.ps1;
+cmd /c mklink $home\.gitconfig $home\dotfiles\.gitconfig;
+cmd /c mklink $home\_vimrc $home\dotfiles\vim\.vimrc;
+cmd /c mklink $home\_gvimrc $home\dotfiles\vim\.gvimrc;
