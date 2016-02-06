@@ -314,10 +314,14 @@ au FileType haskell.script nnoremap <buffer> <silent> <LocalLeader>i :HdevtoolsI
 "contents
 nnoremap <LocalLeader>c :Toc<CR>
 
-" don't autofold
+"don't autofold
 autocmd Syntax markdown normal zR
 
 "YouCompleteMe
 "----------------------------
 nnoremap <leader>ct :YcmCompleter GoTo<CR>
 nnoremap <leader>cd :YcmCompleter GetDoc<CR>
+""UltiSnips clash
+let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
