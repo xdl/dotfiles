@@ -50,3 +50,13 @@
 ;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
 (require 'ido)
 (ido-mode t)
+
+;;orgmode
+;;from David O'Toole's tutorial: http://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+;;workflows:
+(setq org-todo-keywords
+      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
