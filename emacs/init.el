@@ -71,9 +71,10 @@
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
 ;;save custom variables elsewhere:
-;;if it doesn't exist:
 ;http://stackoverflow.com/questions/14071991/how-to-create-an-empty-file-by-elisp
-(write-region "" nil "~/.emacs-custom.el")
-;;set and load it
-(setq custom-file "~/.emacs-custom.el")
-(load custom-file)
+(let ((my-custom-file "~/.emacs-custom.el"))
+  (unless (file-exists-p my-custom-file)
+    (write-region "" nil my-custom-file))
+  ;;set and load it
+  (setq custom-file my-custom-file)
+  (load custom-file))
