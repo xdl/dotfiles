@@ -7,11 +7,12 @@
 ;;http://www-users.cs.umn.edu/~gini/1901-07s/emacs_scheme/
 (set-variable (quote scheme-program-name) "guile")
 
-;;to get rid of the menu and scroll bar for graphical GnuEmacs
+;;to get rid of the tool and scroll bar for graphical GnuEmacs
 (when (window-system)
   (tool-bar-mode -1)
-  (menu-bar-mode -1)
   (scroll-bar-mode -1))
+;; get rid of menu bar regardless
+(menu-bar-mode -1)
 
 (load-theme 'wombat)
 
