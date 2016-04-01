@@ -80,3 +80,11 @@
   ;;set and load it
   (setq custom-file my-custom-file)
   (load custom-file))
+
+;; stop that annoying beeping http://stackoverflow.com/questions/10545437/how-to-disable-the-beep-in-emacs-on-windows
+(setq visible-bell 1)
+
+(require 'magit)
+
+;;https://magit.vc/manual/magit/Getting-started.html#Getting-started
+(global-set-key (kbd "C-x g") 'magit-status)
