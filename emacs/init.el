@@ -58,9 +58,20 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+(setq org-directory "~/orgs") ;;this might not be the best idea but let's leave it for now
+(setq org-mobile-directory (concat org-directory "/mobile"))
+(setq org-mobile-inbox-for-pull (concat org-directory "/index.org"))
 ;;workflows:
 (setq org-todo-keywords
       '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+;; Allowing certain languages to be evaluated in code blocks: http://orgmode.org/manual/Languages.html#Languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (js . t)
+   (python . t)
+   (ruby . t)
+   (scheme .t)))
 
 ;https://www.emacswiki.org/emacs/ParEdit
 (require 'paredit)
@@ -81,8 +92,8 @@
   (setq custom-file my-custom-file)
   (load custom-file))
 
-;; stop that annoying beeping http://stackoverflow.com/questions/10545437/how-to-disable-the-beep-in-emacs-on-windows
-(setq visible-bell 1)
+;; stop that annoying beeping https://www.emacswiki.org/emacs/AlarmBell#toc3
+(setq ring-bell-function 'ignore)
 
 (require 'magit)
 
