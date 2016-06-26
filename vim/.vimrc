@@ -223,6 +223,7 @@ let g:airline#extensions#whitespace#enabled = 0
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>ga :Git add %:p<CR><CR>
 nnoremap <leader>gp :Git push origin master<CR><CR>
+nnoremap <leader>gu :Git pull origin master<CR><CR>
 nnoremap <leader>gd :Gvdiff<CR><CR>
 nnoremap <leader>gl :Git log --oneline --decorate --graph<CR><CR>
 nnoremap <leader>gb :Gblame<CR>
