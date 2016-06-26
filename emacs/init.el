@@ -7,11 +7,12 @@
 ;;http://www-users.cs.umn.edu/~gini/1901-07s/emacs_scheme/
 (set-variable (quote scheme-program-name) "guile")
 
-;;to get rid of the menu and scroll bar for graphical GnuEmacs
+;;to get rid of the tool and scroll bar for graphical GnuEmacs
 (when (window-system)
   (tool-bar-mode -1)
-  (menu-bar-mode -1)
   (scroll-bar-mode -1))
+;; get rid of menu bar regardless
+(menu-bar-mode -1)
 
 (load-theme 'wombat)
 
@@ -57,9 +58,20 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+(setq org-directory "~/orgs") ;;this might not be the best idea but let's leave it for now
+(setq org-mobile-directory (concat org-directory "/mobile"))
+(setq org-mobile-inbox-for-pull (concat org-directory "/index.org"))
 ;;workflows:
 (setq org-todo-keywords
       '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+;; Allowing certain languages to be evaluated in code blocks: http://orgmode.org/manual/Languages.html#Languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (js . t)
+   (python . t)
+   (ruby . t)
+   (scheme .t)))
 
 ;https://www.emacswiki.org/emacs/ParEdit
 (require 'paredit)
@@ -79,3 +91,11 @@
   ;;set and load it
   (setq custom-file my-custom-file)
   (load custom-file))
+
+;; stop that annoying beeping https://www.emacswiki.org/emacs/AlarmBell#toc3
+(setq ring-bell-function 'ignore)
+
+(require 'magit)
+
+;;https://magit.vc/manual/magit/Getting-started.html#Getting-started
+(global-set-key (kbd "C-x g") 'magit-status)
