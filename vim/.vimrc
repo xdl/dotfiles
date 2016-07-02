@@ -306,7 +306,7 @@ endif
 "Vim-slime
 "----------------------------
 let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": "default", "target_pane": "0.1", "snapshot_offset": 1}
+let g:slime_default_config = {"socket_name": "default", "target_pane": "0.1", "difference_trim": 1}
 let g:slime_python_ipython = 1
 let g:slime_take_snapshot = 1
 
@@ -333,21 +333,12 @@ nnoremap <leader>ct :YcmCompleter GoTo<CR>
 nnoremap <leader>cd :YcmCompleter GetDoc<CR>
 ""UltiSnips clash
 let g:UltiSnipsExpandTrigger = "<c-j>"
-let g:ultisnipsjumpforwardtrigger = "<c-j>"
-let g:ultisnipsjumpbackwardtrigger = "<c-k>"
+let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
 function! TestFunction(config)
-	let l:difference_sh = 'read! 
-	\let num_current_lines=$(wc -l ' . g:slime_current_file . ' | cut -d " " -f 1);
-	\let num_paste_lines=$(wc -l ' . g:slime_paste_file . ' | cut -d " " -f 1);
-	\let num_current_lines_trimmed=$(printf "\%s" "$(< ' . g:slime_current_file . ')" | wc -l);
-	\let num_snapshot_lines_trimmed=$(printf "\%s" "$(< ' . g:slime_snapshot_file . ')" | wc -l);
-	\let num_diff=$(($num_current_lines_trimmed - $num_snapshot_lines_trimmed - $num_paste_lines + 1));
-	\let tail_offset=$(($num_current_lines - $num_snapshot_lines_trimmed - 1));
-	\let head_offset=$(($num_diff - ' . a:config["snapshot_offset"] . '));
-	\echo $num_diff;
-	\tail -n $tail_offset ' . g:slime_current_file . ' | head -n $head_offset;'
-	execute l:difference_sh
+    call system("tmux -L " . shellescape(a:config["socket_name"]) . " capture-pane -S - -t " . shellescape(a:config["target_pane"]))
+    call system("tmux -L " . shellescape(a:config["socket_name"]) . " save-buffer " . g:slime_current_file)
 endfunction
 
-nnoremap <leader>tf :call TestFunction({"snapshot_offset": 2})<CR>
+nnoremap <leader>tf :call TestFunction({"difference_trim": 1, "socket_name": "default", "target_pane": "0.1"})<CR>
