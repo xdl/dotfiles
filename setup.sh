@@ -1,8 +1,8 @@
-rm -f ~/.gitconfig;
-ln -s ~/dotfiles/.gitconfig ~/.gitconfig;
+#rm -f ~/.gitconfig;
+#ln -s ~/dotfiles/.gitconfig ~/.gitconfig;
 
-rm -f ~/.bashrc;
-ln -s ~/dotfiles/.bashrc ~/.bashrc;
+#rm -f ~/.bashrc;
+#ln -s ~/dotfiles/.bashrc ~/.bashrc;
 
 rm -f ~/.tmux.conf;
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf;
