@@ -253,15 +253,6 @@ autocmd FileType go nmap <LocalLeader>n <Plug>(go-rename)
 autocmd FileType go nmap <LocalLeader>s <Plug>(go-install)
 "gd goes to definition (default)
 
-"vim-expand-region
-"----------------------------
-call expand_region#custom_text_objects({
-	  \ 'ab'  :1,
-	  \ 'aB'  :1,
-	  \ 'a"'  :1,
-	  \ 'a]'  :1
-	  \ })
-
 "vim-replr
 "----------------------------
 "example:
