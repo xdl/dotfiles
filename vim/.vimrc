@@ -306,8 +306,9 @@ endif
 "Vim-slime
 "----------------------------
 let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": "default", "target_pane": "0.1"}
+let g:slime_default_config = {"socket_name": "default", "target_pane": "0.1", "difference_trim": 1}
 let g:slime_python_ipython = 1
+let g:slime_take_snapshot = 1
 
 "vim-hdevtools
 "----------------------------
@@ -334,3 +335,10 @@ nnoremap <leader>cd :YcmCompleter GetDoc<CR>
 let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+
+function! TestFunction(config)
+    call system("tmux -L " . shellescape(a:config["socket_name"]) . " capture-pane -S - -t " . shellescape(a:config["target_pane"]))
+    call system("tmux -L " . shellescape(a:config["socket_name"]) . " save-buffer " . g:slime_current_file)
+endfunction
+
+nnoremap <leader>tf :call TestFunction({"difference_trim": 1, "socket_name": "default", "target_pane": "0.1"})<CR>
