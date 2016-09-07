@@ -4,9 +4,6 @@ case $- in
       *) return;;
 esac
 
-# disable C-q and C-s
-# from http://unix.stackexchange.com/a/12108
-
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -20,5 +17,7 @@ if [ -n "$DISPLAY" -a "$TERM" == "xterm" ]; then
     export TERM=xterm-256color
 fi
 
+# disable C-q and C-s
+# from http://unix.stackexchange.com/a/12108
 stty -ixon
 stty stop undef

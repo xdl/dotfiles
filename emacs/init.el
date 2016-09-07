@@ -10,7 +10,8 @@
 ;;to get rid of the tool and scroll bar for graphical GnuEmacs
 (when (window-system)
   (tool-bar-mode -1)
-  (scroll-bar-mode -1))
+  (scroll-bar-mode -1)
+  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-15")))
 ;; get rid of menu bar regardless
 (menu-bar-mode -1)
 
@@ -58,9 +59,6 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
-(setq org-directory "~/orgs") ;;this might not be the best idea but let's leave it for now
-(setq org-mobile-directory (concat org-directory "/mobile"))
-(setq org-mobile-inbox-for-pull (concat org-directory "/index.org"))
 ;;workflows:
 (setq org-todo-keywords
       '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))

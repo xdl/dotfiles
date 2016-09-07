@@ -157,7 +157,7 @@ set guioptions= "disable all guioptions
 set wrap "don't wrap lines
 set linebreak "break at whitespace if convenient
 if has("unix")
-	set guifont=Monospace\ 10
+    set guifont=Monospace\ 10
 else "has windows
 	set guifont=DejaVu\ Sans\ Mono:h11 "For Math
 endif

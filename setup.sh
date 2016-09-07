@@ -4,6 +4,9 @@
 #rm -f ~/.bashrc;
 #ln -s ~/dotfiles/.bashrc ~/.bashrc;
 
+#rm -f ~/.bash_profile;
+#ln -s ~/dotfiles/.bash_profile ~/.bash_profile;
+
 echo "creating symbolic link for tmux..."
 rm -f ~/.tmux.conf;
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf;
