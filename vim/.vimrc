@@ -58,7 +58,7 @@ inoremap <C-S> <C-O>:update<CR><ESC>
 nnoremap <leader>cp :let @+ = expand("%:p")<CR>
 
 "searching
-nnoremap <CR> :noh <CR><CR>
+nnoremap <CR> :noh<CR>
 
 "Tab navigation
 nnoremap <A-1> 1gt
@@ -82,7 +82,7 @@ noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 
 "sourcing VIMRC
-nnoremap <leader>sv :source $MYVIMRC<CR><CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
 
 "lists open buffers
 nnoremap <leader>ls :ls<CR>:b
@@ -90,7 +90,7 @@ nnoremap <leader>ls :ls<CR>:b
 nnoremap <leader>ts :set spell!<CR>
 
 "Sourcing scratchpad
-nnoremap <leader>ss :source C:\Users\Eddie\code\vimscript\scratch.vim<CR><CR>
+nnoremap <leader>ss :source $HOME/.vim_scratch.vim<CR>
 
 function! VimGrep()
 
@@ -132,10 +132,16 @@ map <F3> mzHVLg?`z
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
-"File-type specitic key mappings (merge/put these into an existing plugin later?)
+
+function! TestFunction()
+endfunction
+
+nnoremap <leader>tf :call TestFunction()<CR>
+"File-type specitic key mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
+"Markdown
+"----------------------------
 "Mnemonic: toggle todo
 function! MarkdownApplyListStrikethrough()
 	let start_pos = getpos('.')
@@ -148,6 +154,7 @@ function! MarkdownApplyListStrikethrough()
 	call setpos('.', start_pos)
 endfunction
 au FileType markdown nnoremap <LocalLeader>tt :call MarkdownApplyListStrikethrough()<CR>
+
 "Mnemonic: insert timestamp
 function! MarkdownInsertTimestamp()
     let @q = '* **' . system('printf `date +%H:%M`') . '**: '
@@ -333,8 +340,3 @@ nnoremap <leader>cd :YcmCompleter GetDoc<CR>
 let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-
-function! TestFunction()
-endfunction
-
-nnoremap <leader>tf :call TestFunction()<CR>
