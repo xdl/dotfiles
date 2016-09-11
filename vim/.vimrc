@@ -127,13 +127,16 @@ nnoremap <leader>sg :call VimGrep()<CR>
 " Misc gimmicks
 map <F3> mzHVLg?`z
 
-" For markdown syntax highlightings:
+" For fixing markdown syntax highlightings:
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 "File-type specitic key mappings (merge/put these into an existing plugin later?)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"Mnemonic: toggle todo
 function! MarkdownApplyListStrikethrough()
 	let start_pos = getpos('.')
 	exec 'normal! F*'
@@ -144,9 +147,13 @@ function! MarkdownApplyListStrikethrough()
 	exec 'normal! A~~'
 	call setpos('.', start_pos)
 endfunction
-
-"Mnemonic: toggle todo
 au FileType markdown nnoremap <LocalLeader>tt :call MarkdownApplyListStrikethrough()<CR>
+"Mnemonic: insert timestamp
+function! MarkdownInsertTimestamp()
+    let @q = '* **' . system('printf `date +%H:%M`') . '**: '
+    put q
+endfunction
+au FileType markdown nnoremap <LocalLeader>it :call MarkdownInsertTimestamp()<CR>
 
 "AESTHETICS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
