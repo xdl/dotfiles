@@ -189,7 +189,7 @@ colorscheme badwolf "preferred dark colorscheme
 "----------------------------
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.fla,*.swf,*.o,*.hi
 let g:ctrlp_custom_ignore = {
-	\ 'dir': '\v[\/](node_modules|dist|lib|libs|db|env|bourbon|\.git)'
+	\ 'dir': '\v[\/](node_modules|libs|db|env|bourbon|\.git)'
 	\}
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlPMixed' "find mru and cwd
@@ -228,11 +228,11 @@ let g:airline#extensions#whitespace#enabled = 0
 "Fugitive
 "----------------------------
 nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gp :Git push origin master<CR><CR>
-nnoremap <leader>gu :Git pull origin master<CR><CR>
-nnoremap <leader>gd :Gvdiff<CR><CR>
-nnoremap <leader>gl :Git log --oneline --decorate --graph<CR><CR>
+nnoremap <leader>ga :Git add %:p<CR>
+nnoremap <leader>gp :Git push origin master<CR>
+nnoremap <leader>gu :Git pull origin master<CR>
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gl :Git log --oneline --decorate --graph<CR>
 nnoremap <leader>gb :Gblame<CR>
 
 "Syntastic
@@ -334,9 +334,7 @@ let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
-function! TestFunction(config)
-    call system("tmux -L " . shellescape(a:config["socket_name"]) . " capture-pane -S - -t " . shellescape(a:config["target_pane"]))
-    call system("tmux -L " . shellescape(a:config["socket_name"]) . " save-buffer " . g:slime_current_file)
+function! TestFunction()
 endfunction
 
-nnoremap <leader>tf :call TestFunction({"difference_trim": 1, "socket_name": "default", "target_pane": "0.1"})<CR>
+nnoremap <leader>tf :call TestFunction()<CR>
