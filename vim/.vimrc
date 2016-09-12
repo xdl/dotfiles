@@ -157,10 +157,17 @@ au FileType markdown nnoremap <LocalLeader>tt :call MarkdownApplyListStrikethrou
 
 "Mnemonic: insert timestamp
 function! MarkdownInsertTimestamp()
-    let @q = '* **' . system('printf `date +%H:%M`') . '**: '
-    put q
+    let @l = '* **' . system('printf `date +%H:%M`') . '**: '
+    put l
 endfunction
 au FileType markdown nnoremap <LocalLeader>it :call MarkdownInsertTimestamp()<CR>
+
+"Mnemonic: insert date
+function! MarkdownInsertDate()
+    let @l = '## ' . system('printf `date +%d/%m/%y`')
+    put l
+endfunction
+au FileType markdown nnoremap <LocalLeader>id :call MarkdownInsertDate()<CR>
 
 "AESTHETICS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
