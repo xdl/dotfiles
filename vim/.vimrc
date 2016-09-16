@@ -351,8 +351,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 "SyntaxRange
 "----------------------------
 "Embedding some scripting syntax
-if exists('g:loaded_SyntaxRange')
-    au FileType markdown :call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
-    au FileType markdown :call SyntaxRange#Include('@begin=scheme@', '@end=scheme@', 'scheme', 'SpecialComment')
-    au FileType markdown :call SyntaxRange#Include('@begin=python@', '@end=python@', 'python', 'SpecialComment')
-endif
+au FileType markdown :silent! call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
+au FileType markdown :silent! call SyntaxRange#Include('@begin=scheme@', '@end=scheme@', 'scheme', 'SpecialComment')
+au FileType markdown :silent! call SyntaxRange#Include('@begin=python@', '@end=python@', 'python', 'SpecialComment')
