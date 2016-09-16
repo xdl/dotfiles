@@ -190,8 +190,8 @@ set laststatus=2 "always show the status line (even if there is only one buffer 
 
 "Colorscheming
 "----------------------------
-set background=dark "default background
-colorscheme badwolf "preferred dark colorscheme
+set background=light "default background
+colorscheme gruvbox "preferred dark colorscheme
 
 "ABBREVIATIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -347,3 +347,12 @@ nnoremap <leader>cd :YcmCompleter GetDoc<CR>
 let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+
+"SyntaxRange
+"----------------------------
+"Embedding some scripting syntax
+if exists('g:loaded_SyntaxRange')
+    au FileType markdown :call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
+    au FileType markdown :call SyntaxRange#Include('@begin=scheme@', '@end=scheme@', 'scheme', 'SpecialComment')
+    au FileType markdown :call SyntaxRange#Include('@begin=python@', '@end=python@', 'python', 'SpecialComment')
+endif

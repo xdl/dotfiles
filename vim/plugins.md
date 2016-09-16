@@ -25,6 +25,7 @@ git clone https://github.com/sjl/badwolf;
 ```
 git clone https://github.com/terryma/vim-expand-region;
 git clone https://github.com/xdl/vim-replr.git;
+git clone https://github.com/vim-scripts/SyntaxRange;
 git clone https://github.com/godlygeek/tabular.git;
 ```
 
