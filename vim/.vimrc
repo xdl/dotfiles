@@ -201,9 +201,12 @@ colorscheme gruvbox "preferred dark colorscheme
 
 "CtrlP
 "----------------------------
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.fla,*.swf,*.o,*.hi
+set wildignore+=*.swp,*.zip,*.exe,*.fla,*.swf,*.o,*.hi
+set wildignore+=*\\tmp\\*,*\\.git\\*
+set wildignore+=*/tmp/*,*/.git/*
+
 let g:ctrlp_custom_ignore = {
-	\ 'dir': '\v[\/](node_modules|libs|db|env|bourbon|\.git)'
+	\ 'dir': '\v[\/](Applications|Library|Downloads|node_modules|libs|db|env|bourbon|\.git)$'
 	\}
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlPMixed' "find mru and cwd
@@ -213,7 +216,13 @@ if executable('ag')
     " Use Ag over Grep
     set grepprg=ag\ --nogroup\ --nocolor
     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_user_command = 'ag %s -l --nocolor
+                \ --ignore ''Applications'' 
+                \ --ignore ''Library'' 
+                \ --ignore ''Downloads'' 
+                \ --ignore ''node_modules'' 
+                \ --ignore ''.git''
+                \ -g ""'
 endif
 
 "NERDtree
