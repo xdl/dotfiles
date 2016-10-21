@@ -1,5 +1,9 @@
 # Plugins
 
+```
+pushd ~/.vim/bundle
+```
+
 ## Core
 
 ```

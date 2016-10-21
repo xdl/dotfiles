@@ -190,7 +190,7 @@ set laststatus=2 "always show the status line (even if there is only one buffer 
 
 "Colorscheming
 "----------------------------
-set background=light "default background
+set background=dark "default background
 colorscheme gruvbox "preferred dark colorscheme
 
 "ABBREVIATIONS
@@ -220,6 +220,7 @@ if executable('ag')
                 \ --ignore ''Applications'' 
                 \ --ignore ''Library'' 
                 \ --ignore ''Downloads'' 
+                \ --ignore ''notes_public'' 
                 \ --ignore ''node_modules'' 
                 \ --ignore ''.git''
                 \ -g ""'
