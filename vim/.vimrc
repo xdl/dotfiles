@@ -363,3 +363,4 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 au FileType markdown :silent! call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
 au FileType markdown :silent! call SyntaxRange#Include('@begin=scheme@', '@end=scheme@', 'scheme', 'SpecialComment')
 au FileType markdown :silent! call SyntaxRange#Include('@begin=python@', '@end=python@', 'python', 'SpecialComment')
+au FileType markdown :silent! call SyntaxRange#Include('@begin=powershell@', '@end=powershell@', 'ps1', 'SpecialComment')
