@@ -86,8 +86,10 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 "lists open buffers
 nnoremap <leader>ls :ls<CR>:b
-"toggling spell
+"toggle spell
 nnoremap <leader>ts :set spell!<CR>
+"toggle paste
+nnoremap <leader>tp :set paste!<CR>
 
 "Sourcing scratchpad
 nnoremap <leader>ss :source $HOME/.vim_scratch.vim<CR>
