@@ -71,6 +71,15 @@
    (ruby . t)
    (scheme .t)))
 
+;; Scheme integration
+
+; For MacOS
+; http://www.nongnu.org/geiser/geiser_3.html#Customization-and-tips
+(setq geiser-racket-binary "/usr/local/bin/racket")
+
+;; Racket filetype detection
+(add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
+
 ;https://www.emacswiki.org/emacs/ParEdit
 (require 'paredit)
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
