@@ -41,4 +41,5 @@ git clone https://github.com/pangloss/vim-javascript;
 git clone https://github.com/leafgarland/typescript-vim.git;
 git clone https://github.com/mattn/emmet-vim.git;
 git clone https://github.com/PProvost/vim-ps1.git;
+git clone https://github.com/alunny/pegjs-vim;
 ```
