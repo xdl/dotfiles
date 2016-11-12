@@ -14,7 +14,7 @@ git clone https://github.com/tpope/vim-surround;
 git clone https://github.com/tpope/vim-repeat;
 git clone https://github.com/tpope/vim-fugitive;
 git clone https://github.com/xdl/vim-slime.git;
-pushd vim-slime && git checkout personal_snippets && popd;
+pushd vim-slime && git checkout tmux_eval_result_in_buffer && popd;
 git clone https://github.com/scrooloose/syntastic.git;
 git clone https://github.com/SirVer/ultisnips.git
 git clone https://github.com/xdl/vim-snippets.git;
