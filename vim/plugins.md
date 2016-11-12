@@ -17,6 +17,7 @@ git clone https://github.com/jpalardy/vim-slime.git;
 git clone https://github.com/scrooloose/syntastic.git;
 git clone https://github.com/SirVer/ultisnips.git
 git clone https://github.com/xdl/vim-snippets.git;
+pushd vim-snippets && git checkout personal_snippets && popd;
 git clone https://github.com/bling/vim-airline;
 git clone https://github.com/morhetz/gruvbox.git;
 git clone https://github.com/sjl/badwolf;
