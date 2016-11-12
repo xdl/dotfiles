@@ -124,7 +124,7 @@ function! VimGrep()
 endfunction
 
 "Mnemonic: search globally
-nnoremap <leader>sg :call VimGrep()<CR>
+nnoremap <leader>sf :call VimGrep()<CR>
 
 " Misc gimmicks
 map <F3> mzHVLg?`z
@@ -134,6 +134,32 @@ map <F3> mzHVLg?`z
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
+" Looking things up
+"http://stackoverflow.com/questions/4316193/check-if-there-is-a-current-active-visual-selection-in-vim-from-a-function-invok
+function! GoogleSearch()
+    let l:searchterm = getreg("z")
+    call netrw#BrowseX('https://google.com'."/search?q=".l:searchterm, 0)
+endfunction
+vnoremap <leader>sg "zy<Esc>:call GoogleSearch()<CR>
+nnoremap <leader>sg viw"zy<Esc>:call GoogleSearch()<CR>
+function! DocsSearch()
+    let l:searchprefix = {
+                \'javascript': 'https://developer.mozilla.org/en-US/search?q=',
+                \'python': 'https://docs.python.org/2/search.html?q='
+                \}
+    let l:filetype = &filetype
+    if has_key(l:searchprefix, l:filetype)
+        let l:searchterm = getreg("z")
+        call netrw#BrowseX('https://google.com'."/search?q=".l:searchterm, 0)
+    else
+        call GoogleSearch()
+    endif
+endfunction
+vnoremap <leader>sd "zy<Esc>:call DocsSearch()<CR>
+nnoremap <leader>sd viw"zy<Esc>:call DocsSearch()<CR>
+
+" For vim lookups: http://stackoverflow.com/questions/15867323/search-vim-help-for-subject-under-cursor
+set keywordprg=:help
 
 function! TestFunction()
 endfunction
@@ -363,7 +389,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 "SyntaxRange
 "----------------------------
 "Embedding some scripting syntax
-au FileType markdown :silent! call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
-au FileType markdown :silent! call SyntaxRange#Include('@begin=scheme@', '@end=scheme@', 'scheme', 'SpecialComment')
-au FileType markdown :silent! call SyntaxRange#Include('@begin=python@', '@end=python@', 'python', 'SpecialComment')
-au FileType markdown :silent! call SyntaxRange#Include('@begin=powershell@', '@end=powershell@', 'ps1', 'SpecialComment')
+au FileType markdown :silent! call SyntaxRange#Include('```javascript', '```', 'javascript', 'SpecialComment')
+au FileType markdown :silent! call SyntaxRange#Include('```scheme', '```', 'scheme', 'SpecialComment')
+au FileType markdown :silent! call SyntaxRange#Include('```python', '```', 'python', 'SpecialComment')
+au FileType markdown :silent! call SyntaxRange#Include('```powershell', '```', 'ps1', 'SpecialComment')
+au FileType markdown :silent! call SyntaxRange#Include('```html', '```', 'html', 'SpecialComment')
