@@ -389,8 +389,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 "SyntaxRange
 "----------------------------
 "Embedding some scripting syntax
-au FileType markdown :silent! call SyntaxRange#Include('```javascript', '```', 'javascript', 'SpecialComment')
-au FileType markdown :silent! call SyntaxRange#Include('```scheme', '```', 'scheme', 'SpecialComment')
-au FileType markdown :silent! call SyntaxRange#Include('```python', '```', 'python', 'SpecialComment')
-au FileType markdown :silent! call SyntaxRange#Include('```powershell', '```', 'ps1', 'SpecialComment')
-au FileType markdown :silent! call SyntaxRange#Include('```html', '```', 'html', 'SpecialComment')
+autocmd FileType markdown :silent! call SyntaxRange#Include('```javascript', '```', 'javascript', 'SpecialComment')
+autocmd FileType markdown :silent! call SyntaxRange#Include('```python', '```', 'python', 'SpecialComment')
+autocmd FileType markdown :silent! call SyntaxRange#Include('```powershell', '```', 'ps1', 'SpecialComment')
+autocmd FileType markdown :silent! call SyntaxRange#Include('```html', '```', 'html', 'SpecialComment')
+" DON'T enable this one; it messes up word text objects for some reason
+"autocmd FileType markdown call SyntaxRange#Include('```scheme', '```', 'scheme', 'SpecialComment')

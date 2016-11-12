@@ -13,7 +13,8 @@ git clone https://github.com/ctrlpvim/ctrlp.vim.git;
 git clone https://github.com/tpope/vim-surround;
 git clone https://github.com/tpope/vim-repeat;
 git clone https://github.com/tpope/vim-fugitive;
-git clone https://github.com/jpalardy/vim-slime.git;
+git clone https://github.com/xdl/vim-slime.git;
+pushd vim-slime && git checkout personal_snippets && popd;
 git clone https://github.com/scrooloose/syntastic.git;
 git clone https://github.com/SirVer/ultisnips.git
 git clone https://github.com/xdl/vim-snippets.git;
