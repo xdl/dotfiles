@@ -150,7 +150,7 @@ function! DocsSearch()
     let l:filetype = &filetype
     if has_key(l:searchprefix, l:filetype)
         let l:searchterm = getreg("z")
-        call netrw#BrowseX('https://google.com'."/search?q=".l:searchterm, 0)
+        call netrw#BrowseX(l:searchprefix[l:filetype].l:searchterm, 0)
     else
         call GoogleSearch()
     endif
