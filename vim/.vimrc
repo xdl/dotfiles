@@ -123,7 +123,7 @@ function! VimGrep()
 
 endfunction
 
-"Mnemonic: search globally
+"Mnemonic: search files
 nnoremap <leader>sf :call VimGrep()<CR>
 
 " Misc gimmicks
@@ -162,6 +162,8 @@ nnoremap <leader>sd viw"zy<Esc>:call DocsSearch()<CR>
 set keywordprg=:help
 
 function! TestFunction()
+    let s:path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+    echom s:path
 endfunction
 
 nnoremap <leader>tf :call TestFunction()<CR>
@@ -394,5 +396,6 @@ autocmd FileType markdown :silent! call SyntaxRange#Include('```javascript', '``
 autocmd FileType markdown :silent! call SyntaxRange#Include('```python', '```', 'python', 'SpecialComment')
 autocmd FileType markdown :silent! call SyntaxRange#Include('```powershell', '```', 'ps1', 'SpecialComment')
 autocmd FileType markdown :silent! call SyntaxRange#Include('```html', '```', 'html', 'SpecialComment')
+autocmd FileType markdown :silent! call SyntaxRange#Include('```sh', '```', 'sh', 'SpecialComment')
 " DON'T enable this one; it messes up word text objects for some reason
 "autocmd FileType markdown call SyntaxRange#Include('```scheme', '```', 'scheme', 'SpecialComment')

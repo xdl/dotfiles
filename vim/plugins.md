@@ -29,6 +29,9 @@ git clone https://github.com/sjl/badwolf;
 ## Optional
 
 ```
+# YCM requires cmake
+git clone https://github.com/Valloric/YouCompleteMe;
+pushd YouCompleteMe && git submodule update --init --recursive && ./install.py --tern-completer && popd;
 git clone https://github.com/terryma/vim-expand-region;
 git clone https://github.com/xdl/vim-replr.git;
 git clone https://github.com/vim-scripts/SyntaxRange;
