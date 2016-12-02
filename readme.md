@@ -1,6 +1,6 @@
 # Dotfiles
 
-Configuration files for various tools and shells
+Configuration files/scripts for various tools and shells
 
 ## {Li,U}nix
 
