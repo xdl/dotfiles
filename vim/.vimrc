@@ -372,6 +372,10 @@ au FileType haskell.script nnoremap <buffer> <LocalLeader>t :HdevtoolsType<CR>
 au FileType haskell.script nnoremap <buffer> <silent> <LocalLeader>c :HdevtoolsClear<CR>
 au FileType haskell.script nnoremap <buffer> <silent> <LocalLeader>i :HdevtoolsInfo<CR>
 
+"vim-markdown (vanilla)
+"----------------------------
+let g:markdown_folding = 1
+
 "vim-markdown
 "----------------------------
 "contents
