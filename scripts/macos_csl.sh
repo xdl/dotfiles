@@ -17,6 +17,7 @@ function setScreenshotPath () {
     path=$1
     defaults write com.apple.screencapture location $path
     killall SystemUIServer
+    echo "com.apple.screencapture location set to $path"
 }
 
 #-----------------------------------------------------------------------

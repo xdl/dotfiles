@@ -7,3 +7,4 @@
 	email = "marubark@gmail.com"
 [core]
 	autocrlf = input
+	editor = vim
