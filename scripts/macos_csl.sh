@@ -21,7 +21,6 @@ function setScreenshotPath () {
     echo "com.apple.screencapture location set to $path"
 }
 
-# directory needs to exist, otherwise screenshots will keep getting dumped to default location:
 function getScreenshotPath () {
     defaults read com.apple.screencapture location
 }
