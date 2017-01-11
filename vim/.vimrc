@@ -281,12 +281,9 @@ let g:airline#extensions#whitespace#enabled = 0
 
 "Fugitive
 "----------------------------
-nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>g<Space> :Git<Space>
 nnoremap <leader>ga :Git add %:p<CR>
-nnoremap <leader>gp :Git push origin master<CR>
-nnoremap <leader>gu :Git pull origin master<CR>
-nnoremap <leader>gd :Gvdiff<CR>
-nnoremap <leader>gl :Git log --oneline --decorate --graph<CR>
+nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gb :Gblame<CR>
 
 "Syntastic
