@@ -18,6 +18,7 @@ autocmd BufRead,BufNewFile *.es set filetype=javascript "Emcascript syntax as ja
 autocmd Bufread,BufNewFile *.hss set filetype=haskell.script "for vim-slime
 autocmd Bufread,BufNewFile *.as set filetype=actionscript "overriding .as extension from Atlas to ActionScript3
 autocmd Bufread,BufNewFile *.md set filetype=markdown "overriding .as extension from Modula to Markdown
+autocmd Bufread,BufNewFile *.tsv set noexpandtab "don't expandtab on tsv files for obvious reasons
 
 "BEHAVIOUR
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -30,6 +31,7 @@ set ignorecase "ignore case when searching...
 set smartcase "unless uppercase character used (toggle with \c)
 set wildmenu "opens up completion list for vim commands
 set hidden "allows buffers to be hidden that contain unwritten changes
+runtime macros/matchit.vim "enchanced use of % to jump around matching constructs
 if has("unix")
 	set directory=~/.vim/tmpfiles//
 else
