@@ -284,6 +284,8 @@ let g:airline#extensions#whitespace#enabled = 0
 "Fugitive
 "----------------------------
 nnoremap <leader>g<Space> :Git<Space>
+nnoremap <leader>gd :Gvdiff HEAD<CR>
+nnoremap <leader>g1 :Gvdiff HEAD~1<CR>
 nnoremap <leader>ga :Git add %:p<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gb :Gblame<CR>
