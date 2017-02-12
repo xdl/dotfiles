@@ -286,6 +286,12 @@ let g:airline#extensions#whitespace#enabled = 0
 nnoremap <leader>g<Space> :Git<Space>
 nnoremap <leader>gd :Gvdiff HEAD<CR>
 nnoremap <leader>g1 :Gvdiff HEAD~1<CR>
+nnoremap <leader>g2 :Gvdiff HEAD~2<CR>
+nnoremap <leader>g3 :Gvdiff HEAD~3<CR>
+nnoremap <leader>g4 :Gvdiff HEAD~4<CR>
+nnoremap <leader>g5 :Gvdiff HEAD~5<CR>
+nnoremap <leader>g6 :Gvdiff HEAD~6<CR>
+nnoremap <leader>g7 :Gvdiff HEAD~7<CR>
 nnoremap <leader>ga :Git add %:p<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gb :Gblame<CR>

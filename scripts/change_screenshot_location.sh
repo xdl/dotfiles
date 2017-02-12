@@ -1,3 +1,4 @@
+# Change screenshot location for macos
 __ScriptVersion="0.1"
 
 
@@ -28,6 +29,12 @@ function getScreenshotPath () {
 #-----------------------------------------------------------------------
 #  Handle command line arguments
 #-----------------------------------------------------------------------
+
+#http://unix.stackexchange.com/a/320115
+if [[ $1 == "" ]]; then
+    usage;
+    exit 0;
+fi
 
 while getopts ":hvs:g" opt
 do
