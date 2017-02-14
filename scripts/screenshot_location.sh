@@ -32,7 +32,8 @@ function getScreenshotPath () {
 
 #http://unix.stackexchange.com/a/320115
 if [[ $1 == "" ]]; then
-    usage;
+    #defaults read com.apple.screencapture location | open --reveal
+    open $(defaults read com.apple.screencapture location)
     exit 0;
 fi
 
