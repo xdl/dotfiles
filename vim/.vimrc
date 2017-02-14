@@ -96,7 +96,7 @@ nnoremap <leader>tp :set paste!<CR>
 "Sourcing scratchpad
 nnoremap <leader>ss :source $HOME/.vim_scratch.vim<CR>
 
-function! VimGrep()
+function! VimGrep(mode)
 
 	if has("unix")
 		let separator = '/'
@@ -106,7 +106,11 @@ function! VimGrep()
 
 	call inputsave()
 	let pwd = getcwd()
-	let files = input('Files to search: ', pwd . separator . '**' . separator .'*')
+    if a:mode == 0
+        let files = input('Files to search: ', pwd . separator . '*')
+    else
+        let files = input('Files to search: ', pwd . separator . '**' . separator .'*')
+    endif
 	call inputrestore()
 
 	if empty(files)
@@ -125,8 +129,11 @@ function! VimGrep()
 
 endfunction
 
-"Mnemonic: search files
-nnoremap <leader>sf :call VimGrep()<CR>
+"Mnemonic: search files (direct) descendents
+nnoremap <leader>sfd :call VimGrep(0)<CR>
+
+"Mnemonic: search files recursively
+nnoremap <leader>sfr :call VimGrep(1)<CR>
 
 " Misc gimmicks
 map <F3> mzHVLg?`z
