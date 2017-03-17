@@ -96,8 +96,24 @@ nnoremap <leader>tp :set paste!<CR>
 "Sourcing scratchpad
 nnoremap <leader>ss :source $HOME/.vim_scratch.vim<CR>
 
-function! VimGrep(mode)
+function! VimGrep(pattern, files)
+    execute ':noautocmd vimgrep /\v' . a:pattern . '/gj' . ' ' . a:files
+    execute ':cw'
+endfunction
 
+function! VimGrepFromCursor()
+	if has("unix")
+		let separator = '/'
+	else
+		let separator = '\'
+	endif
+    let l:searchterm = getreg("z")
+    let pwd = getcwd()
+    let files = pwd . separator . '**' . separator . '*'
+    call VimGrep(l:searchterm, files)
+endfunction
+
+function! VimGrepFromManual()
 	if has("unix")
 		let separator = '/'
 	else
@@ -106,11 +122,7 @@ function! VimGrep(mode)
 
 	call inputsave()
 	let pwd = getcwd()
-    if a:mode == 0
-        let files = input('Files to search: ', pwd . separator . '*')
-    else
-        let files = input('Files to search: ', pwd . separator . '**' . separator .'*')
-    endif
+    let files = input('Files to search: ', pwd . separator . '**' . separator . '*')
 	call inputrestore()
 
 	if empty(files)
@@ -123,20 +135,15 @@ function! VimGrep(mode)
 
 	"use very magic search
 	if !empty(pattern)
-		execute ':vimgrep /\v' . pattern . '/gj' . ' ' . files
-		execute ':cw'
+        call VimGrep(pattern, files)
 	endif
-
 endfunction
 
-"Mnemonic: search files (direct) descendents
-nnoremap <leader>sfd :call VimGrep(0)<CR>
-
-"Mnemonic: search files recursively
-nnoremap <leader>sfr :call VimGrep(1)<CR>
-
-" Misc gimmicks
-map <F3> mzHVLg?`z
+"Mnemonic: search files
+nnoremap <leader>sf :call VimGrepFromManual()<CR>
+" Search word in pwd
+vnoremap <F3> "zy<Esc>:call VimGrepFromCursor()<CR>
+nnoremap <F3> viw"zy<Esc>:call VimGrepFromCursor()<CR>
 
 " For fixing markdown syntax highlightings:
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
@@ -240,9 +247,7 @@ colorscheme gruvbox "preferred dark colorscheme
 
 "CtrlP
 "----------------------------
-set wildignore+=*.swp,*.zip,*.exe,*.fla,*.swf,*.o,*.hi
-set wildignore+=*\\tmp\\*,*\\.git\\*
-set wildignore+=*/tmp/*,*/.git/*
+set wildignore+=*.swp,*.zip,*.exe,*.fla,*.swf,*.o,*.hi,*.dump,.git/**,node_modules/**
 
 let g:ctrlp_custom_ignore = {
 	\ 'dir': '\v[\/](Applications|Library|Downloads|node_modules|libs|db|env|bourbon|\.git)$'
@@ -330,15 +335,11 @@ autocmd FileType go nmap <LocalLeader>s <Plug>(go-install)
 
 "vim-replr
 "----------------------------
-"example:
 let g:replr_build_instructions = {}
+"Windows example:
 let g:replr_build_instructions['C:\Users\Eddie\vimfiles\bundle\vim-replr\plugin'] = "go.bat"
 "Mnemonic: build script
 nnoremap <leader>bs :Replr<CR>
-
-"Thesaurus feature
-"----------------------------
-set thesaurus+=C:\Users\Eddie\Documents\ref\mthesaur.txt
 
 "Terminal hackery
 "----------------------------
@@ -375,7 +376,6 @@ let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "0.1", "difference_trim": 1}
 let g:slime_python_ipython = 1
 let g:slime_take_snapshot = 1
-let g:slime_dont_ask_default = 1
 
 "vim-hdevtools
 "----------------------------
