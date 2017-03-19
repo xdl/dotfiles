@@ -221,7 +221,7 @@ au FileType markdown nnoremap <LocalLeader>id :call MarkdownInsertDate()<CR>
 "AESTHETICS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on "turns on the syntax
-set relativenumber "set relative number to begin with
+"set relativenumber "set relative number to begin with
 set number "set number as well, so you get both
 set guioptions= "disable all guioptions
 set wrap "don't wrap lines
