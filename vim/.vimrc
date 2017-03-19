@@ -15,6 +15,8 @@ set autoindent
 set encoding=utf-8 "allows non-ASCII characters to be displayed
 
 autocmd BufRead,BufNewFile *.es set filetype=javascript "Emcascript syntax as javascript (ES6)
+autocmd Filetype javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Bufread,BufNewFile *.hss set filetype=haskell.script "for vim-slime
 autocmd Bufread,BufNewFile *.as set filetype=actionscript "overriding .as extension from Atlas to ActionScript3
 autocmd Bufread,BufNewFile *.md set filetype=markdown "overriding .as extension from Modula to Markdown
@@ -25,7 +27,8 @@ autocmd Bufread,BufNewFile *.tsv set noexpandtab "don't expandtab on tsv files f
 set backspace=indent,eol,start "allow backspacing over everything in insert mode
 set incsearch "searches while typing
 set hlsearch "highlights all matched words
-set vb t_vb= "disable that annoying bell noise
+set visualbell t_vb= "disable that annoying bell noise
+set lazyredraw "don't update screen when executing macros etc.
 
 set ignorecase "ignore case when searching...
 set smartcase "unless uppercase character used (toggle with \c)
@@ -360,7 +363,7 @@ if has("unix") && !has("gui_running")
 
 "Getting the background colors to work in tmux
 "http://superuser.com/questions/399296/256-color-support-for-vim-background-in-tmux
-	set t_ut=
+set t_ut=
 
 "For terminal in Ubuntu bash
 set t_Co=256
@@ -390,7 +393,7 @@ au FileType haskell.script nnoremap <buffer> <silent> <LocalLeader>i :HdevtoolsI
 "----------------------------
 let g:markdown_folding = 1
 
-"vim-markdown
+"vim-markdown (PlasticBoy plugin)
 "----------------------------
 "contents
 nnoremap <LocalLeader>c :Toc<CR>
