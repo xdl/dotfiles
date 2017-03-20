@@ -17,6 +17,8 @@ set encoding=utf-8 "allows non-ASCII characters to be displayed
 autocmd BufRead,BufNewFile *.es set filetype=javascript "Emcascript syntax as javascript (ES6)
 autocmd Filetype javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype css setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Bufread,BufNewFile *.hss set filetype=haskell.script "for vim-slime
 autocmd Bufread,BufNewFile *.as set filetype=actionscript "overriding .as extension from Atlas to ActionScript3
 autocmd Bufread,BufNewFile *.md set filetype=markdown "overriding .as extension from Modula to Markdown
