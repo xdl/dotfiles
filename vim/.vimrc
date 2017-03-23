@@ -150,6 +150,12 @@ nnoremap <leader>sf :call VimGrepFromManual()<CR>
 vnoremap <F3> "zy<Esc>:call VimGrepFromCursor()<CR>
 nnoremap <F3> viw"zy<Esc>:call VimGrepFromCursor()<CR>
 
+" Mnemonic: jump to
+" Only in the QuickFix buffer
+au FileType qf nnoremap <buffer> <LocalLeader>jt :.cc<CR>
+
+nnoremap <F4> mzHVLg?`z
+
 " For fixing markdown syntax highlightings:
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
