@@ -64,6 +64,13 @@ inoremap <C-S> <C-O>:update<CR><ESC>
 "copies path of current buffer to clipboard
 nnoremap <leader>cp :let @+ = expand("%:p")<CR>
 
+"intravim copying (to register q)
+nnoremap <leader>cw viw"qy
+nnoremap <leader>cW viW"qy
+"system clipboard copying
+nnoremap <leader>csw viw"+y
+nnoremap <leader>csW viW"+y
+
 "searching
 nnoremap <CR> :noh<CR>
 
