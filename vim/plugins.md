@@ -13,6 +13,7 @@ git clone https://github.com/ctrlpvim/ctrlp.vim.git;
 git clone https://github.com/tpope/vim-surround;
 git clone https://github.com/tpope/vim-repeat;
 git clone https://github.com/tpope/vim-fugitive;
+git clone https://github.com/tpope/vim-unimpaired;
 git clone https://github.com/xdl/vim-slime.git;
 pushd vim-slime && git checkout tmux_eval_result_in_buffer && popd;
 git clone https://github.com/scrooloose/syntastic.git;

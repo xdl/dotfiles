@@ -93,8 +93,6 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 "lists open buffers
 nnoremap <leader>ls :ls<CR>:b
-"toggle spell
-nnoremap <leader>ts :set spell!<CR>
 "toggle paste
 nnoremap <leader>tp :set paste!<CR>
 
@@ -325,6 +323,8 @@ nnoremap <leader>gb :Gblame<CR>
 let g:syntastic_always_populate_loc_list = 1
 "automatically open loc list with check
 let g:syntastic_auto_loc_list = 1
+"javascript file checking
+let g:syntastic_javascript_checkers = ['eslint']
 "use manual checking
 nnoremap <leader>sc :SyntasticCheck<CR>
 nnoremap <leader>so :SyntasticReset<CR>
