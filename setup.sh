@@ -8,6 +8,8 @@
 #rm -f ~/.bash_profile;
 #ln -s ~/dotfiles/.bash_profile ~/.bash_profile;
 
+cp ~/dotfiles/.gitconfig ~/.gitconfig
+
 echo "creating symbolic link for .tmux.conf..."
 rm -f ~/.tmux.conf;
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf;
@@ -24,5 +26,8 @@ echo "creating symbolic link for emacs..."
 mkdir -p ~/.emacs.d;
 rm -f ~/.emacs.d/init.el;
 ln -s ~/dotfiles/emacs/init.el ~/.emacs.d/init.el;
+
+echo "copying over gitconfig... remember to set email address"
+cp ~/dotfiles/.gitconfig ~/.gitconfig;
 
 echo "done!"
