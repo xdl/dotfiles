@@ -12,6 +12,8 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-15")))
+;;  MacOS Sierra
+;;  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono for Powerline-16")))
 ;; get rid of menu bar regardless
 (menu-bar-mode -1)
 
