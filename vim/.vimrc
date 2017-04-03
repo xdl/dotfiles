@@ -155,10 +155,20 @@ nnoremap <leader>sf :call VimGrepFromManual()<CR>
 vnoremap <F3> "zy<Esc>:call VimGrepFromCursor()<CR>
 nnoremap <F3> viw"zy<Esc>:call VimGrepFromCursor()<CR>
 
+"Copy buffer contents to system clipboard
+"http://vi.stackexchange.com/questions/7761/how-to-restore-the-position-of-the-cursor-after-executing-a-normal-command
+function! CopyToSystemClipboard()
+    let save_pos = getpos(".")
+    :normal! ggVG"+y
+    call setpos('.', save_pos)
+endfunction
+nnoremap <F2> :call CopyToSystemClipboard()<CR>
+
 " Mnemonic: jump to
 " Only in the QuickFix buffer
 au FileType qf nnoremap <buffer> <LocalLeader>jt :.cc<CR>
 
+"rot13
 nnoremap <F4> mzHVLg?`z
 
 " For fixing markdown syntax highlightings:
