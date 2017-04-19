@@ -6,6 +6,7 @@ After install, run `emacs --debug-init`, which should show missing packages. Sol
 
 * `<M-x> package-install <RET> paredit`
 * `<M-x> package-install <RET> magit`
+* `<M-x> package-install <RET> expand-region`
 
 ## Orgmode
 

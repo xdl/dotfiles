@@ -5,7 +5,7 @@
 
 ;;this one looks more recommended:
 ;;http://www-users.cs.umn.edu/~gini/1901-07s/emacs_scheme/
-(set-variable (quote scheme-program-name) "guile")
+(set-variable (quote scheme-program-name) "racket")
 
 ;;to get rid of the tool and scroll bar for graphical GnuEmacs
 (when (window-system)
@@ -30,9 +30,12 @@
       t)
   (package-initialize))
 
+;; Slime
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
+
 ;expand selection
-;(require 'expand-region)
-;(global-set-key (kbd "C-=") 'er/expand-region)
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;;enabling sessions
 ;;http://www.emacswiki.org/emacs?action=browse;oldid=DeskTop;id=Desktop

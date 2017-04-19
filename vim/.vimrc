@@ -19,6 +19,8 @@ autocmd Filetype javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype css setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype c setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype python setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Bufread,BufNewFile *.hss set filetype=haskell.script "for vim-slime
 autocmd Bufread,BufNewFile *.as set filetype=actionscript "overriding .as extension from Atlas to ActionScript3
 autocmd Bufread,BufNewFile *.md set filetype=markdown "overriding .as extension from Modula to Markdown
@@ -274,8 +276,10 @@ colorscheme gruvbox "preferred dark colorscheme
 "CtrlP
 "----------------------------
 set wildignore+=*.zip
+set wildignore+=*.png
 set wildignore+=*.fla
 set wildignore+=*.swf
+set wildignore+=*.log
 set wildignore+=*.o
 set wildignore+=*.hi
 set wildignore+=*.dump
@@ -349,7 +353,7 @@ let g:syntastic_always_populate_loc_list = 1
 "automatically open loc list with check
 let g:syntastic_auto_loc_list = 1
 "javascript file checking
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint', 'jshint']
 "use manual checking
 nnoremap <leader>sc :SyntasticCheck<CR>
 nnoremap <leader>so :SyntasticReset<CR>
