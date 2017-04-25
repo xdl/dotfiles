@@ -286,6 +286,7 @@ set wildignore+=*.dump
 set wildignore+=*/.git/*
 set wildignore+=*/node_modules/*
 set wildignore+=*/dst/*
+set wildignore+=*/dist/*
 
 let g:ctrlp_custom_ignore = {
 	\ 'dir': '\v[\/](Applications|Library|Downloads|node_modules|libs|db|env|bourbon|\.git)$'

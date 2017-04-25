@@ -41,9 +41,9 @@
 ;;http://www.emacswiki.org/emacs?action=browse;oldid=DeskTop;id=Desktop
 (desktop-save-mode 1)
 
+;;https://www.emacswiki.org/emacs/ShowParenMode
 ;;see the matching parens
 (show-paren-mode 1)
-
 ;;remove the delay
 (setq show-paren-delay 0)
 
@@ -66,7 +66,7 @@
 (setq org-log-done t)
 ;;workflows:
 (setq org-todo-keywords
-      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+      '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "OBSOLETE(o)")))
 ;; Allowing certain languages to be evaluated in code blocks: http://orgmode.org/manual/Languages.html#Languages
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -108,6 +108,10 @@
 (setq ring-bell-function 'ignore)
 
 (require 'magit)
-
 ;;https://magit.vc/manual/magit/Getting-started.html#Getting-started
 (global-set-key (kbd "C-x g") 'magit-status)
+
+;;Use vertical split by default
+;;http://stackoverflow.com/questions/7997590/how-to-change-the-default-split-screen-direction
+(setq split-width-threshold nil)
+(setq split-width-threshold 0)
