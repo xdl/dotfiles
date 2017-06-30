@@ -275,6 +275,7 @@ colorscheme gruvbox "preferred dark colorscheme
 
 "CtrlP
 "----------------------------
+set wildignore+=*.map
 set wildignore+=*.zip
 set wildignore+=*.png
 set wildignore+=*.fla
