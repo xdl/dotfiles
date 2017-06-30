@@ -94,6 +94,9 @@
 (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(add-hook 'racket-mode-hook           #'enable-paredit-mode)
+;;Disable prompt when executing code block
+(setq org-confirm-babel-evaluate nil)
 
 ;;save custom variables elsewhere:
 ;http://stackoverflow.com/questions/14071991/how-to-create-an-empty-file-by-elisp
