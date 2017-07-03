@@ -73,6 +73,7 @@
  '((emacs-lisp . t)
    (js . t)
    (python . t)
+   (sh . t)
    (ruby . t)
    (scheme .t)))
 
@@ -95,8 +96,12 @@
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 (add-hook 'racket-mode-hook           #'enable-paredit-mode)
-;;Disable prompt when executing code block
-(setq org-confirm-babel-evaluate nil)
+;;disable confirmation prompt for languages that don't tend to touch files
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (string= lang "emacs-lisp")))
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
+
 
 ;;save custom variables elsewhere:
 ;http://stackoverflow.com/questions/14071991/how-to-create-an-empty-file-by-elisp
