@@ -101,16 +101,12 @@
   (not (string= lang "emacs-lisp")))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
-
-
 ;;save custom variables elsewhere:
-;http://stackoverflow.com/questions/14071991/how-to-create-an-empty-file-by-elisp
+;;http://stackoverflow.com/questions/14071991/how-to-create-an-empty-file-by-elisp
 (let ((my-custom-file "~/.emacs-custom.el"))
-  (unless (file-exists-p my-custom-file)
-    (write-region "" nil my-custom-file))
-  ;;set and load it
-  (setq custom-file my-custom-file)
-  (load custom-file))
+  (when (file-exists-p my-custom-file)
+    (setq custom-file my-custom-file)
+    (load my-custom-file)))
 
 ;; stop that annoying beeping https://www.emacswiki.org/emacs/AlarmBell#toc3
 (setq ring-bell-function 'ignore)
@@ -121,5 +117,9 @@
 
 ;;Use vertical split by default
 ;;http://stackoverflow.com/questions/7997590/how-to-change-the-default-split-screen-direction
-(setq split-width-threshold nil)
-(setq split-width-threshold 0)
+;;(setq split-width-threshold nil)
+;;(setq split-width-threshold 0)
+
+;;rainbow delimiters
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
