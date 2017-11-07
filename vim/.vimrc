@@ -478,3 +478,28 @@ autocmd FileType markdown :silent! call SyntaxRange#Include('```html', '```', 'h
 autocmd FileType markdown :silent! call SyntaxRange#Include('```sh', '```', 'sh', 'SpecialComment')
 " DON'T enable this one; it messes up word text objects for some reason
 "autocmd FileType markdown call SyntaxRange#Include('```scheme', '```', 'scheme', 'SpecialComment')
+
+"VlcDrill
+""----------------------------
+let g:vlcdrill#annotation#path = "~/dev/ketones/songs/rihanna/good_girl_gone_bad_youtube.json"
+nnoremap <leader>vds :VlcDrillShow<CR>
+nnoremap <leader>vdl :VlcDrillLoadAnnotation<CR>
+
+"Screenshot location
+function! ChangeScreenshotLocation()
+    let script_path = "$HOME/dotfiles/scripts/screenshot_location.sh"
+    let current_directory = expand("<sfile>:p:h")
+    let screenshot_location = input(current_directory . '/')
+    let screenshot_path = current_directory . '/' . screenshot_location
+    call system(script_path . " -s " . screenshot_path)
+    echo "Screenshot location set to " . screenshot_path
+endfunction
+
+function! GetScreenshotLocation()
+    let script_path = "$HOME/dotfiles/scripts/screenshot_location.sh"
+    call system(script_path)
+endfunction
+
+nnoremap <leader>sls :call ChangeScreenshotLocation()<CR>
+nnoremap <leader>slg :call GetScreenshotLocation()<CR>
+
