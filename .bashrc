@@ -21,3 +21,5 @@ fi
 # from http://unix.stackexchange.com/a/12108
 stty -ixon
 stty stop undef
+
+source ~/git-completion.bash

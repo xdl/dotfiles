@@ -17,6 +17,7 @@ set encoding=utf-8 "allows non-ASCII characters to be displayed
 autocmd BufRead,BufNewFile *.es set filetype=javascript "Emcascript syntax as javascript (ES6)
 autocmd Filetype javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype css setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype c setlocal tabstop=2 softtabstop=2 shiftwidth=2
@@ -109,8 +110,19 @@ nnoremap <leader>tp :set paste!<CR>
 nnoremap <leader>ss :source $HOME/.vim_scratch.vim<CR>
 
 function! VimGrep(pattern, files)
-    execute ':noautocmd vimgrep /\v' . a:pattern . '/gj' . ' ' . a:files
+	if has("unix")
+		let separator = '/'
+	else
+		let separator = '\'
+	endif
+    if executable('ag')
+        execute ':silent grep! -case-sensitive "' . a:pattern . '" ' . a:files
+    else
+        execute ':noautocmd vimgrep /\v' . a:pattern . '/gj' . ' ' . a:files \
+        . separator . '**' . separator . '*'
+    endif
     execute ':cw'
+    execute ':redraw!'
 endfunction
 
 function! VimGrepFromCursor()
@@ -121,7 +133,7 @@ function! VimGrepFromCursor()
 	endif
     let l:searchterm = getreg("z")
     let pwd = getcwd()
-    let files = pwd . separator . '**' . separator . '*'
+    let files = pwd
     call VimGrep(l:searchterm, files)
 endfunction
 
@@ -134,7 +146,7 @@ function! VimGrepFromManual()
 
 	call inputsave()
 	let pwd = getcwd()
-    let files = input('Files to search: ', pwd . separator . '**' . separator . '*')
+    let files = input('Files to search: ', pwd)
 	call inputrestore()
 
 	if empty(files)
@@ -364,6 +376,11 @@ nnoremap <leader>so :SyntasticReset<CR>
 let g:syntastic_mode_map = {
 	\ "mode": "passive"
 	\}
+
+"vim JSX
+"----------------------------
+"Enable on all .js files
+let g:jsx_ext_required = 0
 
 "vim-go
 "----------------------------
