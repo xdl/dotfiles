@@ -116,12 +116,12 @@ function! VimGrep(pattern, files)
 		let separator = '\'
 	endif
     if executable('ag')
-        execute ':silent grep! -case-sensitive "' . a:pattern . '" ' . a:files
+        execute ':silent grep! --case-sensitive "' . a:pattern . '" ' . a:files
     else
         execute ':noautocmd vimgrep /\v' . a:pattern . '/gj' . ' ' . a:files \
         . separator . '**' . separator . '*'
     endif
-    execute ':cw'
+    execute ':copen'
     execute ':redraw!'
 endfunction
 
