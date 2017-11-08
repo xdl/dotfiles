@@ -23,3 +23,8 @@ stty -ixon
 stty stop undef
 
 source ~/git-completion.bash
+
+# Aliases
+
+alias vlc="/Applications/VLC.app/Contents/MacOS/VLC"
+alias lilypond="/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
