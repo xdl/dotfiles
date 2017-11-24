@@ -85,6 +85,10 @@
 ;;Plugins
 ;;------
 
+;; Evil
+(require 'evil)
+(evil-mode 1)
+
 ;; linum-mode 
 (require 'linum)
 (global-linum-mode t)
