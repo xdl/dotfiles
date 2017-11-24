@@ -105,7 +105,6 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>ls :ls<CR>:b
 "toggle paste
 nnoremap <leader>tp :set paste!<CR>
-
 "Sourcing scratchpad
 nnoremap <leader>ss :source $HOME/.vim_scratch.vim<CR>
 
@@ -166,8 +165,17 @@ endfunction
 "Mnemonic: search files
 nnoremap <leader>sf :call VimGrepFromManual()<CR>
 " Search word in pwd
-vnoremap <F3> "zy<Esc>:call VimGrepFromCursor()<CR>
-nnoremap <F3> viw"zy<Esc>:call VimGrepFromCursor()<CR>
+vnoremap <F4> "zy<Esc>:call VimGrepFromCursor()<CR>
+nnoremap <F4> viw"zy<Esc>:call VimGrepFromCursor()<CR>
+
+function! ReplaceWordUnderCursor()
+    let word_to_replace  = getreg("z")
+    let replacement = input('Replace word under cursor with: ', word_to_replace )
+    execute ':%s/' . word_to_replace  . '/' .replacement '/gc'
+endfunction
+"Mnemonic: search files
+nnoremap <leader>rb "zy<Esc>:call ReplaceWordUnderCursor()<CR>
+nnoremap <leader>rb viw"zy<Esc>:call ReplaceWordUnderCursor()<CR>
 
 "Copy buffer contents to system clipboard
 "http://vi.stackexchange.com/questions/7761/how-to-restore-the-position-of-the-cursor-after-executing-a-normal-command
@@ -178,12 +186,14 @@ function! CopyToSystemClipboard()
 endfunction
 nnoremap <F2> :call CopyToSystemClipboard()<CR>
 
+function! PasteSystemClipboardToBuffer()
+    :normal! "+p
+endfunction
+nnoremap <F3> :call PasteSystemClipboardToBuffer()<CR>
+
 " Mnemonic: jump to
 " Only in the QuickFix buffer
 au FileType qf nnoremap <buffer> <LocalLeader>jt :.cc<CR>
-
-"rot13
-nnoremap <F4> mzHVLg?`z
 
 " For fixing markdown syntax highlightings:
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
@@ -198,6 +208,7 @@ function! GoogleSearch()
 endfunction
 vnoremap <leader>sg "zy<Esc>:call GoogleSearch()<CR>
 nnoremap <leader>sg viw"zy<Esc>:call GoogleSearch()<CR>
+
 function! DocsSearch()
     let l:searchprefix = {
                 \'javascript': 'https://developer.mozilla.org/en-US/search?q=',
@@ -217,12 +228,6 @@ nnoremap <leader>sd viw"zy<Esc>:call DocsSearch()<CR>
 " For vim lookups: http://stackoverflow.com/questions/15867323/search-vim-help-for-subject-under-cursor
 set keywordprg=:help
 
-function! TestFunction()
-    let s:path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-    echom s:path
-endfunction
-
-nnoremap <leader>tf :call TestFunction()<CR>
 "File-type specitic key mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -398,7 +403,7 @@ autocmd FileType go nmap <LocalLeader>s <Plug>(go-install)
 "----------------------------
 let g:replr_build_instructions = {}
 "Windows example:
-let g:replr_build_instructions['C:\Users\Eddie\vimfiles\bundle\vim-replr\plugin'] = "go.bat"
+"let g:replr_build_instructions['C:\Users\Eddie\vimfiles\bundle\vim-replr\plugin'] = "go.bat"
 "Mnemonic: build script
 nnoremap <leader>bs :Replr<CR>
 
@@ -502,4 +507,3 @@ endfunction
 
 nnoremap <leader>sls :call ChangeScreenshotLocation()<CR>
 nnoremap <leader>slg :call GetScreenshotLocation()<CR>
-
