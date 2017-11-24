@@ -303,11 +303,13 @@ set wildignore+=*.hi
 set wildignore+=*.dump
 set wildignore+=*/.git/*
 set wildignore+=*/node_modules/*
+set wildignore+=*/third_party/*
 set wildignore+=*/dst/*
 set wildignore+=*/dist/*
 
+" Only applicable when search with native vim
 let g:ctrlp_custom_ignore = {
-	\ 'dir': '\v[\/](Applications|Library|Downloads|node_modules|libs|db|env|bourbon|\.git)$'
+	\ 'dir': '\v[\/](Applications|Library|Downloads|third_party|node_modules|libs|db|env|bourbon|\.git)$'
 	\}
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlPMixed' "find mru and cwd
@@ -321,6 +323,7 @@ if executable('ag')
                 \ --ignore ''Applications'' 
                 \ --ignore ''Library'' 
                 \ --ignore ''Downloads'' 
+                \ --ignore ''third_party'' 
                 \ --ignore ''notes_public'' 
                 \ --ignore ''node_modules'' 
                 \ --ignore ''.git''
