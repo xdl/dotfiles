@@ -174,7 +174,7 @@ function! ReplaceWordUnderCursor()
     execute ':%s/' . word_to_replace  . '/' .replacement '/gc'
 endfunction
 "Mnemonic: search files
-nnoremap <leader>rb "zy<Esc>:call ReplaceWordUnderCursor()<CR>
+vnoremap <leader>rb "zy<Esc>:call ReplaceWordUnderCursor()<CR>
 nnoremap <leader>rb viw"zy<Esc>:call ReplaceWordUnderCursor()<CR>
 
 "Copy buffer contents to system clipboard
@@ -185,6 +185,12 @@ function! CopyToSystemClipboard()
     call setpos('.', save_pos)
 endfunction
 nnoremap <F2> :call CopyToSystemClipboard()<CR>
+
+function! CopySelectionToSystemClipboard()
+    echo "Selection copied to clipboard"
+endfunction
+"TODO: more elegant way of doing this?
+vnoremap <F2> "+y<Esc>:call CopySelectionToSystemClipboard()<CR>
 
 function! PasteSystemClipboardToBuffer()
     :normal! "+p
