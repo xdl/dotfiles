@@ -171,7 +171,7 @@ nnoremap <F4> viw"zy<Esc>:call VimGrepFromCursor()<CR>
 function! ReplaceWordUnderCursor()
     let word_to_replace  = getreg("z")
     let replacement = input('Replace word under cursor with: ', word_to_replace )
-    execute ':%s/' . word_to_replace  . '/' .replacement '/gc'
+    execute ':%s/' . word_to_replace  . '/' . replacement . '/gc'
 endfunction
 "Mnemonic: search files
 vnoremap <leader>rb "zy<Esc>:call ReplaceWordUnderCursor()<CR>

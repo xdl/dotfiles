@@ -88,6 +88,9 @@
 ;; Evil
 (require 'evil)
 (evil-mode 1)
+;;https://github.com/syl20bnr/evil-escape
+(require 'evil-escape)
+(setq-default evil-escape-key-sequence "jk")
 
 ;; linum-mode 
 (require 'linum)
