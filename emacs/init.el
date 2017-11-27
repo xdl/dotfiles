@@ -89,6 +89,8 @@
 (require 'evil)
 (evil-mode 1)
 ;;https://github.com/syl20bnr/evil-escape
+
+;; Evil escape
 (require 'evil-escape)
 (evil-escape-mode t)
 (setq-default evil-escape-key-sequence "jk")
