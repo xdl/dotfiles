@@ -17,6 +17,8 @@ set encoding=utf-8 "allows non-ASCII characters to be displayed
 autocmd BufRead,BufNewFile *.es set filetype=javascript "Emcascript syntax as javascript (ES6)
 autocmd Filetype javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype html setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype haxe setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype css setlocal tabstop=2 softtabstop=2 shiftwidth=2
@@ -180,18 +182,20 @@ function! CopyToSystemClipboard()
     :normal! ggVG"+y
     call setpos('.', save_pos)
 endfunction
-nnoremap <F2> :call CopyToSystemClipboard()<CR>
-
 function! CopySelectionToSystemClipboard()
     echo "Selection copied to clipboard"
 endfunction
 "TODO: more elegant way of doing this?
+nnoremap <F2> :call CopyToSystemClipboard()<CR>
 vnoremap <F2> "+y<Esc>:call CopySelectionToSystemClipboard()<CR>
 
 function! PasteSystemClipboardToBuffer()
     :normal! "+p
+    echo "Clipboard contents pasted"
 endfunction
 nnoremap <F3> :call PasteSystemClipboardToBuffer()<CR>
+inoremap <F3> <C-R>+
+vnoremap <F3> "+p
 
 " Mnemonic: jump to
 " Only in the QuickFix buffer
@@ -376,7 +380,7 @@ nnoremap <leader>gb :Gblame<CR>
 "----------------------------
 "when check is run, location list is populated without running :Errors
 let g:syntastic_always_populate_loc_list = 1
-"automatically open loc list with check
+"automatically open loc list with check (disabling for the moment)
 let g:syntastic_auto_loc_list = 1
 "javascript file checking
 let g:syntastic_javascript_checkers = ['eslint', 'jshint']
@@ -437,7 +441,8 @@ set t_ut=
 set t_Co=256
 
 "Another key binding for incrementing numbers while in tmux
-nnoremap <C-i> <C-a>
+"This is interfering with jumping to previous
+"nnoremap <C-i> <C-a>
 
 endif
 
@@ -473,10 +478,13 @@ autocmd Syntax markdown normal zR
 "----------------------------
 nnoremap <leader>ct :YcmCompleter GoTo<CR>
 nnoremap <leader>cd :YcmCompleter GetDoc<CR>
-""UltiSnips clash
+"UltiSnips clash
 let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+"Make sure you compile with:
+"git submodule update --int --recursive
+"./install.py --clang-completer --js-completer
 
 "SyntaxRange
 "----------------------------
@@ -512,3 +520,8 @@ endfunction
 
 nnoremap <leader>sls :call ChangeScreenshotLocation()<CR>
 nnoremap <leader>slg :call GetScreenshotLocation()<CR>
+
+"Vaxe
+""----------------------------
+set autowrite
+au FileType haxe nnoremap <buffer> <LocalLeader>m :make<CR>
