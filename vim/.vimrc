@@ -48,7 +48,7 @@ else
 	set directory=~/vimfiles/tmpfiles//
 endif
 
-"KEY MAPPINGS
+"CONVENIENT KEY MAPPINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = "," "leader key to , (global plugins)
 let maplocalleader = "\\" "localleader to \ (filetype specific plugins)
@@ -58,6 +58,7 @@ nnoremap <leader><leader> ,
 "anchor here (useful with Ctrl-P)
 nnoremap <leader>ah :cd %:p:h<CR>
 
+"windows-esque quitting
 nnoremap <C-q> :x<CR>
 nnoremap <C-t> :tabnew<CR>
 
@@ -105,6 +106,10 @@ nnoremap <leader>ls :ls<CR>:b
 nnoremap <leader>tp :set paste!<CR>
 "Sourcing scratchpad
 nnoremap <leader>ss :source $HOME/.vim_scratch.vim<CR>
+
+"Visually repeating operations
+vnoremap . :normal .<CR>
+vnoremap q :normal @q<CR>
 
 function! VimGrep(pattern, files)
 	if has("unix")
@@ -525,3 +530,7 @@ nnoremap <leader>slg :call GetScreenshotLocation()<CR>
 ""----------------------------
 set autowrite
 au FileType haxe nnoremap <buffer> <LocalLeader>m :make<CR>
+"Trying to speed it up:
+let g:vaxe_completion_disable_optimizations = 0
+let g:vaxe_completeopt_menuone = 1
+let g:vaxe_cache_server = 1
