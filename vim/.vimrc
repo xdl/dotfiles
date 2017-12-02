@@ -533,4 +533,5 @@ au FileType haxe nnoremap <buffer> <LocalLeader>m :make<CR>
 "Trying to speed it up:
 let g:vaxe_completion_disable_optimizations = 0
 let g:vaxe_completeopt_menuone = 1
+let g:vaxe_enable_ycm_defaults = 0
 let g:vaxe_cache_server = 1
