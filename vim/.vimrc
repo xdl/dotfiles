@@ -315,15 +315,19 @@ set wildignore+=*.dump
 set wildignore+=*/.git/*
 set wildignore+=*/node_modules/*
 set wildignore+=*/third_party/*
+set wildignore+=*/Assets/*
+set wildignore+=*/Exports/*
 set wildignore+=*/dst/*
 set wildignore+=*/dist/*
 
 " Only applicable when search with native vim
 let g:ctrlp_custom_ignore = {
-	\ 'dir': '\v[\/](Applications|Library|Downloads|third_party|node_modules|libs|db|env|bourbon|\.git)$'
+	\ 'dir': '\v[\/](Applications|Library|Downloads|third_party|node_modules|libs|db|env|bourbon|Assets|Exports|\.git)$'
 	\}
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlPMixed' "find mru and cwd
+let g:ctrlp_switch_buffer = 'et' "only switch to an opened buffer if it's open in the current tab
+
 "https://coderwall.com/p/hk_bwg/how-to-speed-up-ctrlp
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -337,6 +341,8 @@ if executable('ag')
                 \ --ignore ''third_party'' 
                 \ --ignore ''notes_public'' 
                 \ --ignore ''node_modules'' 
+                \ --ignore ''Assets'' 
+                \ --ignore ''Exports'' 
                 \ --ignore ''.git''
                 \ -g ""'
 endif
