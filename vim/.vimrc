@@ -71,7 +71,9 @@ inoremap <C-S> <C-O>:update<CR><ESC>
 inoremap jk <Esc>
 
 "copies path of current buffer to clipboard
-nnoremap <leader>cp :let @+ = expand("%:p")<CR>
+nnoremap <leader>cb :let @+ = expand("%:p")<CR>
+"copies directory of current buffer to clipboard
+nnoremap <leader>cp :let @+ = expand("%:p:h")<CR>
 
 "searching
 nnoremap <CR> :noh<CR>
@@ -487,6 +489,7 @@ autocmd Syntax markdown normal zR
 
 "YouCompleteMe
 "----------------------------
+"
 nnoremap <leader>ct :YcmCompleter GoTo<CR>
 nnoremap <leader>cd :YcmCompleter GetDoc<CR>
 "UltiSnips clash
