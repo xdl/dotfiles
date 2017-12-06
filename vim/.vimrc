@@ -246,10 +246,15 @@ set keywordprg=:help
 
 "Markdown
 "----------------------------
+
 "Mnemonic: toggle todo
+"Toggles strikethrough of a Markdown item:
+" * do dishes
+" * ~~do dishes~~
 function! MarkdownApplyListStrikethrough()
 	let start_pos = getpos('.')
 	exec 'normal! F*'
+    "getpos returns [bufnum, lnum, col, off]
 	if getpos('.')[2] == start_pos[2]
 		exec 'normal! f*'
 	endif
@@ -272,6 +277,22 @@ function! MarkdownInsertDate()
     put l
 endfunction
 au FileType markdown nnoremap <LocalLeader>id :call MarkdownInsertDate()<CR>
+
+"Mnemonic: add done
+function! MarkdownAddDone()
+	let start_pos = getpos('.')
+    exec 'normal! A ✓'
+	call setpos('.', start_pos)
+endfunction
+au FileType markdown nnoremap <LocalLeader>ad :call MarkdownAddDone()<CR>
+
+"Mnemonic: add cross
+function! MarkdownAddCross()
+	let start_pos = getpos('.')
+    exec 'normal! A ✗'
+	call setpos('.', start_pos)
+endfunction
+au FileType markdown nnoremap <LocalLeader>ac :call MarkdownAddCross()<CR>
 
 "AESTHETICS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -480,6 +501,8 @@ au FileType haskell.script nnoremap <buffer> <silent> <LocalLeader>i :HdevtoolsI
 let g:markdown_folding = 1
 
 "vim-markdown (PlasticBoy plugin)
+"Not really using this so often, because it really slows down on medium sized
+"files > 1K lines
 "----------------------------
 "contents
 nnoremap <LocalLeader>c :Toc<CR>
@@ -518,22 +541,25 @@ nnoremap <leader>vds :VlcDrillShow<CR>
 nnoremap <leader>vdl :VlcDrillLoadAnnotation<CR>
 
 "Screenshot location
-function! ChangeScreenshotLocation()
+function! ScriptSetScreenshotLocation()
     let script_path = "$HOME/dotfiles/scripts/screenshot_location.sh"
+    let current_screenshot_location = system(script_path . ' -get-screenshot')
     let current_directory = expand("<sfile>:p:h")
-    let screenshot_location = input(current_directory . '/')
-    let screenshot_path = current_directory . '/' . screenshot_location
-    call system(script_path . " -s " . screenshot_path)
-    echo "Screenshot location set to " . screenshot_path
+    let prompt = 'Current location ' . current_screenshot_location . 'New screenshot location (<C-c> to cancel): '
+    let new_screenshot_location = input(prompt, current_directory . '/', 'dir')
+    call system(script_path . " -s " . new_screenshot_location)
+    echo "Screenshot location set to " . new_screenshot_location
 endfunction
 
-function! GetScreenshotLocation()
+function! ScriptOpenScreenshotLocation()
     let script_path = "$HOME/dotfiles/scripts/screenshot_location.sh"
     call system(script_path)
 endfunction
 
-nnoremap <leader>sls :call ChangeScreenshotLocation()<CR>
-nnoremap <leader>slg :call GetScreenshotLocation()<CR>
+"Mnemonic: script set location
+nnoremap <leader>sls :call ScriptSetScreenshotLocation()<CR>
+"Mnemonic: script open location
+nnoremap <leader>slo :call ScriptOpenScreenshotLocation()<CR>
 
 "Vaxe
 ""----------------------------
