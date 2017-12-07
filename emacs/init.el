@@ -5,9 +5,7 @@
 (when (window-system)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-15")))
-;;  MacOS Sierra
-;;  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono for Powerline-16")))
+  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono for Powerline-15")))
 
 ;; Get rid of menu bar regardless
 (menu-bar-mode -1)
@@ -49,9 +47,9 @@
 ;; Stop that annoying beeping https://www.emacswiki.org/emacs/AlarmBell#toc3
 (setq ring-bell-function 'ignore)
 
-;;enabling sessions
+;;enabling sessions (disabling for now to encourage play around with Helm)
 ;;http://www.emacswiki.org/emacs?action=browse;oldid=DeskTop;id=Desktop
-(desktop-save-mode 1)
+(desktop-save-mode 0)
 
 ;;https://www.emacswiki.org/emacs/ShowParenMode
 ;;see the matching parens
@@ -59,13 +57,12 @@
 ;;remove the delay
 (setq show-paren-delay 0)
 
-;;highlight the current line
-;;(turning it off because it won't make the highlighting show up)
+;;highlight the current line (turning it off because it won't make the search highlighting show up)
 ;;(global-hl-line-mode 1)
 ;;(set-face-foreground 'highlight nil)
 ;;(set-face-underline-p 'highlight t)
 
-;;Use vertical split by default
+;;Use vertical split by default (turning it off now because I've decided I like it the default way)
 ;;http://stackoverflow.com/questions/7997590/how-to-change-the-default-split-screen-direction
 ;;(setq split-width-threshold nil)
 ;;(setq split-width-threshold 0)
@@ -83,21 +80,26 @@
 (set-variable (quote scheme-program-name) "racket")
 
 ;;Plugins
-;;------
+;;-------
+;;Install these with e.g. M-x package-install RET evil RET
 
 ;; Evil
 (require 'evil)
 (evil-mode 1)
-;;https://github.com/syl20bnr/evil-escape
 
+;;https://github.com/syl20bnr/evil-escape
 ;; Evil escape
 (require 'evil-escape)
 (evil-escape-mode t)
 (setq-default evil-escape-key-sequence "jk")
 
-;; linum-mode 
-(require 'linum)
-(global-linum-mode t)
+;; Relative numbers
+(require 'nlinum-relative)
+(nlinum-relative-setup-evil)                    ;; setup for evil
+(add-hook 'prog-mode-hook 'nlinum-relative-mode)
+(setq nlinum-relative-redisplay-delay 0)      ;; delay
+(setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
+(setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
 
 ;;Magit
 (require 'magit)
@@ -115,11 +117,17 @@
 ;; Slime
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
 
-;; Ido
+;; Helm
+(require 'helm-config)
+(helm-mode 1)
+;; Using Helm command completion instead of default
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+;; Ido (trying out Helm since it's got fuzzy finding)
 ;;use ido for buffer switching
 ;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
-(require 'ido)
-(ido-mode t)
+;;(require 'ido)
+;;(ido-mode t)
 
 ;;Orgmode
 ;;from David O'Toole's tutorial: http://orgmode.org/worg/org-tutorials/orgtutorial_dto.html

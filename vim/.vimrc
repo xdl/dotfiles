@@ -43,9 +43,9 @@ set wildmenu "opens up completion list for vim commands
 set hidden "allows buffers to be hidden that contain unwritten changes
 runtime macros/matchit.vim "enchanced use of % to jump around matching constructs
 if has("unix")
-	set directory=~/.vim/tmpfiles//
+    set directory=~/.vim/tmpfiles//
 else
-	set directory=~/vimfiles/tmpfiles//
+    set directory=~/vimfiles/tmpfiles//
 endif
 
 "CONVENIENT KEY MAPPINGS
@@ -114,11 +114,11 @@ vnoremap . :normal .<CR>
 vnoremap q :normal @q<CR>
 
 function! VimGrep(pattern, files)
-	if has("unix")
-		let separator = '/'
-	else
-		let separator = '\'
-	endif
+    if has("unix")
+        let separator = '/'
+    else
+        let separator = '\'
+    endif
     if executable('ag')
         execute ':silent grep! --case-sensitive "' . a:pattern . '" ' . a:files
     else
@@ -130,11 +130,11 @@ function! VimGrep(pattern, files)
 endfunction
 
 function! VimGrepFromCursor()
-	if has("unix")
-		let separator = '/'
-	else
-		let separator = '\'
-	endif
+    if has("unix")
+        let separator = '/'
+    else
+        let separator = '\'
+    endif
     let l:searchterm = getreg("z")
     let pwd = getcwd()
     let files = pwd
@@ -142,29 +142,29 @@ function! VimGrepFromCursor()
 endfunction
 
 function! VimGrepFromManual()
-	if has("unix")
-		let separator = '/'
-	else
-		let separator = '\'
-	endif
+    if has("unix")
+        let separator = '/'
+    else
+        let separator = '\'
+    endif
 
-	call inputsave()
-	let pwd = getcwd()
+    call inputsave()
+    let pwd = getcwd()
     let files = input('Files to search: ', pwd)
-	call inputrestore()
+    call inputrestore()
 
-	if empty(files)
-		return
-	endif
+    if empty(files)
+        return
+    endif
 
-	call inputsave()
-	let pattern = input('Pattern: ')
-	call inputrestore()
+    call inputsave()
+    let pattern = input('Pattern: ')
+    call inputrestore()
 
-	"use very magic search
-	if !empty(pattern)
+    "use very magic search
+    if !empty(pattern)
         call VimGrep(pattern, files)
-	endif
+    endif
 endfunction
 
 "Mnemonic: search files
@@ -252,15 +252,15 @@ set keywordprg=:help
 " * do dishes
 " * ~~do dishes~~
 function! MarkdownApplyListStrikethrough()
-	let start_pos = getpos('.')
-	exec 'normal! F*'
+    let start_pos = getpos('.')
+    exec 'normal! F*'
     "getpos returns [bufnum, lnum, col, off]
-	if getpos('.')[2] == start_pos[2]
-		exec 'normal! f*'
-	endif
-	exec 'normal! la~~'
-	exec 'normal! A~~'
-	call setpos('.', start_pos)
+    if getpos('.')[2] == start_pos[2]
+        exec 'normal! f*'
+    endif
+    exec 'normal! la~~'
+    exec 'normal! A~~'
+    call setpos('.', start_pos)
 endfunction
 au FileType markdown nnoremap <LocalLeader>tt :call MarkdownApplyListStrikethrough()<CR>
 
@@ -280,17 +280,17 @@ au FileType markdown nnoremap <LocalLeader>id :call MarkdownInsertDate()<CR>
 
 "Mnemonic: add done
 function! MarkdownAddDone()
-	let start_pos = getpos('.')
+    let start_pos = getpos('.')
     exec 'normal! A ✓'
-	call setpos('.', start_pos)
+    call setpos('.', start_pos)
 endfunction
 au FileType markdown nnoremap <LocalLeader>ad :call MarkdownAddDone()<CR>
 
 "Mnemonic: add cross
 function! MarkdownAddCross()
-	let start_pos = getpos('.')
+    let start_pos = getpos('.')
     exec 'normal! A ✗'
-	call setpos('.', start_pos)
+    call setpos('.', start_pos)
 endfunction
 au FileType markdown nnoremap <LocalLeader>ac :call MarkdownAddCross()<CR>
 
@@ -305,7 +305,7 @@ set linebreak "break at whitespace if convenient
 if has("unix")
     set guifont=Monospace\ 10
 else "has windows
-	set guifont=DejaVu\ Sans\ Mono:h11 "For Math
+    set guifont=DejaVu\ Sans\ Mono:h11 "For Math
 endif
 
 set foldcolumn=1 "shows where folds are
@@ -316,13 +316,15 @@ set laststatus=2 "always show the status line (even if there is only one buffer 
 "Colorscheming
 "----------------------------
 set background=dark "default background
-colorscheme gruvbox "preferred dark colorscheme
+colorscheme onedark "preferred dark colorscheme.
+"Annoying thing about onedark is that it doesn't toggle to a light scheme with unimpaired's cob
+"colorscheme gruvbox "in reserve
 
-"ABBREVIATIONS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"PLUGIN SPECIFIC BINDINGS
+""ABBREVIATIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""PLUGIN SPECIFIC BINDINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "CtrlP
 "----------------------------
@@ -345,8 +347,8 @@ set wildignore+=*/dist/*
 
 " Only applicable when search with native vim
 let g:ctrlp_custom_ignore = {
-	\ 'dir': '\v[\/](Applications|Library|Downloads|third_party|node_modules|libs|db|env|bourbon|Assets|Exports|\.git)$'
-	\}
+            \ 'dir': '\v[\/](Applications|Library|Downloads|third_party|node_modules|libs|db|env|bourbon|Assets|Exports|\.git)$'
+            \}
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlPMixed' "find mru and cwd
 let g:ctrlp_switch_buffer = 'et' "only switch to an opened buffer if it's open in the current tab
@@ -381,8 +383,8 @@ let NERDTreeIgnore = ['\.hi$', '\.o$', '\.exe$', '\.fla$', '\.swf$']
 
 "Recommended from the NERDTree docs 
 augroup nerdtree
-	autocmd!
-	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif "closes tree if it is the last window
+    autocmd!
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif "closes tree if it is the last window
 augroup END
 
 "Emmet-vim
@@ -422,8 +424,8 @@ let g:syntastic_javascript_checkers = ['eslint', 'jshint']
 nnoremap <leader>sc :SyntasticCheck<CR>
 nnoremap <leader>so :SyntasticReset<CR>
 let g:syntastic_mode_map = {
-	\ "mode": "passive"
-	\}
+            \ "mode": "passive"
+            \}
 
 "vim JSX
 "----------------------------
@@ -453,31 +455,30 @@ nnoremap <leader>bs :Replr<CR>
 "Terminal hackery
 "----------------------------
 if has("unix") && !has("gui_running")
-"Getting the alt key to work in Cygwin
-"http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal
-"http://t73257.editors-vim.editortalk.us/alt-key-is-not-working-on-linux-or-cygwin-console-t73257.html
-	set <M-1>=1
-	set <M-2>=2
-	set <M-3>=3
-	set <M-4>=4
-	set <M-5>=5
-	set <M-6>=6
-	set <M-7>=7
-	set <M-8>=8
-	set <M-9>=9
-	set <M-L>=L
+    "Getting the alt key to work in Cygwin
+    "http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal
+    "http://t73257.editors-vim.editortalk.us/alt-key-is-not-working-on-linux-or-cygwin-console-t73257.html
+    set <M-1>=1
+    set <M-2>=2
+    set <M-3>=3
+    set <M-4>=4
+    set <M-5>=5
+    set <M-6>=6
+    set <M-7>=7
+    set <M-8>=8
+    set <M-9>=9
+    set <M-L>=L
 
-"Getting the background colors to work in tmux
-"http://superuser.com/questions/399296/256-color-support-for-vim-background-in-tmux
-set t_ut=
+    "Getting the background colors to work in tmux
+    "http://superuser.com/questions/399296/256-color-support-for-vim-background-in-tmux
+    set t_ut=
 
-"For terminal in Ubuntu bash
-set t_Co=256
+    "For terminal in Ubuntu bash
+    set t_Co=256
 
-"Another key binding for incrementing numbers while in tmux
-"This is interfering with jumping to previous
-"nnoremap <C-i> <C-a>
-
+    "Another key binding for incrementing numbers while in tmux
+    "This is interfering with jumping to previous
+    "nnoremap <C-i> <C-a>
 endif
 
 "Vim-slime
@@ -512,7 +513,6 @@ autocmd Syntax markdown normal zR
 
 "YouCompleteMe
 "----------------------------
-"
 nnoremap <leader>ct :YcmCompleter GoTo<CR>
 nnoremap <leader>cd :YcmCompleter GetDoc<CR>
 "UltiSnips clash
@@ -535,7 +535,7 @@ autocmd FileType markdown :silent! call SyntaxRange#Include('```sh', '```', 'sh'
 "autocmd FileType markdown call SyntaxRange#Include('```scheme', '```', 'scheme', 'SpecialComment')
 
 "VlcDrill
-""----------------------------
+"----------------------------
 let g:vlcdrill#annotation#path = "~/dev/ketones/songs/rihanna/good_girl_gone_bad_youtube.json"
 nnoremap <leader>vds :VlcDrillShow<CR>
 nnoremap <leader>vdl :VlcDrillLoadAnnotation<CR>
@@ -562,7 +562,7 @@ nnoremap <leader>sls :call ScriptSetScreenshotLocation()<CR>
 nnoremap <leader>slo :call ScriptOpenScreenshotLocation()<CR>
 
 "Vaxe
-""----------------------------
+"----------------------------
 set autowrite
 au FileType haxe nnoremap <buffer> <LocalLeader>m :make<CR>
 "Trying to speed it up:

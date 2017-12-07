@@ -22,12 +22,13 @@ git clone https://github.com/xdl/vim-snippets.git;
 pushd vim-snippets && git checkout personal_snippets && popd;
 git clone https://github.com/bling/vim-airline;
 git clone https://github.com/morhetz/gruvbox.git;
+git clone https://github.com/joshdick/onedark.vim;
 git clone https://github.com/sjl/badwolf;
 ```
 
 (ultisnips requires Python)
 
-## Optional
+## Nice to Have
 
 ```
 # YCM requires cmake
@@ -39,9 +40,11 @@ git clone https://github.com/vim-scripts/SyntaxRange;
 git clone https://github.com/godlygeek/tabular.git;
 ```
 
-## Syntax
+## Language Specific
 
 ```
+git clone https://github.com/jdonaldson/vaxe;
+git clone https://github.com/mxw/vim-jsx;
 git clone https://github.com/fatih/vim-go.git;
 git clone https://github.com/pangloss/vim-javascript;
 git clone https://github.com/leafgarland/typescript-vim.git;
