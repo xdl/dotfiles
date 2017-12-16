@@ -86,12 +86,17 @@
 ;; Evil
 (require 'evil)
 (evil-mode 1)
+;;too much other crap going on to be worrying about evil here
+(evil-set-initial-state 'comint-mode 'emacs)
+(evil-set-initial-state 'sldb-mode 'emacs)
 
 ;;https://github.com/syl20bnr/evil-escape
 ;; Evil escape
 (require 'evil-escape)
 (evil-escape-mode t)
 (setq-default evil-escape-key-sequence "jk")
+(setq evil-escape-excluded-major-modes
+      '(comint-mode sldb-mode)) ;;Make sure this syncs up with any evil-set-initial-state calls
 
 ;; Relative numbers
 (require 'nlinum-relative)
@@ -122,7 +127,13 @@
 (helm-mode 1)
 ;; Using Helm command completion instead of default
 (global-set-key (kbd "M-x") 'helm-M-x)
-
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-h a") 'helm-apropos) ;;overriding apropos command
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+;; (setq helm-ff-skip-boring-files t)
+;; (setq helm-boring-file-regexp-list
+;;       '("node_modules$"))
+      
 ;; Ido (trying out Helm since it's got fuzzy finding)
 ;;use ido for buffer switching
 ;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
@@ -158,13 +169,37 @@
 ; http://www.nongnu.org/geiser/geiser_3.html#Customization-and-tips
 (setq geiser-racket-binary "/usr/local/bin/racket")
 
-;https://www.emacswiki.org/emacs/ParEdit
-(require 'paredit)
-(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-(add-hook 'racket-mode-hook           #'enable-paredit-mode)
+;https://www.emacswiki.org/emacs/ParEdit ;;Commenting out for now to try out smartparens
+;; (require 'paredit)
+;; (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+;; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+;; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+;; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+;; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+;; (add-hook 'racket-mode-hook           #'enable-paredit-mode)
+
+;; Smartparens
+
+(require 'smartparens-config)
+(smartparens-global-mode t)
+
+(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+
+;; Taken from here: https://github.com/Fuco1/smartparens/wiki/Working-with-expressions
+(define-key sp-keymap (kbd "C-M-f") 'sp-forward-sexp)
+(define-key sp-keymap (kbd "C-M-b") 'sp-backward-sexp)
+
+(define-key sp-keymap (kbd "C-M-d") 'sp-down-sexp)
+(define-key sp-keymap (kbd "C-M-e") 'sp-up-sexp)
+
+(define-key sp-keymap (kbd "C-M-a") 'sp-backward-up-sexp)
+(define-key sp-keymap (kbd "C-M-u") 'sp-backward-down-sexp)
+
+(define-key sp-keymap (kbd "C-)") 'sp-forward-slurp-sexp)
+(define-key sp-keymap (kbd "C-}") 'sp-forward-barf-sexp)
+
+;; Projectile
+(projectile-mode)

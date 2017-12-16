@@ -214,7 +214,7 @@ function! PasteSystemClipboardToBuffer()
     echo "Clipboard contents pasted"
 endfunction
 nnoremap <F3> :call PasteSystemClipboardToBuffer()<CR>
-inoremap <F3> <C-R>+
+inoremap <F3> <C-o>:call PasteSystemClipboardToBuffer()<CR>
 vnoremap <F3> "+p
 
 " Mnemonic: jump to
