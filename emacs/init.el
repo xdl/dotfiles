@@ -84,6 +84,23 @@
 ;;Install these with e.g. M-x package-install RET evil RET
 
 ;; Evil
+;; https://github.com/noctuid/evil-guide#switching-between-evil-and-emacs
+;; Disable overriding some useful emacs bindings in insert mode. Needs to be defined before loading Evil
+(defvar evil-insert-state-bindings
+  '(("\C-v" . quoted-insert)
+    ("\C-k" . evil-insert-digraph)
+    ("\C-o" . evil-execute-in-normal-state)
+    ("\C-r" . evil-paste-from-register)
+    ("\C-y" . evil-copy-from-above)
+    ;; ("\C-e" . evil-copy-from-below)
+    ("\C-n" . evil-complete-next)
+    ("\C-p" . evil-complete-previous)
+    ("\C-x" . C-n)
+    ("\C-x" . C-p)
+    ("\C-t" . evil-shift-right-line)
+    ("\C-d" . evil-shift-left-line)
+    ;; ("\C-a" . evil-paste-last-insertion)
+    ("\C-w" . evil-delete-backward-word)))
 (require 'evil)
 (evil-mode 1)
 ;;too much other crap going on to be worrying about evil here
@@ -96,7 +113,8 @@
 (evil-escape-mode t)
 (setq-default evil-escape-key-sequence "jk")
 (setq evil-escape-excluded-major-modes
-      '(comint-mode sldb-mode)) ;;Make sure this syncs up with any evil-set-initial-state calls
+      '(comint-mode
+	sldb-mode)) ;;Make sure this syncs up with any evil-set-initial-state calls
 
 ;; Relative numbers
 (require 'nlinum-relative)
@@ -187,8 +205,11 @@
 
 (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
 (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+(add-hook 'org-mode-hook 'turn-on-smartparens-strict-mode)
 
 ;; Taken from here: https://github.com/Fuco1/smartparens/wiki/Working-with-expressions
+
+;;Navigation
 (define-key sp-keymap (kbd "C-M-f") 'sp-forward-sexp)
 (define-key sp-keymap (kbd "C-M-b") 'sp-backward-sexp)
 
@@ -198,8 +219,14 @@
 (define-key sp-keymap (kbd "C-M-a") 'sp-backward-up-sexp)
 (define-key sp-keymap (kbd "C-M-u") 'sp-backward-down-sexp)
 
+;;Manipulation
 (define-key sp-keymap (kbd "C-)") 'sp-forward-slurp-sexp)
 (define-key sp-keymap (kbd "C-}") 'sp-forward-barf-sexp)
+
+(define-key sp-keymap (kbd "M-[") 'sp-backward-unwrap-sexp)
+(define-key sp-keymap (kbd "M-]") 'sp-unwrap-sexp)
+
+(define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
 
 ;; Projectile
 (projectile-mode)
