@@ -95,9 +95,9 @@
     ;; ("\C-e" . evil-copy-from-below)
     ("\C-n" . evil-complete-next)
     ("\C-p" . evil-complete-previous)
-    ("\C-x" . C-n)
-    ("\C-x" . C-p)
-    ("\C-t" . evil-shift-right-line)
+    ("\C-x \C-n" . evil-complete-next-line)
+    ("\C-x \C-p" . evil-complete-previous-line)
+    ("\C-t" . evil-shift-right-line) ;;tempted to disable this pair as well
     ("\C-d" . evil-shift-left-line)
     ;; ("\C-a" . evil-paste-last-insertion)
     ("\C-w" . evil-delete-backward-word)))
@@ -120,6 +120,7 @@
 (require 'nlinum-relative)
 (nlinum-relative-setup-evil)                    ;; setup for evil
 (add-hook 'prog-mode-hook 'nlinum-relative-mode)
+(add-hook 'text-mode-hook 'nlinum-relative-mode)
 (setq nlinum-relative-redisplay-delay 0)      ;; delay
 (setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
 (setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
@@ -205,7 +206,6 @@
 
 (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
 (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-(add-hook 'org-mode-hook 'turn-on-smartparens-strict-mode)
 
 ;; Taken from here: https://github.com/Fuco1/smartparens/wiki/Working-with-expressions
 
@@ -227,6 +227,7 @@
 (define-key sp-keymap (kbd "M-]") 'sp-unwrap-sexp)
 
 (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
+(define-key sp-keymap (kbd "M-k") 'sp-kill-hybrid-sexp)
 
 ;; Projectile
 (projectile-mode)

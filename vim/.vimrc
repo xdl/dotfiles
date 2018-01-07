@@ -20,6 +20,7 @@ autocmd Filetype json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype html setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype haxe setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype pegjs setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype css setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype c setlocal tabstop=2 softtabstop=2 shiftwidth=2
@@ -83,10 +84,10 @@ vnoremap <silent> # :<C-U>
 "escaping normal mode
 inoremap jk <Esc>
 
-"copies path of current buffer to clipboard
-nnoremap <leader>cb :let @+ = expand("%:p")<CR>
-"copies directory of current buffer to clipboard
-nnoremap <leader>cp :let @+ = expand("%:p:h")<CR>
+"yanks current buffer to clipboard
+nnoremap <leader>ycb :let @+ = expand("%:p")<CR>
+"yanks directory of current buffer to clipboard
+nnoremap <leader>ycd :let @+ = expand("%:p:h")<CR>
 
 "searching
 nnoremap <CR> :noh<CR>
@@ -329,6 +330,7 @@ set laststatus=2 "always show the status line (even if there is only one buffer 
 "Colorscheming
 "----------------------------
 set background=dark "default background
+"set background=light
 colorscheme onedark "preferred dark colorscheme.
 "Annoying thing about onedark is that it doesn't toggle to a light scheme with unimpaired's cob
 "colorscheme gruvbox "in reserve
@@ -360,7 +362,7 @@ set wildignore+=*/dist/*
 
 " Only applicable when search with native vim
 let g:ctrlp_custom_ignore = {
-            \ 'dir': '\v[\/](Applications|Library|Downloads|third_party|node_modules|libs|db|env|bourbon|Assets|Exports|\.git)$'
+            \ 'dir': '\v[\/](Applications|Library|Downloads|third_party|node_modules|libs|dist|db|env|bourbon|Assets|Exports|\.git)$'
             \}
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlPMixed' "find mru and cwd
@@ -377,6 +379,8 @@ if executable('ag')
                 \ --ignore ''Library'' 
                 \ --ignore ''Downloads'' 
                 \ --ignore ''third_party'' 
+                \ --ignore ''dist'' 
+                \ --ignore ''dst'' 
                 \ --ignore ''notes_public'' 
                 \ --ignore ''node_modules'' 
                 \ --ignore ''Assets'' 
@@ -433,6 +437,12 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 "javascript file checking
 let g:syntastic_javascript_checkers = ['eslint', 'jshint']
+" Enable the eslint checker https://github.com/vim-syntastic/syntastic/issues/1692
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_generic = 1
+let g:syntastic_javascript_eslint_exec = '/bin/ls'
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+let g:syntastic_javascript_eslint_args='-f compact'
 "use manual checking
 nnoremap <leader>sc :SyntasticCheck<CR>
 nnoremap <leader>so :SyntasticReset<CR>
