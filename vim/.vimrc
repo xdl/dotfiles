@@ -56,8 +56,29 @@ let maplocalleader = "\\" "localleader to \ (filetype specific plugins)
 "remap ,, to , so you can still search backwards with ,,
 nnoremap <leader><leader> ,
 
-"anchor here (useful with Ctrl-P)
-nnoremap <leader>ah :cd %:p:h<CR>
+"Only does .git for the moment
+"Only tested on Nix-y systems
+function! GetProjectRoot()
+    let project_root_indicator = ".git"
+	let current_path = expand("%:p:h")
+    let project_directory = finddir(project_root_indicator, current_path.';/')
+    if !empty(project_directory)
+        "https://stackoverflow.com/questions/16485748/how-to-get-the-parent-directory-of-a-path-string
+        return fnamemodify(project_directory, ':p:h:h')
+    endif
+endfunction
+
+function! AnchorHere()
+    let project_root = GetProjectRoot()
+    if !empty(project_root)
+        ":cd project_root
+        execute ':'.'cd' project_root
+        echo "pwd switched to " . project_root
+    endif
+endfunction
+
+"anchor to project root (useful with Ctrl-P)
+nnoremap <leader>ah :call AnchorHere()<CR>
 
 "windows-esque quitting
 nnoremap <C-q> :x<CR>
@@ -367,6 +388,7 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlPMixed' "find mru and cwd
 let g:ctrlp_switch_buffer = 'et' "only switch to an opened buffer if it's open in the current tab
+let g:ctrlp_extensions = ['tag']
 
 "https://coderwall.com/p/hk_bwg/how-to-speed-up-ctrlp
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
