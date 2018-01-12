@@ -116,7 +116,7 @@
       '(comint-mode
 	sldb-mode)) ;;Make sure this syncs up with any evil-set-initial-state calls
 
-;; Relative numbers
+;;Relative numbers
 (require 'nlinum-relative)
 (nlinum-relative-setup-evil)                    ;; setup for evil
 (add-hook 'prog-mode-hook 'nlinum-relative-mode)
@@ -158,7 +158,7 @@
 ;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
 ;;(require 'ido)
 ;;(ido-mode t)
-
+;; 
 ;;Orgmode
 ;;from David O'Toole's tutorial: http://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
 (require 'org)
@@ -174,6 +174,7 @@
  '((emacs-lisp . t)
    (js . t)
    (python . t)
+   (ditaa . t)
    (sh . t)
    (ruby . t)
    (scheme .t)))
@@ -182,6 +183,12 @@
 (defun my-org-confirm-babel-evaluate (lang body)
   (not (string= lang "emacs-lisp")))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+;; disable hiding the link
+(setq org-descriptive-links nil)
+;; Linewrap (for long paragraphs)
+(setq org-startup-truncated nil)
+;; Ditaa path. This is true for MacOS brew install
+(setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
 
 ;; Geiser
 (require 'geiser)
@@ -231,3 +238,17 @@
 
 ;; Projectile
 (projectile-mode)
+
+(require 'ag)
+;;For ag to be found on MacOS (it's installed in /usr/local/bin)
+;;For ag to run
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+
+;; Yasnippet
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/dotfiles/emacs/snippets"))
+(yas-global-mode 1)
+
+;; Markdown-mode
+(require 'markdown-mode)
