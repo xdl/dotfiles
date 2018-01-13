@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: hyperlink
+# key: yy
+# --
+[[${2:`(current-kill 0)`}][$1]]$0

@@ -1,0 +1,3 @@
+# name: link
+# --
+[[${2:`(current-kill 0)`}][$1]]$0
