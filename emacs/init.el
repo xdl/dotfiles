@@ -179,9 +179,10 @@
    (ruby . t)
    (scheme .t)))
 
-;;disable confirmation prompt for languages that don't tend to touch files
+;;disable confirmation prompt for safe-ish languages (i.e. not bash)
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (string= lang "emacs-lisp")))
+  (not (or (string= lang "emacs-lisp")
+	   (string= lang "ditaa"))))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 ;; disable hiding the link
 (setq org-descriptive-links nil)
@@ -189,6 +190,8 @@
 (setq org-startup-truncated nil)
 ;; Ditaa path. This is true for MacOS brew install
 (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
+;; Required for pdflatex
+(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
 
 ;; Geiser
 (require 'geiser)
