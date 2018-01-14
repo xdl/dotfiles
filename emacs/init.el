@@ -147,11 +147,17 @@
 ;; Using Helm command completion instead of default
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "C-h a") 'helm-apropos) ;;overriding apropos command
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 ;; (setq helm-ff-skip-boring-files t)
 ;; (setq helm-boring-file-regexp-list
 ;;       '("node_modules$"))
+;; For surfraw
+;; https://stackoverflow.com/questions/8606954/path-and-exec-path-set-but-emacs-does-not-find-executable
+(setq exec-path
+      (append exec-path
+	      '("/usr/local/bin/")))
       
 ;; Ido (trying out Helm since it's got fuzzy finding)
 ;;use ido for buffer switching
@@ -192,6 +198,7 @@
 (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
 ;; Required for pdflatex
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+(load "~/pdotfiles/emacs/latex-classes.el")
 
 ;; Geiser
 (require 'geiser)
