@@ -1,5 +1,5 @@
 ;;Presentation
-;;------------
+;;============
 
 ;;to get rid of the tool and scroll bar for graphical GnuEmacs
 (when (window-system)
@@ -20,13 +20,13 @@
 ;;(load-theme 'whiteboard)
 
 ;;Bindings
-;;--------
+;;========
 
 ;; use shift + arrow keys to move between frames
 (windmove-default-keybindings)
 
 ;;Behaviour
-;;---------
+;;=========
 
 (when (>= emacs-major-version 24)
   (require 'package)
@@ -68,7 +68,7 @@
 ;;(setq split-width-threshold 0)
 
 ;;Lisp Development
-;;----------------
+;;================
 
 ;; Racket filetype detection
 (add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
@@ -79,13 +79,20 @@
 ;;http://www-users.cs.umn.edu/~gini/1901-07s/emacs_scheme/
 (set-variable (quote scheme-program-name) "racket")
 
-;;Plugins
-;;-------
+;;Misc
+;;====
+(when (executable-find "hunspell")
+  (setq-default ispell-program-name "hunspell")
+  (setq ispell-really-hunspell t))
+
+;;Packages
+;;========
 ;;Install these with e.g. M-x package-install RET evil RET
 
-;; Evil
-;; https://github.com/noctuid/evil-guide#switching-between-evil-and-emacs
-;; Disable overriding some useful emacs bindings in insert mode. Needs to be defined before loading Evil
+;;Evil
+;;----
+;;https://github.com/noctuid/evil-guide#switching-between-evil-and-emacs
+;;Disable overriding some useful emacs bindings in insert mode. Needs to be defined before loading Evil
 (defvar evil-insert-state-bindings
   '(("\C-v" . quoted-insert)
     ("\C-k" . evil-insert-digraph)
@@ -107,8 +114,9 @@
 (evil-set-initial-state 'comint-mode 'emacs)
 (evil-set-initial-state 'sldb-mode 'emacs)
 
+;;Evil escape
+;;-----------
 ;;https://github.com/syl20bnr/evil-escape
-;; Evil escape
 (require 'evil-escape)
 (evil-escape-mode t)
 (setq-default evil-escape-key-sequence "jk")
@@ -117,6 +125,7 @@
 	sldb-mode)) ;;Make sure this syncs up with any evil-set-initial-state calls
 
 ;;Relative numbers
+;;----------------
 (require 'nlinum-relative)
 (nlinum-relative-setup-evil)                    ;; setup for evil
 (add-hook 'prog-mode-hook 'nlinum-relative-mode)
@@ -126,22 +135,27 @@
 (setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
 
 ;;Magit
+;;-----
 (require 'magit)
 ;;https://magit.vc/manual/magit/Getting-started.html#Getting-started
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;;Rainbow Delimiters
+;;------------------
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;;Expand Selection
+;;----------------
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; Slime
+;;------
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
 
 ;; Helm
+;;-----
 (require 'helm-config)
 (helm-mode 1)
 ;; Using Helm command completion instead of default
@@ -160,12 +174,15 @@
 	      '("/usr/local/bin/")))
       
 ;; Ido (trying out Helm since it's got fuzzy finding)
+;;-----
 ;;use ido for buffer switching
 ;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
 ;;(require 'ido)
 ;;(ido-mode t)
-;; 
+
 ;;Orgmode
+;;-------
+
 ;;from David O'Toole's tutorial: http://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
@@ -200,7 +217,8 @@
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
 (load "~/pdotfiles/emacs/latex-classes.el")
 
-;; Geiser
+;;Geiser
+;;------
 (require 'geiser)
 ; http://www.nongnu.org/geiser/geiser_3.html#Customization-and-tips
 (setq geiser-racket-binary "/usr/local/bin/racket")
@@ -216,7 +234,8 @@
 ;; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 ;; (add-hook 'racket-mode-hook           #'enable-paredit-mode)
 
-;; Smartparens
+;;Smartparens
+;;-----------
 
 (require 'smartparens-config)
 (smartparens-global-mode t)
@@ -246,7 +265,8 @@
 (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
 (define-key sp-keymap (kbd "M-k") 'sp-kill-hybrid-sexp)
 
-;; Projectile
+;;Projectile
+;;----------
 (projectile-mode)
 
 (require 'ag)
@@ -254,11 +274,13 @@
 ;;For ag to run
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 
-;; Yasnippet
+;;Yasnippet
+;;---------
 (require 'yasnippet)
 (setq yas-snippet-dirs
       '("~/dotfiles/emacs/snippets"))
 (yas-global-mode 1)
 
 ;; Markdown-mode
+;; -------------
 (require 'markdown-mode)
