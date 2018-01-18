@@ -67,6 +67,11 @@
 ;;(setq split-width-threshold nil)
 ;;(setq split-width-threshold 0)
 
+;;Javascript
+;;==========
+
+(setq js-indent-level 2)
+
 ;;Lisp Development
 ;;================
 
@@ -78,12 +83,6 @@
 ;;this one looks more recommended:
 ;;http://www-users.cs.umn.edu/~gini/1901-07s/emacs_scheme/
 (set-variable (quote scheme-program-name) "racket")
-
-;;Misc
-;;====
-(when (executable-find "hunspell")
-  (setq-default ispell-program-name "hunspell")
-  (setq ispell-really-hunspell t))
 
 ;;Packages
 ;;========
@@ -202,9 +201,11 @@
    (ruby . t)
    (scheme .t)))
 
-;;disable confirmation prompt for safe-ish languages (i.e. not bash)
+;;disable confirmation prompt for these languages
 (defun my-org-confirm-babel-evaluate (lang body)
   (not (or (string= lang "emacs-lisp")
+	   (string= lang "js")
+	   (string= lang "python")
 	   (string= lang "ditaa"))))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 ;; disable hiding the link
@@ -284,3 +285,10 @@
 ;; Markdown-mode
 ;; -------------
 (require 'markdown-mode)
+
+;;Misc
+;;====
+;;Hunspell is in /usr/local/bin, so needs to be after that setenv
+(when (executable-find "hunspell")
+  (setq-default ispell-program-name "hunspell")
+  (setq ispell-really-hunspell t))

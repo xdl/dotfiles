@@ -28,3 +28,5 @@ source ~/git-completion.bash
 
 alias vlc="/Applications/VLC.app/Contents/MacOS/VLC"
 alias lilypond="/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
+
+source ~/pdotfiles/bash/life_alarm.sh
