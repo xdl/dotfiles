@@ -16,6 +16,11 @@
 ;;Nice-ish dark theme
 (load-theme 'wombat)
 
+;; Removes the curly arrows to denote word/line wraps
+(setq-default fringe-indicator-alist ())
+;; Set fringe width
+(set-fringe-style 4)
+
 ;;usable light color scheme
 ;;(load-theme 'whiteboard)
 
