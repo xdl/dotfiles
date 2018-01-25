@@ -223,6 +223,9 @@
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
 (load "~/pdotfiles/emacs/latex-classes.el")
 
+;; Setting tags column to 1
+(setq org-tags-column 1)
+
 ;;Geiser
 ;;------
 (require 'geiser)
