@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: date
+# key: date
+# --
+## `(format-time-string "%d/%m/%y")`
+
+$0
