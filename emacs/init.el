@@ -93,6 +93,20 @@
 ;;========
 ;;Install these with e.g. M-x package-install RET evil RET
 
+;;Speedbar
+;;========
+(require 'sr-speedbar)
+(setq speedbar-show-unknown-files t)
+
+
+;;Evil Leader
+(require 'evil-leader)
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key
+  "s" 'sr-speedbar-toggle
+  "g" 'magit-status)
+
 ;;Evil
 ;;----
 ;;https://github.com/noctuid/evil-guide#switching-between-evil-and-emacs
