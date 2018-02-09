@@ -104,6 +104,7 @@
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
+  "b" 'helm-filtered-bookmarks
   "s" 'sr-speedbar-toggle
   "g" 'magit-status)
 
@@ -181,7 +182,7 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "C-h a") 'helm-apropos) ;;overriding apropos command
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
 ;; (setq helm-ff-skip-boring-files t)
 ;; (setq helm-boring-file-regexp-list
 ;;       '("node_modules$"))
