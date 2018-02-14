@@ -265,7 +265,6 @@
 (smartparens-global-mode t)
 
 (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
 
 ;; Taken from here: https://github.com/Fuco1/smartparens/wiki/Working-with-expressions
 

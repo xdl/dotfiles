@@ -51,8 +51,8 @@ endif
 
 "CONVENIENT KEY MAPPINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = " " "leader key to <space> (global plugins)
-let maplocalleader = "," "localleader to \ (filetype specific plugins)
+let mapleader = "," "leader key to , (global plugins)
+let maplocalleader = "\\" "localleader to \ (filetype specific plugins)
 "remap ,, to , so you can still search backwards with ,,
 nnoremap <leader><leader> ,
 
