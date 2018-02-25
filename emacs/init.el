@@ -105,8 +105,9 @@
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
   "b" 'helm-filtered-bookmarks
-  "s" 'sr-speedbar-toggle
-  "g" 'magit-status)
+  "f" 'helm-buffers-list
+  "g" 'magit-status
+  "s" 'sr-speedbar-toggle)
 
 ;;Evil
 ;;----
@@ -198,6 +199,9 @@
 ;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
 ;;(require 'ido)
 ;;(ido-mode t)
+
+;;Flycheck
+;;(require 'flycheck)
 
 ;;Orgmode
 ;;-------
@@ -310,15 +314,29 @@
 
 ;; Company-mode
 ;; ------------
+(require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+
+;; Company-tern
+(require 'company-tern)
+(add-to-list 'company-backends 'company-tern)
+(add-hook 'js2-mode-hook (lambda ()
+			   (tern-mode)
+			   (company-mode)))
 
 ;; Elpy
 ;; ----
+(require 'elpy)
 (elpy-enable)
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
 ;; Ensures that it uses the homebrew version, as set in .bashrc
 (setq elpy-rpc-python-command "python2")
+
+;; js2-mode
+;; --------
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 ;;Misc
 ;;====
