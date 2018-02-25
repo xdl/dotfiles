@@ -24,7 +24,6 @@ autocmd Filetype pegjs setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype css setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype c setlocal tabstop=2 softtabstop=2 shiftwidth=2
-autocmd Filetype python setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Bufread,BufNewFile *.hss set filetype=haskell.script "for vim-slime
 autocmd Bufread,BufNewFile *.as set filetype=actionscript "overriding .as extension from Atlas to ActionScript3
 autocmd Bufread,BufNewFile *.md set filetype=markdown "overriding .as extension from Modula to Markdown

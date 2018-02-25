@@ -176,6 +176,7 @@
 
 ;; Helm
 ;;-----
+;;package-install <RET> helm
 (require 'helm-config)
 (helm-mode 1)
 ;; Using Helm command completion instead of default
@@ -263,7 +264,8 @@
 (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
 ;; Required for pdflatex
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
-(load "~/pdotfiles/emacs/latex-classes.el")
+(when (file-directory-p "~/pdotfiles")
+  (load "~/pdotfiles/emacs/latex-classes.el"))
 
 ;; Setting tags column to 1
 (setq org-tags-column 1)
@@ -317,6 +319,7 @@
 
 ;;Projectile
 ;;----------
+;;package-install <RET> projectile
 (projectile-mode)
 
 (require 'ag)
@@ -326,6 +329,7 @@
 
 ;;Yasnippet
 ;;---------
+;;package-list-packages → yasnippet
 (require 'yasnippet)
 (setq yas-snippet-dirs
       '("~/dotfiles/emacs/snippets"))
