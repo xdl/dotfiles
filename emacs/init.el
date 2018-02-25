@@ -308,6 +308,18 @@
 ;; -------------
 (require 'markdown-mode)
 
+;; Company-mode
+;; ------------
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; Elpy
+;; ----
+(elpy-enable)
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt")
+;; Ensures that it uses the homebrew version, as set in .bashrc
+(setq elpy-rpc-python-command "python2")
+
 ;;Misc
 ;;====
 ;;Hunspell is in /usr/local/bin, so needs to be after that setenv
