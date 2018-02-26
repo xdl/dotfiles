@@ -45,9 +45,10 @@
 ;;http://stackoverflow.com/questions/14071991/how-to-create-an-empty-file-by-elisp
 ;;https://www.gnu.org/software/emacs/manual/html_node/emacs/Saving-Customizations.html
 (let ((my-custom-file "~/.emacs-custom.el"))
-  (when (file-exists-p my-custom-file)
-    (setq custom-file my-custom-file)
-    (load my-custom-file)))
+  (unless (file-exists-p custom-file)
+    (shell-command (concat "touch " my-custom-file)))
+  (setq custom-file my-custom-file)
+  (load my-custom-file))
 
 ;; Stop that annoying beeping https://www.emacswiki.org/emacs/AlarmBell#toc3
 (setq ring-bell-function 'ignore)
@@ -298,24 +299,24 @@
 ;; Taken from here: https://github.com/Fuco1/smartparens/wiki/Working-with-expressions
 
 ;;Navigation
-(define-key sp-keymap (kbd "C-M-f") 'sp-forward-sexp)
-(define-key sp-keymap (kbd "C-M-b") 'sp-backward-sexp)
+(define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
+(define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
 
-(define-key sp-keymap (kbd "C-M-d") 'sp-down-sexp)
-(define-key sp-keymap (kbd "C-M-e") 'sp-up-sexp)
+(define-key smartparens-mode-map (kbd "C-M-d") 'sp-down-sexp)
+(define-key smartparens-mode-map (kbd "C-M-e") 'sp-up-sexp)
 
-(define-key sp-keymap (kbd "C-M-a") 'sp-backward-up-sexp)
-(define-key sp-keymap (kbd "C-M-u") 'sp-backward-down-sexp)
+(define-key smartparens-mode-map (kbd "C-M-a") 'sp-backward-up-sexp)
+(define-key smartparens-mode-map (kbd "C-M-u") 'sp-backward-down-sexp)
 
 ;;Manipulation
-(define-key sp-keymap (kbd "C-)") 'sp-forward-slurp-sexp)
-(define-key sp-keymap (kbd "C-}") 'sp-forward-barf-sexp)
+(define-key smartparens-mode-map (kbd "C-)") 'sp-forward-slurp-sexp)
+(define-key smartparens-mode-map (kbd "C-}") 'sp-forward-barf-sexp)
 
-(define-key sp-keymap (kbd "M-[") 'sp-backward-unwrap-sexp)
-(define-key sp-keymap (kbd "M-]") 'sp-unwrap-sexp)
+(define-key smartparens-mode-map (kbd "M-[") 'sp-backward-unwrap-sexp)
+(define-key smartparens-mode-map (kbd "M-]") 'sp-unwrap-sexp)
 
-(define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
-(define-key sp-keymap (kbd "M-k") 'sp-kill-hybrid-sexp)
+(define-key smartparens-mode-map (kbd "C-M-k") 'sp-kill-sexp)
+(define-key smartparens-mode-map (kbd "M-k") 'sp-kill-hybrid-sexp)
 
 ;;Projectile
 ;;----------
@@ -366,10 +367,12 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (setq-default js2-strict-missing-semi-warning nil)
 
+;; Indium
+(require 'indium)
+
 ;;Misc
 ;;====
 ;;Hunspell is in /usr/local/bin, so needs to be after that setenv
 (when (executable-find "hunspell")
   (setq-default ispell-program-name "hunspell")
   (setq ispell-really-hunspell t))
-
