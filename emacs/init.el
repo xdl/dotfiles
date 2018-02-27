@@ -45,7 +45,7 @@
 ;;http://stackoverflow.com/questions/14071991/how-to-create-an-empty-file-by-elisp
 ;;https://www.gnu.org/software/emacs/manual/html_node/emacs/Saving-Customizations.html
 (let ((my-custom-file "~/.emacs-custom.el"))
-  (unless (file-exists-p custom-file)
+  (unless (file-exists-p my-custom-file)
     (shell-command (concat "touch " my-custom-file)))
   (setq custom-file my-custom-file)
   (load my-custom-file))
