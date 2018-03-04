@@ -369,11 +369,11 @@
 ;; js2-mode
 ;; --------
 (require 'js2-mode)
+(setq-default js2-strict-missing-semi-warning nil)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 ;; xref-js2
 (require 'xref-js2)
-(setq-default js2-strict-missing-semi-warning nil)
 ;;https://github.com/nicolaspetton/xref-js2
 ;;https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html
 (define-key tern-mode-keymap (kbd "M-.") nil)
