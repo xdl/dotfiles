@@ -28,7 +28,11 @@
 ;;========
 
 ;; use shift + arrow keys to move between frames
-(windmove-default-keybindings)
+;; https://www.reddit.com/r/emacs/comments/123lbu/there_must_be_a_better_way_to_switch_between/?st=jec01uww&sh=2b2f33ff
+(global-set-key [(control j)]  'windmove-down)
+(global-set-key [(control k)]  'windmove-up)
+(global-set-key [(control h)]  'windmove-left)
+(global-set-key [(control l)]  'windmove-right)
 
 ;;Behaviour
 ;;=========
@@ -94,12 +98,6 @@
 ;;========
 ;;Install these with e.g. M-x package-install RET evil RET
 
-;;Speedbar
-;;========
-(require 'sr-speedbar)
-(setq speedbar-show-unknown-files t)
-
-
 ;;Evil Leader
 (require 'evil-leader)
 (global-evil-leader-mode)
@@ -108,7 +106,7 @@
   "b" 'helm-filtered-bookmarks
   "f" 'helm-buffers-list
   "g" 'magit-status
-  "s" 'sr-speedbar-toggle)
+  "t" 'treemacs-projectile-toggle)
 
 ;;Evil
 ;;----
@@ -134,16 +132,14 @@
 ;;too much other crap going on to be worrying about evil here
 (evil-set-initial-state 'comint-mode 'emacs)
 (evil-set-initial-state 'sldb-mode 'emacs)
+(evil-set-initial-state 'treemacs-mode 'emacs)
 
-;;Evil escape
-;;-----------
-;;https://github.com/syl20bnr/evil-escape
-(require 'evil-escape)
-(evil-escape-mode t)
-(setq-default evil-escape-key-sequence "jk")
-(setq evil-escape-excluded-major-modes
-      '(comint-mode
-	sldb-mode)) ;;Make sure this syncs up with any evil-set-initial-state calls
+;;Treemacs
+;;========
+(require 'treemacs)
+(require 'treemacs-projectile)
+(require 'treemacs-evil)
+ 
 
 ;;Relative numbers
 ;;----------------
@@ -160,6 +156,7 @@
 (require 'magit)
 ;;https://magit.vc/manual/magit/Getting-started.html#Getting-started
 (global-set-key (kbd "C-x g") 'magit-status)
+(require 'evil-magit)
 
 ;;Rainbow Delimiters
 ;;------------------
@@ -184,7 +181,7 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-(global-set-key (kbd "C-h a") 'helm-apropos) ;;overriding apropos command
+;; (global-set-key (kbd "C-h a") 'helm-apropos) ;;overriding apropos command ;;nope; using window switching here
 (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
 ;; (setq helm-ff-skip-boring-files t)
 ;; (setq helm-boring-file-regexp-list
