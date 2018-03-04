@@ -77,6 +77,12 @@
 ;;(setq split-width-threshold nil)
 ;;(setq split-width-threshold 0)
 
+;;Tramp
+;;https://www.emacswiki.org/emacs/TrampMode
+(setq tramp-default-method "ssh")
+;; Getting around sshing into Linux OSes (Footnote 2) http://howardism.org/Technical/Emacs/literate-devops.html
+(setq temporary-file-directory "/tmp")
+
 ;;Javascript
 ;;==========
 
@@ -134,6 +140,11 @@
 (evil-set-initial-state 'comint-mode 'emacs)
 (evil-set-initial-state 'sldb-mode 'emacs)
 (evil-set-initial-state 'treemacs-mode 'emacs)
+
+;;key-chord (For escaping normal mode)
+(require 'key-chord)
+(key-chord-mode 1)
+(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
 ;;Treemacs
 ;;========
@@ -292,8 +303,6 @@
 ;;package-install <RET> smartparens
 (require 'smartparens-config)
 (smartparens-global-mode t)
-
-(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
 
 ;; Taken from here: https://github.com/Fuco1/smartparens/wiki/Working-with-expressions
 
