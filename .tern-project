@@ -5,6 +5,6 @@
     "plugins": {
         "node": {},
 	"modules": {},
-	"es_modules" {}
+	"es_modules": {}
     }
 }

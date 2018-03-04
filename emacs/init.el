@@ -356,6 +356,8 @@
 ;; ------------
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+(define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+(define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
 
 ;; Company-tern
 (require 'company-tern)
@@ -363,6 +365,24 @@
 (add-hook 'js2-mode-hook (lambda ()
 			   (tern-mode)
 			   (company-mode)))
+
+;; js2-mode
+;; --------
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;; xref-js2
+(require 'xref-js2)
+(setq-default js2-strict-missing-semi-warning nil)
+;;https://github.com/nicolaspetton/xref-js2
+;;https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html
+(define-key tern-mode-keymap (kbd "M-.") nil)
+(define-key tern-mode-keymap (kbd "M-,") nil)
+(add-hook 'js2-mode-hook (lambda ()
+  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+;; Indium
+(require 'indium)
 
 ;; Elpy
 ;; ----
@@ -373,14 +393,6 @@
 ;; Ensures that it uses the homebrew version, as set in .bashrc
 (setq elpy-rpc-python-command "python2")
 
-;; js2-mode
-;; --------
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(setq-default js2-strict-missing-semi-warning nil)
-
-;; Indium
-(require 'indium)
 
 ;;Misc
 ;;====

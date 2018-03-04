@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: arrowed fn
+# key: =>
+# --
+(${1:args}) => {
+  $0
+}
