@@ -263,6 +263,7 @@
 (defun my-org-confirm-babel-evaluate (lang body)
   (not (or (string= lang "emacs-lisp")
 	   (string= lang "js")
+	   (string= lang "sh")
 	   (string= lang "python")
 	   (string= lang "ditaa"))))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
