@@ -106,7 +106,8 @@
   "b" 'helm-filtered-bookmarks
   "f" 'helm-buffers-list
   "g" 'magit-status
-  "t" 'treemacs-projectile-toggle)
+  "tp" 'treemacs-projectile
+  "tt" 'treemacs-toggle)
 
 ;;Evil
 ;;----
@@ -139,7 +140,6 @@
 (require 'treemacs)
 (require 'treemacs-projectile)
 (require 'treemacs-evil)
- 
 
 ;;Relative numbers
 ;;----------------
@@ -288,6 +288,7 @@
 ;;Smartparens
 ;;-----------
 
+;;package-install <RET> smartparens
 (require 'smartparens-config)
 (smartparens-global-mode t)
 
@@ -314,6 +315,9 @@
 
 (define-key smartparens-mode-map (kbd "C-M-k") 'sp-kill-sexp)
 (define-key smartparens-mode-map (kbd "M-k") 'sp-kill-hybrid-sexp)
+
+(require 'evil-smartparens)
+(add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
 
 ;;Projectile
 ;;----------
