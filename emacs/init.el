@@ -201,7 +201,8 @@
 
 ;;Flycheck
 (require 'flycheck)
-(global-flycheck-mode)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-global-modes '(not org-mode))
 
 ;; disable jshint since we prefer eslint checking
 (setq-default flycheck-disabled-checkers
