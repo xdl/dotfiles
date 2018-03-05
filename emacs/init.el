@@ -110,6 +110,7 @@
 
 ;;Evil Leader
 (require 'evil-leader)
+;;--------------------
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
@@ -144,6 +145,11 @@
 (evil-set-initial-state 'comint-mode 'emacs)
 (evil-set-initial-state 'sldb-mode 'emacs)
 (evil-set-initial-state 'treemacs-mode 'emacs)
+
+;;evil-surround
+;;-------------
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 
 ;;key-chord (For escaping normal mode)
 (require 'key-chord)
@@ -394,6 +400,8 @@
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
+;; ignoring tabs as well
+(setq-default indent-tabs-mode nil)
 
 ;; Tide (TS, TSX)
 (require 'tide)
@@ -426,8 +434,29 @@
           (lambda ()
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
               (setup-tide-mode))))
+;; Crapton of flycheck stuff:
+
+;; disable tsx-tide since we prefer tslint
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+	  '(tsx-tide)))
+
 ;; enable typescript-tslint checker
 (flycheck-add-mode 'typescript-tslint 'web-mode)
+
+;; use local typescript-eslint from node_modules before global
+;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+(defun my/use-tslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (tslint (and root
+                      (expand-file-name "node_modules/tslint/bin/tslint"
+                                        root))))
+    (when (and tslint (file-executable-p tslint))
+      (setq-local flycheck-typescript-tslint-executable tslint))))
+(add-hook 'flycheck-mode-hook #'my/use-tslint-from-node-modules)
+
 
 ;; Elpy
 ;; ----
