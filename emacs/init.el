@@ -77,6 +77,13 @@
 ;;(setq split-width-threshold nil)
 ;;(setq split-width-threshold 0)
 
+;; https://www.emacswiki.org/emacs/BackupDirectory
+;; Stop *~ files littering repo
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 ;;Tramp
 ;;https://www.emacswiki.org/emacs/TrampMode
 (setq tramp-default-method "ssh")
