@@ -104,6 +104,10 @@
 ;;========
 ;;Install these with e.g. M-x package-install RET evil RET
 
+(require 'exec-path-from-shell)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 ;;Evil Leader
 (require 'evil-leader)
 (global-evil-leader-mode)
@@ -197,11 +201,6 @@
 ;; (setq helm-ff-skip-boring-files t)
 ;; (setq helm-boring-file-regexp-list
 ;;       '("node_modules$"))
-;; For surfraw
-;; https://stackoverflow.com/questions/8606954/path-and-exec-path-set-but-emacs-does-not-find-executable
-(setq exec-path
-      (append exec-path
-	      '("/usr/local/bin/")))
       
 ;; Ido (trying out Helm since it's got fuzzy finding)
 ;;-----
@@ -336,9 +335,6 @@
 (projectile-mode)
 
 (require 'ag)
-;;For ag to be found on MacOS (it's installed in /usr/local/bin)
-;;For ag to run
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 
 ;;Yasnippet
 ;;---------
@@ -391,7 +387,7 @@
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
 ;; Ensures that it uses the homebrew version, as set in .bashrc
-(setq elpy-rpc-python-command "python2")
+(setq elpy-rpc-python-command "python")
 
 
 ;;Misc
