@@ -440,13 +440,17 @@
 ;; Always use tide from node_modules
 ;; TODO: make this like how eslint falls back to system typescript
 (setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
+(setq tide-format-options '(:indentSize 2))
 
 ;; formats the buffer before saving
 (add-hook 'before-save-hook 'tide-format-before-save)
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
+;; Adding typescript extensions to web mode
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
+
 (add-hook 'web-mode-hook
           (lambda ()
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
