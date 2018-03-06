@@ -1,3 +1,4 @@
+
 ;;Presentation
 ;;============
 
@@ -90,6 +91,10 @@
 ;; Getting around sshing into Linux OSes (Footnote 2) http://howardism.org/Technical/Emacs/literate-devops.html
 (setq temporary-file-directory "/tmp")
 
+;;Css
+;;===
+(setq css-indent-offset 2)
+
 ;;Javascript
 ;;==========
 
@@ -121,11 +126,13 @@
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
-  "b" 'helm-filtered-bookmarks
-  "f" 'helm-buffers-list
+  "b" 'helm-buffers-list
+  "d" 'helm-filtered-bookmarks
   "g" 'magit-status
+  "tf" 'treemacs-find-file
   "tp" 'treemacs-projectile
-  "tt" 'treemacs-toggle)
+  "tt" 'treemacs-toggle
+  "s" 'save-buffer)
 
 ;;Evil
 ;;----
@@ -410,6 +417,9 @@
 ;; ignoring tabs as well
 (setq-default indent-tabs-mode nil)
 
+;; JSX
+(require 'rjsx-mode)
+
 ;; Tide (TS, TSX)
 (require 'tide)
 (defun setup-tide-mode ()
@@ -440,6 +450,7 @@
 (add-hook 'web-mode-hook
           (lambda ()
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setq-local web-mode-enable-auto-quoting nil) ;;disable autoquoting as you're apt to use expressions then
               (setup-tide-mode))))
 ;; Crapton of flycheck stuff:
 
