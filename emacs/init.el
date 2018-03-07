@@ -91,6 +91,10 @@
 ;; Getting around sshing into Linux OSes (Footnote 2) http://howardism.org/Technical/Emacs/literate-devops.html
 (setq temporary-file-directory "/tmp")
 
+;;Yaml
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
 ;;Css
 ;;===
 (setq css-indent-offset 2)
@@ -132,7 +136,8 @@
   "tf" 'treemacs-find-file
   "tp" 'treemacs-projectile
   "tt" 'treemacs-toggle
-  "s" 'save-buffer)
+  "s" 'save-buffer
+  "w" 'save-buffer)
 
 ;;Evil
 ;;----
@@ -240,7 +245,7 @@
 	  '(javascript-jshint)))
 
 
-;; use eslint with web-mode for jsx files
+;; use eslint with web-mode for js files
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 
 ;; customize flycheck temp file prefix
@@ -440,7 +445,6 @@
 ;; Always use tide from node_modules
 ;; TODO: make this like how eslint falls back to system typescript
 (setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
-(setq tide-format-options '(:indentSize 2))
 
 ;; formats the buffer before saving
 (add-hook 'before-save-hook 'tide-format-before-save)
@@ -459,12 +463,13 @@
 ;; Crapton of flycheck stuff:
 
 ;; disable tsx-tide since we prefer tslint
-(setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-	  '(tsx-tide)))
+;; (setq-default flycheck-disabled-checkers
+;;   (append flycheck-disabled-checkers
+;; 	  '(tsx-tide)))
 
 ;; enable typescript-tslint checker
 (flycheck-add-mode 'typescript-tslint 'web-mode)
+;;(flycheck-add-next-checker 'tsx-tide '(warning . typescript-tslint) 'append)
 
 ;; use local typescript-eslint from node_modules before global
 ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
