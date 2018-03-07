@@ -132,10 +132,12 @@
 (evil-leader/set-key
   "b" 'helm-buffers-list
   "d" 'helm-filtered-bookmarks
+  "f" 'projectile-find-file
   "g" 'magit-status
   "tf" 'treemacs-find-file
   "tp" 'treemacs-projectile
   "tt" 'treemacs-toggle
+  "p" 'projectile-switch-project
   "s" 'save-buffer
   "w" 'save-buffer)
 
