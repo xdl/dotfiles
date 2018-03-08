@@ -130,10 +130,11 @@
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
-  "b" 'helm-buffers-list
-  "d" 'helm-filtered-bookmarks
+  "a" 'projectile-ag
+  "b" 'helm-filtered-bookmarks
   "f" 'projectile-find-file
   "g" 'magit-status
+  "l" 'helm-buffers-list
   "tf" 'treemacs-find-file
   "tp" 'treemacs-projectile
   "tt" 'treemacs-toggle
