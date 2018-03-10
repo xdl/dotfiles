@@ -9,11 +9,11 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# add /usr/local/bin to path:
-export PATH=$PATH:/usr/local/bin
+export PATH=/usr/local/bin:/usr/local/sbin:~/bin:$PATH
 
 # Caveat for brew install python
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+#http://docs.python-guide.org/en/latest/starting/install/osx/
+export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
 
 
 # 256 terminal colours

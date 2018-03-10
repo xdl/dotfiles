@@ -133,6 +133,7 @@
   "a" 'projectile-ag
   "b" 'helm-filtered-bookmarks
   "f" 'projectile-find-file
+  "F" 'projectile-find-file-in-known-projects
   "g" 'magit-status
   "l" 'helm-buffers-list
   "tf" 'treemacs-find-file
@@ -167,6 +168,7 @@
 (evil-set-initial-state 'comint-mode 'emacs)
 (evil-set-initial-state 'sldb-mode 'emacs)
 (evil-set-initial-state 'treemacs-mode 'emacs)
+(setq evil-move-cursor-back nil)
 
 ;;evil-surround
 ;;-------------
@@ -194,6 +196,8 @@
 (setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
 (setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
 
+;;Eyebrowse
+
 ;;Magit
 ;;-----
 (require 'magit)
@@ -213,6 +217,7 @@
 
 ;; Slime
 ;;------
+(require 'slime)
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
 
 ;; Helm
@@ -234,8 +239,11 @@
 ;;-----
 ;;use ido for buffer switching
 ;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
-;;(require 'ido)
-;;(ido-mode t)
+(require 'ido)
+(ido-mode t)
+(ido-everywhere t)
+(require 'flx-ido)
+(flx-ido-mode t)
 
 ;;Flycheck
 (require 'flycheck)
@@ -363,7 +371,9 @@
 ;;Projectile
 ;;----------
 ;;package-install <RET> projectile
-(projectile-mode)
+(require 'projectile)
+(projectile-mode 1)
+(setq projectile-enable-caching t)
 
 (require 'ag)
 
