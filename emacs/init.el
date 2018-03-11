@@ -1,4 +1,3 @@
-
 ;;Presentation
 ;;============
 
@@ -132,6 +131,7 @@
 (evil-leader/set-key
   "a" 'projectile-ag
   "b" 'helm-filtered-bookmarks
+  "e" 'eyebrowse-print-mode-line-indicator
   "f" 'projectile-find-file
   "F" 'projectile-find-file-in-known-projects
   "g" 'magit-status
@@ -142,6 +142,10 @@
   "p" 'projectile-switch-project
   "s" 'save-buffer
   "w" 'save-buffer)
+
+(require 'evil-numbers)
+(define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
+(define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt)
 
 ;;Evil
 ;;----
@@ -197,6 +201,11 @@
 (setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
 
 ;;Eyebrowse
+;;---------
+(require 'eyebrowse)
+(eyebrowse-mode t)
+(setq eyebrowse-wrap-around 1)
+(eyebrowse-setup-opinionated-keys)
 
 ;;Magit
 ;;-----
@@ -447,9 +456,8 @@
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
+  (define-key evil-normal-state-map(kbd "gd") 'tide-jump-to-definition)
+  (define-key evil-normal-state-map(kbd "gb") 'tide-jump-back)
   (company-mode +1))
 
 ;; aligns annotation to the right hand side
