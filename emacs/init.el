@@ -136,7 +136,6 @@
   "F" 'projectile-find-file-in-known-projects
   "g" 'magit-status
   "l" 'helm-buffers-list
-  "tf" 'treemacs-find-file
   "tp" 'treemacs-projectile
   "tt" 'treemacs-toggle
   "p" 'projectile-switch-project
@@ -179,6 +178,10 @@
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 
+;;evil-visualstar
+(require 'evil-visualstar)
+(global-evil-visualstar-mode)
+
 ;;key-chord (For escaping normal mode)
 (require 'key-chord)
 (key-chord-mode 1)
@@ -189,6 +192,7 @@
 (require 'treemacs)
 (require 'treemacs-projectile)
 (require 'treemacs-evil)
+(global-set-key (kbd "M-L") 'treemacs-find-file)
 
 ;;Relative numbers
 ;;----------------
@@ -206,12 +210,12 @@
 (eyebrowse-mode t)
 (setq eyebrowse-wrap-around 1)
 (eyebrowse-setup-opinionated-keys)
+(setq eyebrowse-new-workspace 1)
 
 ;;Magit
 ;;-----
 (require 'magit)
 ;;https://magit.vc/manual/magit/Getting-started.html#Getting-started
-(global-set-key (kbd "C-x g") 'magit-status)
 (require 'evil-magit)
 
 ;;Rainbow Delimiters
@@ -237,16 +241,9 @@
 ;; Using Helm command completion instead of default
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-;; (global-set-key (kbd "C-h a") 'helm-apropos) ;;overriding apropos command ;;nope; using window switching here
-(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
-;; (setq helm-ff-skip-boring-files t)
-;; (setq helm-boring-file-regexp-list
-;;       '("node_modules$"))
-      
-;; Ido (trying out Helm since it's got fuzzy finding)
+
 ;;-----
-;;use ido for buffer switching
+;;use flx ido for buffer switching
 ;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
 (require 'ido)
 (ido-mode t)
