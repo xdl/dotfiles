@@ -192,6 +192,7 @@
 (require 'treemacs)
 (require 'treemacs-projectile)
 (require 'treemacs-evil)
+(treemacs-follow-mode t)
 (global-set-key (kbd "M-L") 'treemacs-find-file)
 
 ;;Relative numbers
@@ -511,6 +512,10 @@
       python-shell-interpreter-args "-i --simple-prompt")
 ;; Ensures that it uses the homebrew version, as set in .bashrc
 (setq elpy-rpc-python-command "python")
+
+;; Octave Mode
+;; -----------
+(add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 
 ;;Misc
 ;;====
