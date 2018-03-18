@@ -1,6 +1,15 @@
 ;;Presentation
 ;;============
 
+(require 'package)
+
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+;; update the package metadata is the local cache is missing
+(unless package-archive-contents
+  (package-refresh-contents))
+
 ;;to get rid of the tool and scroll bar for graphical GnuEmacs
 (when (window-system)
   (tool-bar-mode -1)
@@ -36,14 +45,6 @@
 
 ;;Behaviour
 ;;=========
-
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list
-   'package-archives
-   '("melpa" . "https://melpa.org/packages/")
-      t)
-  (package-initialize))
 
 ;;save custom variables elsewhere:
 ;;http://stackoverflow.com/questions/14071991/how-to-create-an-empty-file-by-elisp
@@ -84,15 +85,21 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+(setq mac-option-modifier 'meta)
+
 ;;Tramp
 ;;https://www.emacswiki.org/emacs/TrampMode
 (setq tramp-default-method "ssh")
 ;; Getting around sshing into Linux OSes (Footnote 2) http://howardism.org/Technical/Emacs/literate-devops.html
 (setq temporary-file-directory "/tmp")
 
-;;Yaml
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+;;Packages
+;;========
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-verbose t)
 
 ;;Css
 ;;===
@@ -118,6 +125,12 @@
 ;;Packages
 ;;========
 ;;Install these with e.g. M-x package-install RET evil RET
+
+;;Yaml
+;;====
+(use-package yaml-mode
+  :mode
+  (("\.yml" . yaml-mode)))
 
 (require 'exec-path-from-shell)
 (when (memq window-system '(mac ns x))
@@ -289,6 +302,8 @@
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+(setq org-image-actual-width nil)
+(setq org-startup-with-inline-images t)
 (setq org-log-done t)
 ;;workflows:
 (setq org-todo-keywords

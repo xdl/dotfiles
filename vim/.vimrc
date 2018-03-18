@@ -16,6 +16,7 @@ set encoding=utf-8 "allows non-ASCII characters to be displayed
 
 autocmd BufRead,BufNewFile *.es set filetype=javascript "Emcascript syntax as javascript (ES6)
 autocmd Filetype javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype typescript setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype html setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype haxe setlocal tabstop=2 softtabstop=2 shiftwidth=2
