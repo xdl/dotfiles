@@ -33,6 +33,12 @@
 ;;usable light color scheme
 ;;(load-theme 'whiteboard)
 
+(custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized))))) ;; start maximised
+
+;; Newline at end of file
+(setq require-final-newline t)
+
 ;;Bindings
 ;;========
 
@@ -114,7 +120,7 @@
 ;;================
 
 ;; Racket filetype detection
-(add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
+(add-to-list 'auto-mode-alist '("\\.rkt$\\'" . scheme-mode))
 
 ;;(defvar scheme-program-name "guile")
 
@@ -196,15 +202,21 @@
 (global-evil-visualstar-mode)
 
 ;;key-chord (For escaping normal mode)
-(require 'key-chord)
-(key-chord-mode 1)
-(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+(use-package key-chord
+  :ensure t
+  :config
+  (key-chord-mode 1)
+  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+  )
 
 ;;Treemacs
 ;;========
-(require 'treemacs)
-(require 'treemacs-projectile)
-(require 'treemacs-evil)
+(use-package treemacs
+  :ensure t
+  :config
+  (require 'treemacs-projectile)
+  (require 'treemacs-evil)
+  (setq treemacs-follow-after-init t))
 (treemacs-follow-mode t)
 (global-set-key (kbd "M-L") 'treemacs-find-file)
 
@@ -214,23 +226,28 @@
 (nlinum-relative-setup-evil)                    ;; setup for evil
 (add-hook 'prog-mode-hook 'nlinum-relative-mode)
 (add-hook 'text-mode-hook 'nlinum-relative-mode)
-(setq nlinum-relative-redisplay-delay 0)      ;; delay
+(setq nlinum-relative-redisplay-delay 0.1)      ;; delay
 (setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
 (setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
 
 ;;Eyebrowse
 ;;---------
-(require 'eyebrowse)
-(eyebrowse-mode t)
-(setq eyebrowse-wrap-around 1)
-(eyebrowse-setup-opinionated-keys)
-(setq eyebrowse-new-workspace 1)
+(use-package eyebrowse
+  :init
+  (setq eyebrowse-wrap-around 1)
+  (setq eyebrowse-new-workspace 1)
+  :config
+  (eyebrowse-mode t)
+  (eyebrowse-setup-opinionated-keys))
 
 ;;Magit
 ;;-----
-(require 'magit)
+(use-package magit
+  :ensure t)
 ;;https://magit.vc/manual/magit/Getting-started.html#Getting-started
-(require 'evil-magit)
+(use-package evil-magit
+  :ensure t
+  :after magit)
 
 ;;Rainbow Delimiters
 ;;------------------
@@ -429,7 +446,7 @@
 ;; --------
 (require 'js2-mode)
 (setq-default js2-strict-missing-semi-warning nil)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js$\\'" . js2-mode))
 
 ;; xref-js2
 (require 'xref-js2)
@@ -445,7 +462,7 @@
 
 ;; web-mode
 (require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html$\\'" . web-mode))
 ;; adjust indents for web-mode to 2 spaces
 (defun my-web-mode-hook ()
   "Hooks for Web mode. Adjust indents"
@@ -486,8 +503,8 @@
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; Adding typescript extensions to web mode
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx$\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ts$\\'" . web-mode))
 
 (add-hook 'web-mode-hook
           (lambda ()
