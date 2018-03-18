@@ -161,9 +161,11 @@
   "s" 'save-buffer
   "w" 'save-buffer)
 
-(require 'evil-numbers)
-(define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
-(define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt)
+(use-package evil-numbers
+  :requires evil
+  :config
+  (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
+  (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt))
 
 ;;Evil
 ;;----
@@ -194,20 +196,21 @@
 
 ;;evil-surround
 ;;-------------
-(require 'evil-surround)
-(global-evil-surround-mode 1)
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1))
 
 ;;evil-visualstar
-(require 'evil-visualstar)
-(global-evil-visualstar-mode)
+(use-package evil-visualstar
+  :config
+  (global-evil-visualstar-mode))
 
 ;;key-chord (For escaping normal mode)
 (use-package key-chord
   :ensure t
   :config
   (key-chord-mode 1)
-  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
-  )
+  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state))
 
 ;;Treemacs
 ;;========
@@ -247,7 +250,7 @@
 ;;https://magit.vc/manual/magit/Getting-started.html#Getting-started
 (use-package evil-magit
   :ensure t
-  :after magit)
+  :requires magit)
 
 ;;Rainbow Delimiters
 ;;------------------
@@ -279,8 +282,11 @@
 (require 'ido)
 (ido-mode t)
 (ido-everywhere t)
-(require 'flx-ido)
-(flx-ido-mode t)
+
+(use-package flx-ido
+  :ensure t
+  :config
+  (flx-ido-mode t))
 
 ;;Flycheck
 (require 'flycheck)
@@ -419,10 +425,13 @@
 ;;Yasnippet
 ;;---------
 ;;package-list-packages → yasnippet
-(require 'yasnippet)
-(setq yas-snippet-dirs
-      '("~/dotfiles/emacs/snippets"))
-(yas-global-mode 1)
+(use-package yasnippet
+  :ensure t
+  :init
+  (setq yas-snippet-dirs
+        '("~/dotfiles/emacs/snippets"))
+  :config
+  (yas-global-mode 1))
 
 ;; Markdown-mode
 ;; -------------
