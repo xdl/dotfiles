@@ -332,7 +332,7 @@ au FileType markdown nnoremap <LocalLeader>ac :call MarkdownAddCross()<CR>
 "AESTHETICS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on "turns on the syntax
-set relativenumber "set relative number to begin with
+set norelativenumber "set relative number to begin with. Disabling for perf
 set number "set number as well, so you get both
 set guioptions= "disable all guioptions
 set wrap "don't wrap lines
@@ -345,7 +345,7 @@ endif
 
 set foldcolumn=1 "shows where folds are
 set display=lastline "Partially displays any long lines
-set cursorline "highlights the whole active line
+set nocursorline "highlights the whole active line. Disabling for perf
 set laststatus=2 "always show the status line (even if there is only one buffer in the window)
 
 "Colorscheming
@@ -465,6 +465,14 @@ let g:syntastic_javascript_eslint_generic = 1
 let g:syntastic_javascript_eslint_exec = '/bin/ls'
 let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 let g:syntastic_javascript_eslint_args='-f compact'
+
+let g:syntastic_typescript_checkers = ['tslint']
+" Enable the eslint checker https://github.com/vim-syntastic/syntastic/issues/1692
+let g:syntastic_typescript_checkers=['tslint']
+let g:syntastic_typescript_tslint_generic = 1
+let g:syntastic_typescript_tslint_exec = '/bin/ls'
+let g:syntastic_typescript_tslint_exe='$(npm bin)/tslint'
+
 "use manual checking
 nnoremap <leader>sc :SyntasticCheck<CR>
 nnoremap <leader>so :SyntasticReset<CR>

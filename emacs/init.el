@@ -14,7 +14,7 @@
 (when (window-system)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono for Powerline-15")))
+  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono for Powerline-14")))
 
 ;; Get rid of menu bar regardless
 (menu-bar-mode -1)
@@ -120,7 +120,7 @@
 ;;================
 
 ;; Racket filetype detection
-(add-to-list 'auto-mode-alist '("\\.rkt$\\'" . scheme-mode))
+(add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
 
 ;;(defvar scheme-program-name "guile")
 
@@ -455,7 +455,7 @@
 ;; --------
 (require 'js2-mode)
 (setq-default js2-strict-missing-semi-warning nil)
-(add-to-list 'auto-mode-alist '("\\.js$\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 ;; xref-js2
 (require 'xref-js2)
@@ -471,7 +471,7 @@
 
 ;; web-mode
 (require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html$\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 ;; adjust indents for web-mode to 2 spaces
 (defun my-web-mode-hook ()
   "Hooks for Web mode. Adjust indents"
@@ -512,8 +512,8 @@
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; Adding typescript extensions to web mode
-(add-to-list 'auto-mode-alist '("\\.tsx$\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.ts$\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
 
 (add-hook 'web-mode-hook
           (lambda ()
