@@ -4,6 +4,7 @@
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
 (package-initialize)
 ;; update the package metadata is the local cache is missing
@@ -400,8 +401,9 @@
 ;;------
 (use-package geiser
   :config
-  (setq geiser-implementations-alist
-        '(((regexp "\\.rkt$") racket))))
+  (setq geiser-active-implementations '(racket))
+  ;; (setq geiser-implementations-alist
+  ;;       '(((regexp "\\.rkt$") racket))))
   ; http://www.nongnu.org/geiser/geiser_3.html#Customization-and-tips
   ;; (setq geiser-racket-binary "/usr/local/bin/racket"))
 
