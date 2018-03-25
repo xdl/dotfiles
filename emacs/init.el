@@ -3,8 +3,8 @@
 
 (require 'package)
 
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
 (package-initialize)
 ;; update the package metadata is the local cache is missing
 (unless package-archive-contents
@@ -81,7 +81,9 @@
 
 ;;Use vertical split by default (turning it off now because I've decided I like it the default way)
 ;;http://stackoverflow.com/questions/7997590/how-to-change-the-default-split-screen-direction
+;; Always vertical
 ;;(setq split-width-threshold nil)
+;; Always horizontal
 ;;(setq split-width-threshold 0)
 
 ;; https://www.emacswiki.org/emacs/BackupDirectory
@@ -127,6 +129,17 @@
 ;;this one looks more recommended:
 ;;http://www-users.cs.umn.edu/~gini/1901-07s/emacs_scheme/
 (set-variable (quote scheme-program-name) "racket")
+
+;;Misc functions
+
+(defun get-set-screenshot-location ()
+  "Prints the current location of where screenshots are kept."
+  (interactive)
+  (let* ((current-location (shell-command-to-string "defaults read com.apple.screencapture location"))
+         (prompt (format "Current screenshot location is: %s\nNew location: " current-location))
+         (new-directory (read-directory-name prompt)))
+    (shell-command (format "defaults write com.apple.screencapture location %s" new-directory))
+    (message "New location set to %s" new-directory)))
 
 ;;Packages
 ;;========
@@ -318,6 +331,9 @@
       (setq-local flycheck-javascript-eslint-executable eslint))))
 (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
+;;Graphviz Dot Mode
+(use-package graphviz-dot-mode)
+
 ;;Orgmode
 ;;-------
 
@@ -327,6 +343,10 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-image-actual-width nil)
 (setq org-startup-with-inline-images t)
+;; For Code blocks that produce code, redisplay it on evaluation
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+;; Don't indent source block
+(setq org-edit-src-content-indentation 0)
 (setq org-log-done t)
 ;;workflows:
 (setq org-todo-keywords
@@ -338,9 +358,13 @@
    (js . t)
    (python . t)
    (ditaa . t)
+   (dot . t)
    (sh . t)
    (ruby . t)
    (scheme .t)))
+
+;; https://stackoverflow.com/questions/16770868/org-babel-doesnt-load-graphviz-editing-mode-for-dot-sources
+(add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
 
 ;;disable confirmation prompt for these languages
 (defun my-org-confirm-babel-evaluate (lang body)
@@ -348,6 +372,10 @@
 	   (string= lang "js")
 	   (string= lang "sh")
 	   (string= lang "python")
+	   (string= lang "dot")
+	   (string= lang "scheme")
+	   (string= lang "ruby")
+	   (string= lang "dot")
 	   (string= lang "ditaa"))))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 ;; disable hiding the link
@@ -364,11 +392,18 @@
 ;; Setting tags column to 1
 (setq org-tags-column 1)
 
+(use-package ox-reveal)
+(use-package htmlize)
+
+
 ;;Geiser
 ;;------
-(require 'geiser)
-; http://www.nongnu.org/geiser/geiser_3.html#Customization-and-tips
-(setq geiser-racket-binary "/usr/local/bin/racket")
+(use-package geiser
+  :config
+  (setq geiser-implementations-alist
+        '(((regexp "\\.rkt$") racket))))
+  ; http://www.nongnu.org/geiser/geiser_3.html#Customization-and-tips
+  ;; (setq geiser-racket-binary "/usr/local/bin/racket"))
 
 ;https://www.emacswiki.org/emacs/ParEdit ;;Commenting out for now to try out smartparens
 ;; (require 'paredit)
@@ -416,11 +451,22 @@
 ;;Projectile
 ;;----------
 ;;package-install <RET> projectile
-(require 'projectile)
-(projectile-mode 1)
-(setq projectile-enable-caching t)
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-mode 1)
+  (setq projectile-enable-caching t))
 
-(require 'ag)
+;; Overrides projectile commands with helm variants
+(use-package helm-projectile
+  :ensure t
+  :config
+  (helm-projectile-on))
+
+(use-package helm-ag
+  :ensure t)
+(use-package ag
+  :ensure t)
 
 ;;Yasnippet
 ;;---------
@@ -435,7 +481,8 @@
 
 ;; Markdown-mode
 ;; -------------
-(require 'markdown-mode)
+(use-package markdown-mode
+  :ensure t)
 
 ;; Company-mode
 ;; ------------
