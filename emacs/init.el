@@ -401,7 +401,7 @@
 ;;------
 (use-package geiser
   :config
-  (setq geiser-active-implementations '(racket))
+  (setq geiser-active-implementations '(racket)))
   ;; (setq geiser-implementations-alist
   ;;       '(((regexp "\\.rkt$") racket))))
   ; http://www.nongnu.org/geiser/geiser_3.html#Customization-and-tips
