@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: message
+# key: message
+# key: m
+# --
+(message "%s: %s" "${1:expr}" (prin1-to-string $1))$0
