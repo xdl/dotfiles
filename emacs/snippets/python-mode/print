@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: verbose print
+# key: pp
+# --
+print('$1:', $1)$0
