@@ -131,7 +131,33 @@
 ;;http://www-users.cs.umn.edu/~gini/1901-07s/emacs_scheme/
 (set-variable (quote scheme-program-name) "racket")
 
+;;Misc
+;;====
+(add-to-list 'load-path "~/dotfiles/emacs/config")
+(require 'ob-foobar)
+
+;; (defun reload-ob-foobar ()
+;;   "Reloads foobar for iterative development"
+;;   (interactive)
+;;   (unload-feature 'ob-foobar)
+;;   (require 'ob-foobar))
+
+(defun reload-ob-foobar ()
+  "Reloads foobar for iterative development"
+  (interactive)
+  (progn
+    (unload-feature 'ob-foobar 'force)
+    (require 'ob-foobar)))
+
+(defun reload-ob-core ()
+  "Reloads ob-core for iterative development"
+  (interactive)
+  (progn
+    (unload-feature 'ob-foobar 'force)
+    (require 'ob-core)))
+
 ;;Misc functions
+;;==============
 
 (defun get-set-screenshot-location ()
   "Prints the current location of where screenshots are kept."
@@ -140,6 +166,7 @@
          (prompt (format "Current screenshot location is: %s\nNew location: " current-location))
          (new-directory (read-directory-name prompt)))
     (shell-command (format "defaults write com.apple.screencapture location %s" new-directory))
+    (shell-command "killall SystemUIServer")
     (message "New location set to %s" new-directory)))
 
 ;;Packages
@@ -348,6 +375,8 @@
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 ;; Don't indent source block
 (setq org-edit-src-content-indentation 0)
+;; Get rid of footer when exporting html
+(setq org-html-postamble nil)
 (setq org-log-done t)
 ;;workflows:
 (setq org-todo-keywords
@@ -359,8 +388,10 @@
    (js . t)
    (python . t)
    (ditaa . t)
+   (lilypond . t)
+   (foobar . t)
    (dot . t)
-   (sh . t)
+   (shell . t)
    (ruby . t)
    (scheme .t)))
 
@@ -371,8 +402,10 @@
 (defun my-org-confirm-babel-evaluate (lang body)
   (not (or (string= lang "emacs-lisp")
 	   (string= lang "js")
-	   (string= lang "sh")
+	   (string= lang "shell")
 	   (string= lang "python")
+	   (string= lang "lilypond")
+	   (string= lang "foobar")
 	   (string= lang "dot")
 	   (string= lang "scheme")
 	   (string= lang "ruby")
@@ -613,3 +646,13 @@
 (when (executable-find "hunspell")
   (setq-default ispell-program-name "hunspell")
   (setq ispell-really-hunspell t))
+
+;;Lilypond
+;;========
+(add-to-list 'load-path "/Applications/LilyPond.app/Contents/Resources/share/emacs/site-lisp")
+(require 'lilypond-mode)
+(autoload 'LilyPond-mode "lilypond-mode")
+(setq auto-mode-alist
+      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+
