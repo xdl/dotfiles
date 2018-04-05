@@ -566,7 +566,8 @@
 (setq-default indent-tabs-mode nil)
 
 ;; JSX
-(require 'rjsx-mode)
+(use-package rjsx-mode
+  :mode (("\\(components\\|containers\\)\\/.*\\.js\\'" . rjsx-mode)))
 
 ;; Tide (TS, TSX)
 (require 'tide)
