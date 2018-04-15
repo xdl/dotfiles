@@ -428,7 +428,7 @@
 
 (use-package ox-reveal)
 (use-package htmlize)
-
+(require 'ox-md nil t)
 
 ;;Geiser
 ;;------
@@ -650,9 +650,17 @@
 ;;Lilypond
 ;;========
 (add-to-list 'load-path "/Applications/LilyPond.app/Contents/Resources/share/emacs/site-lisp")
-(require 'lilypond-mode)
-(autoload 'LilyPond-mode "lilypond-mode")
-(setq auto-mode-alist
-      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+(use-package lilypond-mode
+  :config
+  (autoload 'LilyPond-mode "lilypond-mode")
+  (setq auto-mode-alist
+        (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+  (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock))))
 
+;;Arduino
+;;=======
+(use-package arduino-mode
+  :config
+  (setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode)
+                              auto-mode-alist))
+  (autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t))
