@@ -193,6 +193,7 @@
   "b" 'helm-filtered-bookmarks
   "e" 'eyebrowse-print-mode-line-indicator
   "f" 'projectile-find-file
+  "h" 'helm-apropos
   "F" 'projectile-find-file-in-known-projects
   "g" 'magit-status
   "l" 'helm-buffers-list
@@ -258,11 +259,18 @@
 (use-package treemacs
   :ensure t
   :config
-  (require 'treemacs-projectile)
-  (require 'treemacs-evil)
-  (setq treemacs-follow-after-init t))
-(treemacs-follow-mode t)
-(global-set-key (kbd "M-L") 'treemacs-find-file)
+  (progn
+    (use-package treemacs-projectile
+      :ensure t)
+    (use-package treemacs-evil
+      :ensure t)
+    (setq treemacs-follow-after-init t
+          treemacs-change-root-without-asking t)
+    (treemacs-follow-mode t)
+    (global-set-key (kbd "M-L") (lambda ()
+                                  (interactive)
+                                  (treemacs-find-file)
+                                  (treemacs-select-window)))))
 
 ;;Relative numbers
 ;;----------------
