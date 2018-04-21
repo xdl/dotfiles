@@ -658,13 +658,16 @@
 
 ;;Lilypond
 ;;========
-(add-to-list 'load-path "/Applications/LilyPond.app/Contents/Resources/share/emacs/site-lisp")
-(use-package lilypond-mode
-  :config
-  (autoload 'LilyPond-mode "lilypond-mode")
-  (setq auto-mode-alist
-        (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-  (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock))))
+(let ((lilypond-emacs-path "/Applications/LilyPond.app/Contents/Resources/share/emacs/site-lisp"))
+  (if (file-exists-p lilypond-emacs-path)
+      (progn
+        (add-to-list 'load-path lilypond-emacs-path)
+        (use-package lilypond-mode
+          :config
+          (autoload 'LilyPond-mode "lilypond-mode")
+          (setq auto-mode-alist
+                (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+          (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))))))
 
 ;;Arduino
 ;;=======
