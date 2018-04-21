@@ -301,11 +301,6 @@
   :ensure t
   :requires magit)
 
-;;Rainbow Delimiters
-;;------------------
-(require 'rainbow-delimiters)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
 ;;Expand Selection
 ;;----------------
 (require 'expand-region)
@@ -557,7 +552,7 @@
   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 
 ;; Indium
-(require 'indium)
+(use-package indium)
 
 ;; web-mode
 (require 'web-mode)
