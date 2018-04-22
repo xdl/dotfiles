@@ -313,12 +313,16 @@
 
 ;; Helm
 ;;-----
-;;package-install <RET> helm
-(require 'helm-config)
-(helm-mode 1)
+(use-package helm
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files))
+  :config
+  (use-package helm-config)
+  (setq helm-move-to-line-cycle-in-source t
+        helm-ff-file-name-history-use-recentf t)
+  (helm-mode 1))
+
 ;; Using Helm command completion instead of default
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;;-----
 ;;use flx ido for buffer switching
