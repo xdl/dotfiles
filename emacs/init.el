@@ -219,15 +219,20 @@
     ("\C-o" . evil-execute-in-normal-state)
     ("\C-r" . evil-paste-from-register)
     ("\C-y" . evil-copy-from-above)
-    ;; ("\C-e" . evil-copy-from-below)
+    ;; ("\C-e" . move-end-of-line)
     ("\C-n" . evil-complete-next)
     ("\C-p" . evil-complete-previous)
     ("\C-x \C-n" . evil-complete-next-line)
     ("\C-x \C-p" . evil-complete-previous-line)
     ("\C-t" . evil-shift-right-line) ;;tempted to disable this pair as well
     ("\C-d" . evil-shift-left-line)
-    ;; ("\C-a" . evil-paste-last-insertion)
+    ;; ("\C-a" . move-beginning-of-line)
     ("\C-w" . evil-delete-backward-word)))
+
+;; Can't seem to redefine these in evil-insert-state-bindings, so doing them here
+(define-key evil-insert-state-map "\C-e" 'move-end-of-line)
+(define-key evil-insert-state-map "\C-a" 'move-beginning-of-line)
+
 (require 'evil)
 (evil-mode 1)
 ;;too much other crap going on to be worrying about evil here
