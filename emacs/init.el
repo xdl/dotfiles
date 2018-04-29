@@ -680,3 +680,13 @@
   (setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode)
                               auto-mode-alist))
   (autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t))
+
+;;rtags
+(use-package rtags
+  :config
+  (progn
+    (rtags-enable-standard-keybindings)
+    (evil-define-key 'normal c-mode-base-map (kbd "gd") 'rtags-find-symbol-at-point)
+    (evil-define-key 'normal c-mode-base-map (kbd "gi") 'rtags-symbol-info)
+    (evil-define-key 'normal c-mode-base-map (kbd "gs") 'rtags-display-summary)
+    (evil-define-key 'normal c-mode-base-map (kbd "go") 'rtags-location-stack-back)))
