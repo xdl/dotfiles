@@ -191,6 +191,7 @@
 (evil-leader/set-key
   "a" 'projectile-ag
   "b" 'helm-filtered-bookmarks
+  "c" 'org-capture
   "e" 'eyebrowse-print-mode-line-indicator
   "f" 'projectile-find-file
   "h" 'helm-apropos
@@ -381,8 +382,10 @@
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+(setq org-link-frame-setup '((file . find-file)))
 (setq org-image-actual-width nil)
 (setq org-startup-with-inline-images t)
+(setq org-default-notes-file "~/captured.org")
 ;; For Code blocks that produce code, redisplay it on evaluation
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 ;; Don't indent source block
