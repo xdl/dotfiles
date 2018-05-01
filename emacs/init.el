@@ -683,11 +683,13 @@
 
 ;;EditorConfig
 (use-package editorconfig
+  :defer t
   :config
   (editorconfig-mode 1))
 
 ;;rtags
 (use-package rtags
+  :defer t
   :config
   (progn
     (rtags-enable-standard-keybindings)
