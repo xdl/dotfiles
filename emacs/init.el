@@ -198,8 +198,8 @@
   "F" 'projectile-find-file-in-known-projects
   "g" 'magit-status
   "l" 'helm-buffers-list
+  "tt" 'treemacs
   "tp" 'treemacs-projectile
-  "tt" 'treemacs-toggle
   "p" 'projectile-switch-project
   "s" 'save-buffer
   "w" 'save-buffer)
@@ -470,33 +470,32 @@
 ;;-----------
 
 ;;package-install <RET> smartparens
-(require 'smartparens-config)
-(smartparens-global-mode t)
+(use-package smartparens
+  :bind (
+   ("C-M-f" . sp-forward-sexp)
+   ("C-M-b" . sp-backward-sexp)
 
-;; Taken from here: https://github.com/Fuco1/smartparens/wiki/Working-with-expressions
+   ("C-M-d" . sp-down-sexp)
+   ("C-M-e" . sp-up-sexp)
 
-;;Navigation
-(define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
-(define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
+   ("C-M-a" . sp-backward-up-sexp)
+   ("C-M-u" . sp-backward-down-sexp)
 
-(define-key smartparens-mode-map (kbd "C-M-d") 'sp-down-sexp)
-(define-key smartparens-mode-map (kbd "C-M-e") 'sp-up-sexp)
+   ("C-)" . sp-forward-slurp-sexp)
+   ("C-}" . sp-forward-barf-sexp)
 
-(define-key smartparens-mode-map (kbd "C-M-a") 'sp-backward-up-sexp)
-(define-key smartparens-mode-map (kbd "C-M-u") 'sp-backward-down-sexp)
+   ("M-[" . sp-backward-unwrap-sexp)
+   ("M-]" . sp-unwrap-sexp)
 
-;;Manipulation
-(define-key smartparens-mode-map (kbd "C-)") 'sp-forward-slurp-sexp)
-(define-key smartparens-mode-map (kbd "C-}") 'sp-forward-barf-sexp)
-
-(define-key smartparens-mode-map (kbd "M-[") 'sp-backward-unwrap-sexp)
-(define-key smartparens-mode-map (kbd "M-]") 'sp-unwrap-sexp)
-
-(define-key smartparens-mode-map (kbd "C-M-k") 'sp-kill-sexp)
-(define-key smartparens-mode-map (kbd "M-k") 'sp-kill-hybrid-sexp)
-
-(require 'evil-smartparens)
-(add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+   ("C-M-k" . sp-kill-sexp)
+   ("M-k" . sp-kill-hybrid-sexp))
+  :config
+  (use-package smartparens-config
+    :config
+    (smartparens-global-mode t))
+  (use-package evil-smartparens
+    :init
+    (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)))
 
 ;;Projectile
 ;;----------
@@ -615,7 +614,8 @@
 
 (add-hook 'web-mode-hook
           (lambda ()
-            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+            (when (or (string-equal "tsx" (file-name-extension buffer-file-name))
+                      (string-equal "ts" (file-name-extension buffer-file-name)))
               (setq-local web-mode-enable-auto-quoting nil) ;;disable autoquoting as you're apt to use expressions then
               (setup-tide-mode))))
 ;; Crapton of flycheck stuff:
