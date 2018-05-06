@@ -441,8 +441,10 @@
 ;; Setting tags column to 1
 (setq org-tags-column 1)
 
-(use-package ox-reveal)
-(use-package htmlize)
+(use-package ox-reveal
+  :defer t)
+(use-package htmlize
+  :defer t)
 (require 'ox-md nil t)
 
 ;;Geiser
@@ -531,7 +533,7 @@
 ;; Markdown-mode
 ;; -------------
 (use-package markdown-mode
-  :ensure t)
+  :defer t)
 
 ;; Company-mode
 ;; ------------
@@ -563,7 +565,8 @@
   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 
 ;; Indium
-(use-package indium)
+(use-package indium
+  :defer t)
 
 ;; web-mode
 (require 'web-mode)
