@@ -198,8 +198,7 @@
   "F" 'projectile-find-file-in-known-projects
   "g" 'magit-status
   "l" 'helm-buffers-list
-  "tt" 'treemacs
-  "tp" 'treemacs-projectile
+  "t" 'treemacs
   "p" 'projectile-switch-project
   "s" 'save-buffer
   "w" 'save-buffer)
@@ -471,7 +470,6 @@
 ;;Smartparens
 ;;-----------
 
-;;package-install <RET> smartparens
 (use-package smartparens
   :bind (
    ("C-M-f" . sp-forward-sexp)
@@ -490,14 +488,15 @@
    ("M-]" . sp-unwrap-sexp)
 
    ("C-M-k" . sp-kill-sexp)
-   ("M-k" . sp-kill-hybrid-sexp))
+   ("M-k" . sp-kill-hybrid-sexp)))
+
+(use-package smartparens-config
   :config
-  (use-package smartparens-config
-    :config
-    (smartparens-global-mode t))
-  (use-package evil-smartparens
-    :init
-    (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)))
+  (smartparens-global-mode t))
+
+(use-package evil-smartparens
+  :init
+  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
 
 ;;Projectile
 ;;----------
@@ -597,6 +596,7 @@
   (tide-hl-identifier-mode +1)
   (define-key evil-normal-state-map(kbd "gd") 'tide-jump-to-definition)
   (define-key evil-normal-state-map(kbd "gb") 'tide-jump-back)
+  (define-key evil-normal-state-map(kbd "gr") 'tide-rename-symbol)
   (company-mode +1))
 
 ;; aligns annotation to the right hand side
