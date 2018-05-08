@@ -241,6 +241,8 @@
 (evil-set-initial-state 'treemacs-mode 'emacs)
 (setq evil-move-cursor-back nil)
 
+(add-hook 'arduino-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
 ;;evil-surround
 ;;-------------
 (use-package evil-surround

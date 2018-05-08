@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: cl
+# key: cl
+# --
+Serial.println("$1");
+$0
