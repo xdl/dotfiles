@@ -191,14 +191,14 @@
 (evil-leader/set-key
   "a" 'projectile-ag
   "b" 'helm-filtered-bookmarks
+  "c" 'org-capture
   "e" 'eyebrowse-print-mode-line-indicator
   "f" 'projectile-find-file
   "h" 'helm-apropos
   "F" 'projectile-find-file-in-known-projects
   "g" 'magit-status
   "l" 'helm-buffers-list
-  "tp" 'treemacs-projectile
-  "tt" 'treemacs-toggle
+  "t" 'treemacs
   "p" 'projectile-switch-project
   "s" 'save-buffer
   "w" 'save-buffer)
@@ -383,8 +383,10 @@
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+(setq org-link-frame-setup '((file . find-file)))
 (setq org-image-actual-width nil)
 (setq org-startup-with-inline-images t)
+(setq org-default-notes-file "~/captured.org")
 ;; For Code blocks that produce code, redisplay it on evaluation
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 ;; Don't indent source block
@@ -440,8 +442,10 @@
 ;; Setting tags column to 1
 (setq org-tags-column 1)
 
-(use-package ox-reveal)
-(use-package htmlize)
+(use-package ox-reveal
+  :defer t)
+(use-package htmlize
+  :defer t)
 (require 'ox-md nil t)
 
 ;;Geiser
@@ -468,34 +472,33 @@
 ;;Smartparens
 ;;-----------
 
-;;package-install <RET> smartparens
-(require 'smartparens-config)
-(smartparens-global-mode t)
+(use-package smartparens
+  :bind (
+   ("C-M-f" . sp-forward-sexp)
+   ("C-M-b" . sp-backward-sexp)
 
-;; Taken from here: https://github.com/Fuco1/smartparens/wiki/Working-with-expressions
+   ("C-M-d" . sp-down-sexp)
+   ("C-M-e" . sp-up-sexp)
 
-;;Navigation
-(define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
-(define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
+   ("C-M-a" . sp-backward-up-sexp)
+   ("C-M-u" . sp-backward-down-sexp)
 
-(define-key smartparens-mode-map (kbd "C-M-d") 'sp-down-sexp)
-(define-key smartparens-mode-map (kbd "C-M-e") 'sp-up-sexp)
+   ("C-)" . sp-forward-slurp-sexp)
+   ("C-}" . sp-forward-barf-sexp)
 
-(define-key smartparens-mode-map (kbd "C-M-a") 'sp-backward-up-sexp)
-(define-key smartparens-mode-map (kbd "C-M-u") 'sp-backward-down-sexp)
+   ("M-[" . sp-backward-unwrap-sexp)
+   ("M-]" . sp-unwrap-sexp)
 
-;;Manipulation
-(define-key smartparens-mode-map (kbd "C-)") 'sp-forward-slurp-sexp)
-(define-key smartparens-mode-map (kbd "C-}") 'sp-forward-barf-sexp)
+   ("C-M-k" . sp-kill-sexp)
+   ("M-k" . sp-kill-hybrid-sexp)))
 
-(define-key smartparens-mode-map (kbd "M-[") 'sp-backward-unwrap-sexp)
-(define-key smartparens-mode-map (kbd "M-]") 'sp-unwrap-sexp)
+(use-package smartparens-config
+  :config
+  (smartparens-global-mode t))
 
-(define-key smartparens-mode-map (kbd "C-M-k") 'sp-kill-sexp)
-(define-key smartparens-mode-map (kbd "M-k") 'sp-kill-hybrid-sexp)
-
-(require 'evil-smartparens)
-(add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+(use-package evil-smartparens
+  :init
+  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
 
 ;;Projectile
 ;;----------
@@ -531,7 +534,7 @@
 ;; Markdown-mode
 ;; -------------
 (use-package markdown-mode
-  :ensure t)
+  :defer t)
 
 ;; Company-mode
 ;; ------------
@@ -563,7 +566,8 @@
   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 
 ;; Indium
-(use-package indium)
+(use-package indium
+  :defer t)
 
 ;; web-mode
 (require 'web-mode)
@@ -594,6 +598,7 @@
   (tide-hl-identifier-mode +1)
   (define-key evil-normal-state-map(kbd "gd") 'tide-jump-to-definition)
   (define-key evil-normal-state-map(kbd "gb") 'tide-jump-back)
+  (define-key evil-normal-state-map(kbd "gr") 'tide-rename-symbol)
   (company-mode +1))
 
 ;; aligns annotation to the right hand side
@@ -614,7 +619,8 @@
 
 (add-hook 'web-mode-hook
           (lambda ()
-            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+            (when (or (string-equal "tsx" (file-name-extension buffer-file-name))
+                      (string-equal "ts" (file-name-extension buffer-file-name)))
               (setq-local web-mode-enable-auto-quoting nil) ;;disable autoquoting as you're apt to use expressions then
               (setup-tide-mode))))
 ;; Crapton of flycheck stuff:

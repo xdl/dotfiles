@@ -9,12 +9,13 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-export PATH=/usr/local/bin:/usr/local/sbin:~/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Caveat for brew install python
-#http://docs.python-guide.org/en/latest/starting/install/osx/
-export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
 
 # 256 terminal colours
 if [ -n "$DISPLAY" -a "$TERM" == "xterm" ]; then
@@ -32,5 +33,3 @@ source ~/git-completion.bash
 
 alias vlc="/Applications/VLC.app/Contents/MacOS/VLC"
 alias lilypond="/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
-
-source ~/pdotfiles/bash/life_alarm.sh
