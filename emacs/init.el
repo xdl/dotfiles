@@ -684,6 +684,7 @@
 ;;Arduino
 ;;=======
 (use-package arduino-mode
+  :defer t
   :config
   (setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode)
                               auto-mode-alist))
