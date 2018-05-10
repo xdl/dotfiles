@@ -442,10 +442,8 @@
 ;; Setting tags column to 1
 (setq org-tags-column 1)
 
-(use-package ox-reveal
-  :defer t)
-(use-package htmlize
-  :defer t)
+(use-package ox-reveal)
+(use-package htmlize)
 (require 'ox-md nil t)
 
 ;;Geiser
