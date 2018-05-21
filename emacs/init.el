@@ -2,11 +2,12 @@
 ;;============
 
 (require 'package)
-
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
+
 ;; update the package metadata is the local cache is missing
 (unless package-archive-contents
   (package-refresh-contents))
@@ -102,6 +103,10 @@
 ;; Getting around sshing into Linux OSes (Footnote 2) http://howardism.org/Technical/Emacs/literate-devops.html
 (setq temporary-file-directory "/tmp")
 
+;; https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
+(add-hook 'arduino-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'org-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
 ;;Packages
 ;;========
 (unless (package-installed-p 'use-package)
@@ -168,6 +173,9 @@
     (shell-command (format "defaults write com.apple.screencapture location %s" new-directory))
     (shell-command "killall SystemUIServer")
     (message "New location set to %s" new-directory)))
+
+(setq global-linum-mode t)
+(setq display-line-numbers 'relative)
 
 ;;Packages
 ;;========
@@ -241,8 +249,6 @@
 (evil-set-initial-state 'treemacs-mode 'emacs)
 (setq evil-move-cursor-back nil)
 
-(add-hook 'arduino-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-
 ;;evil-surround
 ;;-------------
 (use-package evil-surround
@@ -278,16 +284,6 @@
                                   (interactive)
                                   (treemacs-find-file)
                                   (treemacs-select-window)))))
-
-;;Relative numbers
-;;----------------
-(require 'nlinum-relative)
-(nlinum-relative-setup-evil)                    ;; setup for evil
-(add-hook 'prog-mode-hook 'nlinum-relative-mode)
-(add-hook 'text-mode-hook 'nlinum-relative-mode)
-(setq nlinum-relative-redisplay-delay 0.1)      ;; delay
-(setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
-(setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
 
 ;;Eyebrowse
 ;;---------
@@ -380,7 +376,11 @@
 ;;-------
 
 ;;from David O'Toole's tutorial: http://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
-(require 'org)
+(use-package org
+  :config
+  (use-package ox-reveal)
+  (use-package htmlize)
+  (require 'ox-md nil t))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-link-frame-setup '((file . find-file)))
@@ -441,10 +441,6 @@
 
 ;; Setting tags column to 1
 (setq org-tags-column 1)
-
-(use-package ox-reveal)
-(use-package htmlize)
-(require 'ox-md nil t)
 
 ;;Geiser
 ;;------
