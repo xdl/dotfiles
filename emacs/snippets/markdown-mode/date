@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # name: date
-# key: date
+# key: d
 # --
-## `(format-time-string "%d/%m/%y")`
+`(format-time-string "%d/%m/%y")`
 
 $0

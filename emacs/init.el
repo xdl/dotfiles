@@ -41,6 +41,8 @@
 ;; Newline at end of file
 (setq require-final-newline t)
 
+
+
 ;;Bindings
 ;;========
 
@@ -62,6 +64,10 @@
     (shell-command (concat "touch " my-custom-file)))
   (setq custom-file my-custom-file)
   (load my-custom-file))
+
+; save minibuffer history across sessions
+(setq savehist-file "~/.emacs.d/.savehist")
+(savehist-mode 1)
 
 ;; Stop that annoying beeping https://www.emacswiki.org/emacs/AlarmBell#toc3
 (setq ring-bell-function 'ignore)
@@ -174,8 +180,19 @@
     (shell-command "killall SystemUIServer")
     (message "New location set to %s" new-directory)))
 
-(setq global-linum-mode t)
-(setq display-line-numbers 'relative)
+;; (global-display-line-numbers-mode t)
+;; (setq display-line-numbers 'relative)
+;; (global-linum-mode 1)
+
+;;Relative numbers
+;;----------------
+(require 'nlinum-relative)
+(nlinum-relative-setup-evil)                    ;; setup for evil
+(add-hook 'prog-mode-hook 'nlinum-relative-mode)
+(add-hook 'text-mode-hook 'nlinum-relative-mode)
+(setq nlinum-relative-redisplay-delay 0.1)      ;; delay
+(setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
+(setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
 
 ;;Packages
 ;;========
@@ -340,9 +357,12 @@
   (flx-ido-mode t))
 
 ;;Flycheck
+
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-global-modes '(not org-mode))
+
+;; (dolist (hook '(text-mode-hook))
+;;   (add-hook hook (lambda () (flyspell-mode 1))))
 
 ;; disable jshint since we prefer eslint checking
 (setq-default flycheck-disabled-checkers
@@ -657,7 +677,8 @@
 
 ;;Misc
 ;;====
-;;Hunspell is in /usr/local/bin, so needs to be after that setenv
+
+;; Hunspell
 (when (executable-find "hunspell")
   (setq-default ispell-program-name "hunspell")
   (setq ispell-really-hunspell t))
