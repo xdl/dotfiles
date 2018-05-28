@@ -33,7 +33,7 @@
 (set-fringe-style 4)
 
 ;;usable light color scheme
-;;(load-theme 'whiteboard)
+;; (load-theme 'whiteboard)
 
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized))))) ;; start maximised
@@ -360,9 +360,8 @@
 
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-
-;; (dolist (hook '(text-mode-hook))
-;;   (add-hook hook (lambda () (flyspell-mode 1))))
+;; Flycheck overrides some timestamping keybindings of orgmode - hence disabling
+(setq flycheck-global-modes '(not org-mode))
 
 ;; disable jshint since we prefer eslint checking
 (setq-default flycheck-disabled-checkers
@@ -510,9 +509,9 @@
   :config
   (smartparens-global-mode t))
 
-(use-package evil-smartparens
-  :init
-  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
+;; (use-package evil-smartparens
+;;   :init
+;;   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
 
 ;;Projectile
 ;;----------
@@ -713,11 +712,15 @@
 
 ;;rtags
 (use-package rtags
-  :defer t
   :config
   (progn
     (rtags-enable-standard-keybindings)
     (evil-define-key 'normal c-mode-base-map (kbd "gd") 'rtags-find-symbol-at-point)
     (evil-define-key 'normal c-mode-base-map (kbd "gi") 'rtags-symbol-info)
     (evil-define-key 'normal c-mode-base-map (kbd "gs") 'rtags-display-summary)
-    (evil-define-key 'normal c-mode-base-map (kbd "go") 'rtags-location-stack-back)))
+    (evil-define-key 'normal c-mode-base-map (kbd "go") 'rtags-location-stack-back)
+    (use-package company-rtags
+      :config
+      (progn
+        (setq rtags-completions-enabled t)
+        (push 'company-rtags company-backends)))))

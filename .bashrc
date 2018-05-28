@@ -17,6 +17,8 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 
+export PATH="~/.emacs.d/elpa/rtags-20180520.1327/rtags-2.18/bin:$PATH"
+
 # 256 terminal colours
 if [ -n "$DISPLAY" -a "$TERM" == "xterm" ]; then
     export TERM=xterm-256color
