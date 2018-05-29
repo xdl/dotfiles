@@ -710,6 +710,7 @@
   :config
   (editorconfig-mode 1))
 
+;; http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html
 ;;rtags
 (use-package rtags
   :config
@@ -718,9 +719,42 @@
     (evil-define-key 'normal c-mode-base-map (kbd "gd") 'rtags-find-symbol-at-point)
     (evil-define-key 'normal c-mode-base-map (kbd "gi") 'rtags-symbol-info)
     (evil-define-key 'normal c-mode-base-map (kbd "gs") 'rtags-display-summary)
-    (evil-define-key 'normal c-mode-base-map (kbd "go") 'rtags-location-stack-back)
-    (use-package company-rtags
-      :config
-      (progn
-        (setq rtags-completions-enabled t)
-        (push 'company-rtags company-backends)))))
+    (evil-define-key 'normal c-mode-base-map (kbd "go") 'rtags-location-stack-back)))
+
+;; This literally isn't autocompleting anything
+;; (use-package company-rtags
+;;   :config
+;;   (progn
+;;     (setq rtags-autostart-diagnostics t)
+;;     (rtags-diagnostics)
+;;     (setq rtags-completions-enabled t)
+;;     (push 'company-rtags company-backends)
+;;     ))
+
+;; Irony
+(use-package irony
+  :config
+  (progn
+    ;; If irony server was never installed, install it.
+    (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    ;; Use compilation database first, clang_complete as fallback.
+    (setq-default irony-cdb-compilation-databases '(irony-cdb-libclang
+                                                      irony-cdb-clang-complete))
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+    ))
+
+;; (use-package company-irony-c-headers)
+
+(use-package company-irony
+ :config
+ (progn
+   (eval-after-load 'company '(add-to-list 'company-backends
+                                           ;; '(company-irony-c-headers company-irony)))))
+                                           '(company-irony)))))
+
+(use-package irony-eldoc
+  :config
+  (progn
+    (add-hook 'irony-mode-hook #'irony-eldoc)))

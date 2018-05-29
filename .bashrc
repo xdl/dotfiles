@@ -17,6 +17,7 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 
+# Emacs rtags
 export PATH="~/.emacs.d/elpa/rtags-20180520.1327/rtags-2.18/bin:$PATH"
 
 # 256 terminal colours
@@ -35,3 +36,7 @@ source ~/git-completion.bash
 
 alias vlc="/Applications/VLC.app/Contents/MacOS/VLC"
 alias lilypond="/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
+
+# For clang
+export CC=/usr/local/opt/llvm/bin/clang
+export CXX=/usr/local/opt/llvm/bin/clang++
