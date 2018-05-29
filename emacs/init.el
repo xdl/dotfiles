@@ -746,6 +746,10 @@
     ))
 
 ;; (use-package company-irony-c-headers)
+(use-package flycheck-irony
+  :config
+  (progn
+    (eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))))
 
 (use-package company-irony
  :config
