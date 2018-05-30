@@ -1,3 +1,4 @@
 # name: link
+# key: yy
 # --
 [$1](${2:`(current-kill 0)`})$0

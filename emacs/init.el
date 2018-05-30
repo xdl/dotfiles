@@ -347,14 +347,14 @@
 ;;-----
 ;;use flx ido for buffer switching
 ;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
-(require 'ido)
-(ido-mode t)
-(ido-everywhere t)
+;; (require 'ido)
+;; (ido-mode t)
+;; (ido-everywhere t)
 
-(use-package flx-ido
-  :ensure t
-  :config
-  (flx-ido-mode t))
+;; (use-package flx-ido
+;;   :ensure t
+;;   :config
+;;   (flx-ido-mode t))
 
 ;;Flycheck
 
