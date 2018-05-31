@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: e
+# key: e
+# --
+echo "$1"
+$0
