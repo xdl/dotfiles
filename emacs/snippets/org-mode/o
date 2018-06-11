@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: o
+# key: o
+# --
+#+OPTIONS: $1
+$0

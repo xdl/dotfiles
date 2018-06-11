@@ -250,13 +250,14 @@
     ("\C-x \C-n" . evil-complete-next-line)
     ("\C-x \C-p" . evil-complete-previous-line)
     ("\C-t" . evil-shift-right-line) ;;tempted to disable this pair as well
-    ("\C-d" . evil-shift-left-line)
+    ;; ("\C-d" . evil-shift-left-line)
     ;; ("\C-a" . move-beginning-of-line)
     ("\C-w" . evil-delete-backward-word)))
 
 ;; Can't seem to redefine these in evil-insert-state-bindings, so doing them here
 (define-key evil-insert-state-map "\C-e" 'move-end-of-line)
 (define-key evil-insert-state-map "\C-a" 'move-beginning-of-line)
+(define-key evil-insert-state-map "\C-d" 'delete-char)
 
 (require 'evil)
 (evil-mode 1)
@@ -565,7 +566,10 @@
 
 ;; js2-mode
 ;; --------
-(require 'js2-mode)
+;; (require 'js2-mode)
+;; Using js2-mode with flow fork
+(load "~/dev/js2-mode/js2-mode.el")
+(js2-mode)
 (setq-default js2-strict-missing-semi-warning nil)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
@@ -597,8 +601,12 @@
 (setq-default indent-tabs-mode nil)
 
 ;; JSX
+;; (use-package rjsx-mode
+;;   :mode (("App.js" . rjsx-mode)
+;;          ("\\(components\\|containers\\)\\/.*\\.js\\'" . rjsx-mode)))
+
 (use-package rjsx-mode
-  :mode (("\\(components\\|containers\\)\\/.*\\.js\\'" . rjsx-mode)))
+  :mode (("\\.js\\'" . rjsx-mode)))
 
 ;; Tide (TS, TSX)
 (require 'tide)
