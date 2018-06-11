@@ -4,6 +4,9 @@ case $- in
       *) return;;
 esac
 
+HISTSIZE=2000
+HISTFILESIZE=2000
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
