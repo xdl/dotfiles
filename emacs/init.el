@@ -217,6 +217,7 @@
   "a" 'projectile-ag
   "b" 'helm-filtered-bookmarks
   "c" 'org-capture
+  "d" 'magit-log-buffer-file
   "e" 'eyebrowse-print-mode-line-indicator
   "f" 'projectile-find-file
   "h" 'helm-apropos
