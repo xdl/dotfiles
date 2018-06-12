@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: sh-header-arg
+# key: sh 
+# --
+#+PROPERTY: header-args:sh :dir `(current-kill 0)`$1 :results drawer
+$0
