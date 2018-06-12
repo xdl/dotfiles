@@ -142,16 +142,10 @@
 ;;http://www-users.cs.umn.edu/~gini/1901-07s/emacs_scheme/
 (set-variable (quote scheme-program-name) "racket")
 
-;;Misc
-;;====
+;;Misc/Scrap
+;;==========
 (add-to-list 'load-path "~/dotfiles/emacs/config")
 (require 'ob-foobar)
-
-;; (defun reload-ob-foobar ()
-;;   "Reloads foobar for iterative development"
-;;   (interactive)
-;;   (unload-feature 'ob-foobar)
-;;   (require 'ob-foobar))
 
 (defun reload-ob-foobar ()
   "Reloads foobar for iterative development"
@@ -166,6 +160,15 @@
   (progn
     (unload-feature 'ob-foobar 'force)
     (require 'ob-core)))
+
+(add-to-list 'load-path "/Volumes/SecondarySSD/dev/zz-haxe/haxemacs")
+(defun reload-haxemacs ()
+  "Reloads haxemacs for iterative development"
+  (interactive)
+  (progn
+    (unload-feature 'haxemacs 'force)
+    (require 'haxemacs)))
+(require 'haxemacs)
 
 ;;Misc functions
 ;;==============
@@ -342,7 +345,8 @@
   (use-package helm-config)
   (setq helm-move-to-line-cycle-in-source t
         helm-ff-file-name-history-use-recentf t)
-  (helm-mode 1))
+  (helm-mode 1)
+  (helm-adaptive-mode 1))
 
 ;; Using Helm command completion instead of default
 
