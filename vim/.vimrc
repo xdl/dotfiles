@@ -589,7 +589,7 @@ autocmd FileType markdown :silent! call SyntaxRange#Include('```sh', '```', 'sh'
 
 "VlcDrill
 "----------------------------
-let g:vlcdrill#annotation#path = "~/dev/ketones/songs/rihanna/good_girl_gone_bad_youtube.json"
+let g:vlcdrill#annotation#path = "/Users/xiaodili/dev/ketones/scripts/annotations.json"
 nnoremap <leader>vds :VlcDrillShow<CR>
 nnoremap <leader>vdl :VlcDrillLoadAnnotation<CR>
 
