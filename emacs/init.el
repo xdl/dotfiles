@@ -113,6 +113,12 @@
 (add-hook 'arduino-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'org-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
+
+;; For Chinese input
+;; https://stackoverflow.com/questions/6344389/osx-emacs-unbind-just-the-right-alt
+;; http://pinpinchinese.com/blog/how-to-type-pinyin-tone-marks-mac-os-x-yosemite/
+(setq mac-right-option-modifier nil)
+
 ;;Packages
 ;;========
 (unless (package-installed-p 'use-package)

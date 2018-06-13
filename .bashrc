@@ -43,3 +43,9 @@ alias lilypond="/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
 # For clang
 export CC=/usr/local/opt/llvm/bin/clang
 export CXX=/usr/local/opt/llvm/bin/clang++
+
+# For React Native (Android build)
+export ANDROID_HOME=/Volumes/SecondarySSD/library/android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
