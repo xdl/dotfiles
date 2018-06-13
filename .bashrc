@@ -8,9 +8,7 @@ HISTSIZE=2000
 HISTFILESIZE=2000
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias l='ls -lAFh' # hidden files, omit . and .. entries, append slashes to directories etc., human readable sizes
 
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
