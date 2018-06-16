@@ -350,15 +350,18 @@
   :config
   (use-package helm-config)
   (setq helm-move-to-line-cycle-in-source t
-        helm-ff-file-name-history-use-recentf t)
+        helm-ff-file-name-history-use-recentf t
+        helm-mode-fuzzy-match t
+        helm-candidate-number-limit 100)
   (helm-mode 1)
+  (helm-flx-mode +1)
   (helm-adaptive-mode 1))
 
 ;; Using Helm command completion instead of default
 
 ;;-----
 ;;use flx ido for buffer switching
-;;http://ergoemacs.org/emacs/emacs_buffer_switching.html
+;; http://ergoemacs.org/emacs/emacs_buffer_switching.html
 ;; (require 'ido)
 ;; (ido-mode t)
 ;; (ido-everywhere t)
@@ -579,8 +582,10 @@
 ;; --------
 ;; (require 'js2-mode)
 ;; Using js2-mode with flow fork
+
 (load "~/dev/js2-mode/js2-mode.el")
 (js2-mode)
+
 (setq-default js2-strict-missing-semi-warning nil)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 

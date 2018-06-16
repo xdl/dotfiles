@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: sdir
+# key: sdir
+# --
+scriptDir = os.path.realpath(__file__)
+$0

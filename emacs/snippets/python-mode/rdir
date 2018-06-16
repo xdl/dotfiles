@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rdir
+# key: rdir
+# --
+rootDir = os.path.dirname(os.path.dirname(scriptDir))

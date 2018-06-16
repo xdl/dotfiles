@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rdir
+# key: rdir
+# --
+ROOT_DIR=$( dirname $SCRIPT_DIR)
+$0

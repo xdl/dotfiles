@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rdir
+# key: rdir
+# --
+rootDir = path.join(__dirname, '..')
+$0
