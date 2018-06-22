@@ -148,34 +148,6 @@
 ;;http://www-users.cs.umn.edu/~gini/1901-07s/emacs_scheme/
 (set-variable (quote scheme-program-name) "racket")
 
-;;Misc/Scrap
-;;==========
-(add-to-list 'load-path "~/dotfiles/emacs/config")
-(require 'ob-foobar)
-
-(defun reload-ob-foobar ()
-  "Reloads foobar for iterative development"
-  (interactive)
-  (progn
-    (unload-feature 'ob-foobar 'force)
-    (require 'ob-foobar)))
-
-(defun reload-ob-core ()
-  "Reloads ob-core for iterative development"
-  (interactive)
-  (progn
-    (unload-feature 'ob-foobar 'force)
-    (require 'ob-core)))
-
-(add-to-list 'load-path "/Volumes/SecondarySSD/dev/zz-haxe/haxemacs")
-(defun reload-haxemacs ()
-  "Reloads haxemacs for iterative development"
-  (interactive)
-  (progn
-    (unload-feature 'haxemacs 'force)
-    (require 'haxemacs)))
-(require 'haxemacs)
-
 ;;Misc functions
 ;;==============
 
@@ -408,6 +380,24 @@
 
 ;;Orgmode
 ;;-------
+;;Scrap/misc
+(add-to-list 'load-path "~/dotfiles/emacs/config")
+(require 'ob-foobar)
+
+(defun reload-ob-foobar ()
+  "Reloads foobar for iterative development"
+  (interactive)
+  (progn
+    (unload-feature 'ob-foobar 'force)
+    (require 'ob-foobar)))
+
+(defun reload-ob-core ()
+  "Reloads ob-core for iterative development"
+  (interactive)
+  (progn
+    (unload-feature 'ob-foobar 'force)
+    (require 'ob-core)))
+
 
 ;;from David O'Toole's tutorial: http://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
 (use-package org
@@ -604,7 +594,7 @@
 
 ;; web-mode
 (require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 ;; adjust indents for web-mode to 2 spaces
 (defun my-web-mode-hook ()
   "Hooks for Web mode. Adjust indents"
@@ -786,3 +776,50 @@
   :config
   (progn
     (add-hook 'irony-mode-hook #'irony-eldoc)))
+
+;; Cider
+
+(use-package cider
+  :config
+  (helm-cider-mode 1))
+
+;;Misc/Scrap
+;;==========
+(add-to-list 'load-path "/Volumes/SecondarySSD/dev/zz-haxe/haxemacs/test")
+(add-to-list 'load-path "/Volumes/SecondarySSD/dev/zz-haxe/haxemacs/src")
+(defun reload-haxe-mode ()
+  "Reloads haxe-mode for iterative development"
+  (interactive)
+  (progn
+    (if (fboundp 'haxe-mode)
+        (unload-feature 'haxe-mode 'force))
+    (if (fboundp 'funda-haxe-mode)
+        (unload-feature 'funda-haxe-mode 'force))
+    (require 'haxe-mode)
+    (revert-buffer t t)))
+(require 'haxe-mode)
+(require 'run-tests)
+
+(defun reload-company-haxe ()
+  "Reloads company-haxe for iterative development"
+  (interactive)
+  (progn
+    (if (fboundp 'funda-haxe-mode)
+        (unload-feature 'funda-haxe-mode 'force))
+    (setq company-backends (remove 'company-haxe-backend company-backends))
+    (unload-feature 'company-haxe 'force)
+    (require 'company-haxe)))
+(require 'company-haxe)
+
+(add-to-list 'load-path "/Volumes/SecondarySSD/dev/third_party/funda-haxe-mode")
+(defun reload-funda-haxe-mode ()
+  "Reloads funda-haxe-mode for iterative development"
+  (interactive)
+  (progn
+    (if (fboundp 'haxemacs)
+        (unload-feature 'haxemacs 'force))
+    (if (fboundp 'funda-haxe-mode)
+        (unload-feature 'funda-haxe-mode 'force))
+    (require 'funda-haxe-mode)
+    (revert-buffer t t)))
+;; (require 'funda-haxe-mode)
