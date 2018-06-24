@@ -161,6 +161,15 @@
     (shell-command "killall SystemUIServer")
     (message "New location set to %s" new-directory)))
 
+;; https://stackoverflow.com/a/44489067/1010076
+(defun show-copy-buffer-path ()
+  "Show and copy the full path to the current file in the minibuffer."
+  (interactive)
+  (let ((file-name (or (buffer-file-name) list-buffers-directory)))
+    (if file-name
+        (message "%s copied to clipboard" (kill-new file-name))
+      (error "Buffer not visiting a file"))))
+
 ;; (global-display-line-numbers-mode t)
 ;; (setq display-line-numbers 'relative)
 ;; (global-linum-mode 1)
@@ -207,8 +216,8 @@
   "l" 'helm-buffers-list
   "t" 'treemacs
   "p" 'projectile-switch-project
-  "s" 'save-buffer
-  "w" 'save-buffer)
+  "w" 'save-buffer
+  "y" 'show-copy-buffer-path)
 
 (use-package evil-numbers
   :requires evil
@@ -570,11 +579,11 @@
 
 ;; js2-mode
 ;; --------
-;; (require 'js2-mode)
-;; Using js2-mode with flow fork
+(require 'js2-mode)
 
-(load "~/dev/js2-mode/js2-mode.el")
-(js2-mode)
+;; Using js2-mode with flow fork (Temporary React Native solution)
+;; (load "~/dev/js2-mode/js2-mode.el")
+;; (js2-mode)
 
 (setq-default js2-strict-missing-semi-warning nil)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
@@ -590,7 +599,8 @@
 
 ;; Indium
 (use-package indium
-  :defer t)
+  :hook
+  (js-mode . indium-interaction-mode))
 
 ;; web-mode
 (require 'web-mode)
