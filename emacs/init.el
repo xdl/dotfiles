@@ -287,7 +287,7 @@
     (use-package treemacs-evil
       :ensure t)
     (setq treemacs-follow-after-init t
-          treemacs-change-root-without-asking t)
+          treemacs-git-mode 'simple)
     (treemacs-follow-mode t)
     (global-set-key (kbd "M-L") (lambda ()
                                   (interactive)
