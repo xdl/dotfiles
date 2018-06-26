@@ -807,8 +807,7 @@
         (unload-feature 'funda-haxe-mode 'force))
     (require 'haxe-mode)
     (revert-buffer t t)))
-(require 'haxe-mode)
-(require 'run-tests)
+;; (require 'haxe-mode)
 
 (defun reload-company-haxe ()
   "Reloads company-haxe for iterative development"
@@ -820,6 +819,18 @@
     (unload-feature 'company-haxe 'force)
     (require 'company-haxe)))
 (require 'company-haxe)
+
+(defun rerun-haxe-tests ()
+  "Reloads haxemacs-completion and re-runs the tests for it."
+  (interactive)
+  (progn
+    (when (featurep 'run-tests)
+      (unload-feature 'run-tests 'force))
+    (when (featurep 'haxe-completion)
+      (unload-feature 'haxe-completion 'force))
+    (require 'run-tests)
+    (ert t)))
+(require 'run-tests)
 
 (add-to-list 'load-path "/Volumes/SecondarySSD/dev/third_party/funda-haxe-mode")
 (defun reload-funda-haxe-mode ()
@@ -833,3 +844,6 @@
     (require 'funda-haxe-mode)
     (revert-buffer t t)))
 ;; (require 'funda-haxe-mode)
+
+;; (add-to-list 'load-path "~/dev/third_party/haxe-complete")
+;; (require 'haxe-complete)
