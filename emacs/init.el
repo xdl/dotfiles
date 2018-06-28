@@ -304,6 +304,13 @@
   (eyebrowse-mode t)
   (eyebrowse-setup-opinionated-keys))
 
+;;Perspective
+;;-----------
+;; (use-package perspective
+;;   :config
+;;   (persp-mode)
+;;   (use-package persp-projectile))
+
 ;;Magit
 ;;-----
 (use-package magit
@@ -801,22 +808,25 @@
   "Reloads haxe-mode for iterative development"
   (interactive)
   (progn
-    (if (fboundp 'haxe-mode)
+    (if (featurep 'haxe-mode)
         (unload-feature 'haxe-mode 'force))
-    (if (fboundp 'funda-haxe-mode)
+    (if (featurep 'funda-haxe-mode)
         (unload-feature 'funda-haxe-mode 'force))
     (require 'haxe-mode)
     (revert-buffer t t)))
-;; (require 'haxe-mode)
+(require 'haxe-mode)
 
 (defun reload-company-haxe ()
   "Reloads company-haxe for iterative development"
   (interactive)
   (progn
-    (if (fboundp 'funda-haxe-mode)
+    (if (featurep 'funda-haxe-mode)
         (unload-feature 'funda-haxe-mode 'force))
     (setq company-backends (remove 'company-haxe-backend company-backends))
-    (unload-feature 'company-haxe 'force)
+    (if (featurep 'company-haxe)
+        (unload-feature 'company-haxe 'force))
+    (if (featurep 'haxe-completion)
+        (unload-feature 'haxe-completion 'force))
     (require 'company-haxe)))
 (require 'company-haxe)
 
@@ -828,6 +838,7 @@
       (unload-feature 'run-tests 'force))
     (when (featurep 'haxe-completion)
       (unload-feature 'haxe-completion 'force))
+    (ert-delete-all-tests)
     (require 'run-tests)
     (ert t)))
 (require 'run-tests)
@@ -837,9 +848,9 @@
   "Reloads funda-haxe-mode for iterative development"
   (interactive)
   (progn
-    (if (fboundp 'haxemacs)
+    (if (featurep 'haxemacs)
         (unload-feature 'haxemacs 'force))
-    (if (fboundp 'funda-haxe-mode)
+    (if (featurep 'funda-haxe-mode)
         (unload-feature 'funda-haxe-mode 'force))
     (require 'funda-haxe-mode)
     (revert-buffer t t)))
