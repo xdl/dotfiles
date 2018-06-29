@@ -245,10 +245,17 @@
     ;; ("\C-a" . move-beginning-of-line)
     ("\C-w" . evil-delete-backward-word)))
 
+(defun evil-escape-and-save ()
+  "Back to normal mode, then save."
+  (interactive)
+  (evil-normal-state)
+  (save-buffer))
+
 ;; Can't seem to redefine these in evil-insert-state-bindings, so doing them here
 (define-key evil-insert-state-map "\C-e" 'move-end-of-line)
 (define-key evil-insert-state-map "\C-a" 'move-beginning-of-line)
 (define-key evil-insert-state-map "\C-d" 'delete-char)
+(define-key evil-insert-state-map "\C-s" 'evil-escape-and-save)
 
 (require 'evil)
 (evil-mode 1)
@@ -511,6 +518,7 @@
    ("C-M-f" . sp-forward-sexp)
    ("C-M-b" . sp-backward-sexp)
 
+   ;; Forwards
    ("C-M-d" . sp-down-sexp)
    ("C-M-e" . sp-up-sexp)
 
@@ -524,7 +532,10 @@
    ("M-]" . sp-unwrap-sexp)
 
    ("C-M-k" . sp-kill-sexp)
-   ("M-k" . sp-kill-hybrid-sexp)))
+   ("M-k" . sp-kill-hybrid-sexp)
+
+   ;; Binding shadows transpose-sexps
+   ("C-M-t" . sp-transpose-sexp)))
 
 (use-package smartparens-config
   :config
@@ -572,10 +583,17 @@
 
 ;; Company-mode
 ;; ------------
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-(define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+(use-package company
+  :ensure t
+  :init
+  (global-company-mode)
+  :config
+  (setq company-selection-wrap-around t)
+  (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+  ;; remap off C-w to stop conflict with evil-delete-backward-word
+  (define-key company-active-map (kbd "C-w") nil)
+  (define-key company-active-map (kbd "C-l") 'company-show-location))
 
 ;; Company-tern
 (require 'company-tern)
@@ -803,9 +821,11 @@
 ;;Misc/Scrap
 ;;==========
 (add-to-list 'load-path "/Volumes/SecondarySSD/dev/zz-haxe/haxemacs/test")
+
+;; For the test suite
 (add-to-list 'load-path "/Volumes/SecondarySSD/dev/zz-haxe/haxemacs/src")
 (defun reload-haxe-mode ()
-  "Reloads haxe-mode for iterative development"
+  "Reloads haxe-mode for iterative development."
   (interactive)
   (progn
     (if (featurep 'haxe-mode)
@@ -817,11 +837,9 @@
 (require 'haxe-mode)
 
 (defun reload-company-haxe ()
-  "Reloads company-haxe for iterative development"
+  "Reloads company-haxe for iterative development."
   (interactive)
   (progn
-    (if (featurep 'funda-haxe-mode)
-        (unload-feature 'funda-haxe-mode 'force))
     (setq company-backends (remove 'company-haxe-backend company-backends))
     (if (featurep 'company-haxe)
         (unload-feature 'company-haxe 'force))
@@ -830,8 +848,19 @@
     (require 'company-haxe)))
 (require 'company-haxe)
 
+(defun reload-haxe-eldoc ()
+  "Reloads haxe-eldoc for iterative development."
+  (interactive)
+  (progn
+    (if (featurep 'haxe-eldoc)
+        (unload-feature 'haxe-eldoc 'force))
+    (if (featurep 'haxe-completion)
+        (unload-feature 'haxe-completion 'force))
+    (require 'haxe-eldoc)))
+(require 'haxe-eldoc)
+
 (defun rerun-haxe-tests ()
-  "Reloads haxemacs-completion and re-runs the tests for it."
+  "Reloads haxemacs-completion and re-runs the test suite for it."
   (interactive)
   (progn
     (when (featurep 'run-tests)
@@ -845,7 +874,7 @@
 
 (add-to-list 'load-path "/Volumes/SecondarySSD/dev/third_party/funda-haxe-mode")
 (defun reload-funda-haxe-mode ()
-  "Reloads funda-haxe-mode for iterative development"
+  "Reloads funda-haxe-mode for iterative development."
   (interactive)
   (progn
     (if (featurep 'haxemacs)
@@ -855,6 +884,3 @@
     (require 'funda-haxe-mode)
     (revert-buffer t t)))
 ;; (require 'funda-haxe-mode)
-
-;; (add-to-list 'load-path "~/dev/third_party/haxe-complete")
-;; (require 'haxe-complete)
