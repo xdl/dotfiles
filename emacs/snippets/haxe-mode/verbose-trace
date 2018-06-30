@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: verbose-trace
+# key: tt
+# --
+trace('$1:', $1);
+$0

@@ -588,7 +588,8 @@
   :init
   (global-company-mode)
   :config
-  (setq company-selection-wrap-around t)
+  (setq company-selection-wrap-around t
+        company-show-numbers t)
   (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
   (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
   ;; remap off C-w to stop conflict with evil-delete-backward-word
