@@ -174,6 +174,7 @@
 ;; (setq display-line-numbers 'relative)
 ;; (global-linum-mode 1)
 
+(require 'thingatpt)
 ;;Relative numbers
 ;;----------------
 (require 'nlinum-relative)
@@ -198,6 +199,18 @@
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
+(defun leader-replace-symbol ()
+  (interactive)
+  (let ((to-replace (thing-at-point 'symbol)))
+    (setq unread-command-events
+          (listify-key-sequence (format ":s/%s/" to-replace)))))
+
+(defun leader-replace-word ()
+  (interactive)
+  (let ((to-replace (thing-at-point 'word)))
+    (setq unread-command-events
+          (listify-key-sequence (format ":s/%s/" to-replace)))))
+
 ;;Evil Leader
 (require 'evil-leader)
 ;;--------------------
@@ -214,8 +227,10 @@
   "F" 'projectile-find-file-in-known-projects
   "g" 'magit-status
   "l" 'helm-buffers-list
-  "t" 'treemacs
+  "rs" 'leader-replace-symbol
+  "rw" 'leader-replace-word
   "p" 'projectile-switch-project
+  "t" 'treemacs
   "w" 'save-buffer
   "y" 'show-copy-buffer-path)
 
@@ -250,6 +265,9 @@
   (interactive)
   (evil-normal-state)
   (save-buffer))
+
+;; Unbind C-a from evil-ex-completion; can (use C-l, C-d or TAB instead)
+(define-key evil-ex-completion-map "\C-a" nil)
 
 ;; Can't seem to redefine these in evil-insert-state-bindings, so doing them here
 (define-key evil-insert-state-map "\C-e" 'move-end-of-line)
@@ -295,7 +313,6 @@
       :ensure t)
     (setq treemacs-follow-after-init t
           treemacs-git-mode 'simple)
-    (treemacs-follow-mode t)
     (global-set-key (kbd "M-L") (lambda ()
                                   (interactive)
                                   (treemacs-find-file)
