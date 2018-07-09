@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: private-var
+# key: pr
+# --
+private var $1: ${1:$(capitalize yas-text)}$0;

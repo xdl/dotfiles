@@ -231,7 +231,6 @@
   "rw" 'leader-replace-word
   "p" 'projectile-switch-project
   "t" 'treemacs
-  "w" 'save-buffer
   "y" 'show-copy-buffer-path)
 
 (use-package evil-numbers
@@ -282,6 +281,8 @@
 (evil-set-initial-state 'sldb-mode 'emacs)
 (evil-set-initial-state 'treemacs-mode 'emacs)
 (setq evil-move-cursor-back nil)
+(define-key evil-normal-state-map "\C-s" 'save-buffer)
+
 
 ;;evil-surround
 ;;-------------
@@ -311,7 +312,7 @@
       :ensure t)
     (use-package treemacs-evil
       :ensure t)
-    (setq treemacs-follow-after-init t
+    (setq treemacs-follow-mode nil
           treemacs-git-mode 'simple)
     (global-set-key (kbd "M-L") (lambda ()
                                   (interactive)
