@@ -231,6 +231,7 @@
   "rw" 'leader-replace-word
   "p" 'projectile-switch-project
   "t" 'treemacs
+  "w" 'save-buffer
   "y" 'show-copy-buffer-path)
 
 (use-package evil-numbers
@@ -543,7 +544,7 @@
    ("C-M-a" . sp-backward-up-sexp)
    ("C-M-u" . sp-backward-down-sexp)
 
-   ("C-)" . sp-forward-slurp-sexp)
+   ("C-)" . sp-slurp-hybrid-sexp)
    ("C-}" . sp-forward-barf-sexp)
 
    ("M-[" . sp-backward-unwrap-sexp)

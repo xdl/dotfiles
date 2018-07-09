@@ -1,0 +1,8 @@
+
+# -*- mode: snippet -*-
+# name: private-class
+# key: prc
+# --
+private class ${1:name} $2 {
+$0
+}
