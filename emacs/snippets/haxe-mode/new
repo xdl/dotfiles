@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new
+# key: pfn
+# --
+public function new($1) {
+$0
+}

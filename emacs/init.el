@@ -247,7 +247,7 @@
 (defvar evil-insert-state-bindings
   '(("\C-v" . quoted-insert)
     ("\C-k" . evil-insert-digraph)
-    ("\C-o" . evil-execute-in-normal-state)
+    ;; ("\C-o" . evil-execute-in-normal-state)
     ("\C-r" . evil-paste-from-register)
     ("\C-y" . evil-copy-from-above)
     ;; ("\C-e" . move-end-of-line)
@@ -274,6 +274,8 @@
 (define-key evil-insert-state-map "\C-a" 'move-beginning-of-line)
 (define-key evil-insert-state-map "\C-d" 'delete-char)
 (define-key evil-insert-state-map "\C-s" 'evil-escape-and-save)
+;; Seems like I only use C-o for this
+(define-key evil-insert-state-map "\C-o" 'evil-open-above)
 
 (require 'evil)
 (evil-mode 1)
