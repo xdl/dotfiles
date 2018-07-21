@@ -215,16 +215,18 @@
 (require 'evil-leader)
 ;;--------------------
 (global-evil-leader-mode)
-(evil-leader/set-leader "<SPC>")
+(evil-leader/set-leader ",")
 (evil-leader/set-key
+  "," 'evil-repeat-find-char-reverse
   "a" 'projectile-ag
   "b" 'helm-filtered-bookmarks
-  "c" 'org-capture
+  "c" 'comment-line
   "d" 'magit-log-buffer-file
   "e" 'eyebrowse-print-mode-line-indicator
-  "f" 'projectile-find-file
+  ;; "f" 'projectile-find-file
+  ;; "F" 'projectile-find-file-in-known-projects
+  "f" 'projectile-find-file-in-known-projects
   "h" 'helm-apropos
-  "F" 'projectile-find-file-in-known-projects
   "g" 'magit-status
   "l" 'helm-buffers-list
   "rs" 'leader-replace-symbol
@@ -546,7 +548,7 @@
    ("C-M-a" . sp-backward-up-sexp)
    ("C-M-u" . sp-backward-down-sexp)
 
-   ("C-)" . sp-slurp-hybrid-sexp)
+   ("C-)" . sp-forward-slurp-sexp)
    ("C-}" . sp-forward-barf-sexp)
 
    ("M-[" . sp-backward-unwrap-sexp)
