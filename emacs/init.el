@@ -226,6 +226,7 @@
   ;; "f" 'projectile-find-file
   ;; "F" 'projectile-find-file-in-known-projects
   "f" 'projectile-find-file-in-known-projects
+  "F" 'projectile-find-file
   "h" 'helm-apropos
   "g" 'magit-status
   "l" 'helm-buffers-list

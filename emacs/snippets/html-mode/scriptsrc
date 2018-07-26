@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: scriptsrc
-# key: sc
+# key: src
 # --
 <script type="text/javascript" src="$1"></script>
 $0
