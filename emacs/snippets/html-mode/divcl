@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: divcl
+# key: divcl
+# --
+<div class="$1">$2</div>$0
