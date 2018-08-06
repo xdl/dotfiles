@@ -102,6 +102,7 @@
       `((".*" ,temporary-file-directory t)))
 
 (setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'meta)
 
 ;;Tramp
 ;;https://www.emacswiki.org/emacs/TrampMode
