@@ -319,7 +319,7 @@
       :ensure t)
     (use-package treemacs-evil
       :ensure t)
-    (setq treemacs-follow-mode nil
+    (setq treemacs-follow-mode t
           treemacs-git-mode 'simple)
     (global-set-key (kbd "M-L") (lambda ()
                                   (interactive)
