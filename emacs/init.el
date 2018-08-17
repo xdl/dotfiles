@@ -104,6 +104,9 @@
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier 'meta)
 
+;; disable killing to system clipboard by default
+(setq select-enable-clipboard nil)
+
 ;;Tramp
 ;;https://www.emacswiki.org/emacs/TrampMode
 (setq tramp-default-method "ssh")
@@ -134,8 +137,11 @@
 
 ;;Javascript
 ;;==========
-
 (setq js-indent-level 2)
+
+;;R
+(use-package ess)
+(setq ess-indent-offset 2)
 
 ;;Lisp Development
 ;;================
