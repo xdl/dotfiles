@@ -54,6 +54,9 @@
 (global-set-key (kbd "<f2>") 'copy-to-system-clipboard)
 (global-set-key (kbd "<f3>") 'paste-from-system-clipboard)
 
+;; Remapping from kill-region, which doesn't seem to be useful
+(define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word)
+
 (defun paste-from-system-clipboard ()
   (interactive)
   "Paste system clipboard contents at current point."
@@ -265,6 +268,10 @@
   "h" 'helm-apropos
   "g" 'magit-status
   "l" 'helm-buffers-list
+  "n" 'treemacs ;; Like NERDTree
+  "sc" 'send-to-tmux/set-config
+  "sd" 'send-to-tmux/get-difference
+  "ss" 'send-to-tmux/send-snippet
   "rs" 'leader-replace-symbol
   "rw" 'leader-replace-word
   "p" 'projectile-switch-project
