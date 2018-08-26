@@ -128,8 +128,11 @@
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier 'meta)
 
+(add-to-list 'load-path "~/dotfiles/emacs")
+(require 'send-to-tmux)
+
 ;; disable killing to system clipboard by default
-(setq select-enable-clipboard t)
+;; (setq select-enable-clipboard nil)
 
 ;;Tramp
 ;;https://www.emacswiki.org/emacs/TrampMode

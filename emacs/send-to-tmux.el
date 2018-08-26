@@ -8,6 +8,10 @@
     (format "%s\n" (string-trim contents))
     ))
 
+(defun send-to-tmux/postprocess-difference-result (diff)
+  "Add a leading newline to DIFF before giving it back."
+  (format "\n%s" diff))
+
 ;; https://emacs.stackexchange.com/questions/34283/percentage-in-format-string
 ;; https://stackoverflow.com/a/12524345
 (defun send-to-tmux/line-length-cmd ()
@@ -36,6 +40,7 @@
           n
           (- n (nth 2 send-to-tmux/config))))
 
+;; Functions to be exposed
 (defun send-to-tmux/get-difference ()
   "Get difference of command."
   (interactive)
@@ -43,7 +48,11 @@
           (string-to-number
            (shell-command-to-string (send-to-tmux/line-length-cmd))))
          (difference (- current-pane-length send-to-tmux/last-known-pane-length)))
-    (insert (shell-command-to-string (send-to-tmux/get-last-n-lines-cmd difference)))))
+    (save-excursion
+      (end-of-line)
+      (insert (send-to-tmux/postprocess-difference-result
+               (shell-command-to-string
+                (send-to-tmux/get-last-n-lines-cmd difference)))))))
 
 (defun send-to-tmux/send-snippet ()
   "Send snippet to tmux."
@@ -79,3 +88,6 @@
                                     new-pane
                                     (string-to-number new-diff-truncate)))
     (message "tmux config set to: %s" (prin1-to-string send-to-tmux/config))))
+
+(provide 'send-to-tmux)
+
