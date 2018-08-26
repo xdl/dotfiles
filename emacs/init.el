@@ -53,6 +53,29 @@
 (global-set-key [(control h)]  'windmove-left)
 (global-set-key [(control l)]  'windmove-right)
 
+(global-set-key (kbd "<f2>") 'copy-to-system-clipboard)
+(global-set-key (kbd "<f3>") 'paste-from-system-clipboard)
+
+(defun paste-from-system-clipboard ()
+  (interactive)
+  "Paste system clipboard contents at current point."
+  (shell-command "pbpaste" 1)
+  (message "system clipboard pasted"))
+
+(defun copy-to-system-clipboard ()
+  (interactive)
+  "Copy region (or buffer if no region selected) to the system clipboard."
+  (if (use-region-p)
+      (progn
+        (shell-command-on-region (region-beginning) (region-end) "pbcopy")
+        (deactivate-mark)
+        (message "region copied to system clipboard"))
+    (save-excursion
+      (mark-whole-buffer)
+      (shell-command-on-region (region-beginning) (region-end) "pbcopy")
+      (deactivate-mark)
+      (message "buffer copied to system clipboard"))))
+
 ;;Behaviour
 ;;=========
 
@@ -105,7 +128,7 @@
 (setq mac-command-modifier 'meta)
 
 ;; disable killing to system clipboard by default
-(setq select-enable-clipboard nil)
+(setq select-enable-clipboard t)
 
 ;;Tramp
 ;;https://www.emacswiki.org/emacs/TrampMode
@@ -116,6 +139,7 @@
 ;; https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
 (add-hook 'arduino-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'org-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'haxe-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
 
 ;; For Chinese input
@@ -559,7 +583,8 @@
    ("C-)" . sp-forward-slurp-sexp)
    ("C-}" . sp-forward-barf-sexp)
 
-   ("M-[" . sp-backward-unwrap-sexp)
+   ;; This is conflicting with pasting from the terminal
+   ;; ("M-[" . sp-backward-unwrap-sexp)
    ("M-]" . sp-unwrap-sexp)
 
    ("C-M-k" . sp-kill-sexp)
