@@ -41,8 +41,6 @@
 ;; Newline at end of file
 (setq require-final-newline t)
 
-
-
 ;;Bindings
 ;;========
 
@@ -146,6 +144,12 @@
 ;; https://stackoverflow.com/questions/6344389/osx-emacs-unbind-just-the-right-alt
 ;; http://pinpinchinese.com/blog/how-to-type-pinyin-tone-marks-mac-os-x-yosemite/
 (setq mac-right-option-modifier nil)
+
+;; For iTerm2 compatability: https://www.emacswiki.org/emacs/iTerm2
+
+(define-key input-decode-map "\e[1;P1" (kbd "C-)")) ;; smartparens slurp
+(define-key input-decode-map "\e[1;P2" (kbd "C-=")) ;; expand-region
+(define-key input-decode-map "\e[1;P3" (kbd "C-}")) ;; smartparens barf
 
 ;;Packages
 ;;========
