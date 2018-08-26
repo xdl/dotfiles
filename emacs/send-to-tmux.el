@@ -2,6 +2,11 @@
 (defconst send-to-tmux/paste-path "~/.slime_paste")
 (defvar send-to-tmux/last-known-pane-length 0)
 
+(defun send-to-tmux/preprocess-region ()
+  (let ((contents (buffer-substring (region-beginning) (region-end))))
+    (format "%s\n" (string-trim contents))
+    ))
+
 (defun send-to-tmux/line-length-cmd ()
   (format "tmux -L %s capture-pane -pS -32768 -t %s | wc -l"
           (car send-to-tmux/config)
@@ -38,14 +43,14 @@
   (interactive)
   (if (use-region-p)
       (progn
-        (write-region (region-beginning) (region-end) send-to-tmux/paste-path)
+        (write-region (send-to-tmux/preprocess-region) nil send-to-tmux/paste-path)
         (deactivate-mark))
     (save-excursion
       (mark-paragraph)
-      (write-region (region-beginning) (region-end) send-to-tmux/paste-path)
+      (write-region (send-to-tmux/preprocess-region) nil send-to-tmux/paste-path)
       (deactivate-mark)))
   (setq send-to-tmux/last-known-pane-length
-        (string-to-number 
+        (string-to-number
          (shell-command-to-string (send-to-tmux/line-length-cmd))))
   (shell-command (send-to-tmux/load-buffer-cmd))
   (shell-command (send-to-tmux/paste-buffer-cmd)))
@@ -61,7 +66,8 @@
          (diff-truncate-prompt "diff truncate: ")
          (new-session (read-string session-prompt session))
          (new-pane (read-string pane-prompt pane))
-         (new-diff-truncate (read-string diff-truncate-prompt diff-truncate)))
+         (new-diff-truncate (read-string diff-truncate-prompt
+                                         (number-to-string diff-truncate))))
     (setq send-to-tmux/config (list new-session
                                     new-pane
                                     (string-to-number new-diff-truncate)))
