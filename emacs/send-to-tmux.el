@@ -3,40 +3,47 @@
 (defvar send-to-tmux/last-known-pane-length 0)
 
 (defun send-to-tmux/preprocess-region ()
+  "Trims the selected region before sending it over to tmux."
   (let ((contents (buffer-substring (region-beginning) (region-end))))
     (format "%s\n" (string-trim contents))
     ))
 
+;; https://emacs.stackexchange.com/questions/34283/percentage-in-format-string
+;; https://stackoverflow.com/a/12524345
 (defun send-to-tmux/line-length-cmd ()
-  (format "tmux -L %s capture-pane -pS -32768 -t %s | wc -l"
+  "Get number of lines in the target tmux buffer, stripping trailing newlines."
+  (format "printf '%%s' \"$(tmux -L %s capture-pane -pS -32768 -t %s)\" | wc -l"
           (car send-to-tmux/config)
-          (cadr send-to-tmux/config)
-          ))
-
-(defun send-to-tmux/capture-pane-cmd ()
-  (format "tmux -L %s capture-pane -pS -32768 -t %s"
-          (car send-to-tmux/config)
-          (cadr send-to-tmux/config)
-          ))
+          (cadr send-to-tmux/config)))
 
 (defun send-to-tmux/load-buffer-cmd ()
+  "Load the region into the target pane, thus evaluating it."
   (format "tmux -L %s load-buffer %s"
           (car send-to-tmux/config)
           send-to-tmux/paste-path))
 
 (defun send-to-tmux/paste-buffer-cmd ()
+  "Paste the region into a scratch file, in preparation to be read back in."
   (format "tmux -L %s paste-buffer -d -t %s"
           (car send-to-tmux/config)
           (cadr send-to-tmux/config)))
 
+(defun send-to-tmux/get-last-n-lines-cmd (n)
+  "Get the last N lines from target pane, then apply the truncation diff offset."
+  (format "printf '%%s' \"$(tmux -L %s capture-pane -pS -32768 -t %s)\" | tail -n %d | head -n %d"
+          (car send-to-tmux/config)
+          (cadr send-to-tmux/config)
+          n
+          (- n (nth 2 send-to-tmux/config))))
+
 (defun send-to-tmux/get-difference ()
   "Get difference of command."
   (interactive)
-  (setq send-to-tmux/last-known-pane-length
-        (string-to-number
-         (shell-command-to-string (send-to-tmux/line-length-cmd))))
-  (message "%s: %s" "send-to-tmux/last-known-pane-length" (prin1-to-string send-to-tmux/last-known-pane-length))
-  )
+  (let* ((current-pane-length
+          (string-to-number
+           (shell-command-to-string (send-to-tmux/line-length-cmd))))
+         (difference (- current-pane-length send-to-tmux/last-known-pane-length)))
+    (insert (shell-command-to-string (send-to-tmux/get-last-n-lines-cmd difference)))))
 
 (defun send-to-tmux/send-snippet ()
   "Send snippet to tmux."
@@ -71,5 +78,4 @@
     (setq send-to-tmux/config (list new-session
                                     new-pane
                                     (string-to-number new-diff-truncate)))
-    (message "tmux config set to: %s" (prin1-to-string send-to-tmux/config))
-    ))
+    (message "tmux config set to: %s" (prin1-to-string send-to-tmux/config))))
