@@ -57,15 +57,22 @@
 ;; Remapping from kill-region, which doesn't seem to be useful
 (define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word)
 
-(defun paste-from-system-clipboard ()
+;; Used in yasnippet links (orgmode and markdown)
+(defun read-from-system-clipboard ()
+  "Return system clipboard contents."
   (interactive)
+  (shell-command-to-string "pbpaste"))
+
+(defun paste-from-system-clipboard ()
   "Paste system clipboard contents at current point."
+  (interactive)
   (shell-command "pbpaste" 1)
-  (message "system clipboard pasted"))
+  (message "system clipboard pasted")
+  )
 
 (defun copy-to-system-clipboard ()
-  (interactive)
   "Copy region (or buffer if no region selected) to the system clipboard."
+  (interactive)
   (if (use-region-p)
       (progn
         (shell-command-on-region (region-beginning) (region-end) "pbcopy")
@@ -140,10 +147,12 @@
 ;; Getting around sshing into Linux OSes (Footnote 2) http://howardism.org/Technical/Emacs/literate-devops.html
 (setq temporary-file-directory "/tmp")
 
+;; Playing around with syntax tables
 ;; https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
 (add-hook 'arduino-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'org-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'haxe-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'markdown-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
 
 ;; For Chinese input
