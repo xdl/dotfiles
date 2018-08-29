@@ -4,9 +4,14 @@
 
 (defun send-to-tmux/preprocess-region ()
   "Trims the selected region before sending it over to tmux."
-  (let ((contents (buffer-substring (region-beginning) (region-end))))
-    (format "%s\n" (string-trim contents))
-    ))
+  (let ((contents-trimmed (string-trim (buffer-substring (region-beginning) (region-end)))))
+    (cond ((derived-mode-p 'python-mode)
+           (if (= (length (split-string contents-trimmed "\n")) 1)
+               (format "%s\n" contents-trimmed)
+             (progn
+               (shell-command-on-region (region-beginning) (region-end) "pbcopy")
+               "%paste\n")))
+          (t (format "%s\n" contents-trimmed)))))
 
 (defun send-to-tmux/postprocess-difference-result (diff)
   "Add a leading newline to DIFF before giving it back."
@@ -21,13 +26,13 @@
           (cadr send-to-tmux/config)))
 
 (defun send-to-tmux/load-buffer-cmd ()
-  "Load the region into the target pane, thus evaluating it."
+  "Load the contents of .slime_paste into the paste buffer, in preparation to be pasted."
   (format "tmux -L %s load-buffer %s"
           (car send-to-tmux/config)
           send-to-tmux/paste-path))
 
 (defun send-to-tmux/paste-buffer-cmd ()
-  "Paste the region into a scratch file, in preparation to be read back in."
+  "Paste the region into the target pane, thus evaluating it."
   (format "tmux -L %s paste-buffer -d -t %s"
           (car send-to-tmux/config)
           (cadr send-to-tmux/config)))
