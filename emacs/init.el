@@ -153,6 +153,7 @@
 (add-hook 'org-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'haxe-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'markdown-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
 
 ;; For Chinese input
