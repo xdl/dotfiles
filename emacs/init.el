@@ -285,11 +285,11 @@
   "n" 'treemacs ;; Like NERDTree
   "sc" 'send-to-tmux/set-config
   "sd" 'send-to-tmux/get-difference
+  "sg" 'send-to-tmux/get-config
   "ss" 'send-to-tmux/send-snippet
   "rs" 'leader-replace-symbol
   "rw" 'leader-replace-word
   "p" 'projectile-switch-project
-  "t" 'treemacs
   "w" 'save-buffer
   "y" 'show-copy-buffer-path)
 

@@ -1,4 +1,21 @@
-(defvar send-to-tmux/config '("default" "0.1" 1))
+;;;; package --- Summary
+;;; Commentary:
+;;; Code:
+
+;; For string-trim
+(require 'subr-x)
+
+;; https://superuser.com/questions/385472/get-current-window-number-for-bash-prompt
+(defun send-to-tmux/get-window-number-cmd ()
+  "Get the window number of the current Emacs instance."
+  "tmux display-message -p '#I'")
+
+(defun send-to-tmux/get-smart-target-pane-config ()
+  "Get the target pane for most scenarios."
+  (format "%s.1" (string-trim (shell-command-to-string (send-to-tmux/get-window-number-cmd)))))
+
+;; (defvar send-to-tmux/config '("default" "0.1" 1))
+(defvar send-to-tmux/config `("default" ,(send-to-tmux/get-smart-target-pane-config) 1))
 (defconst send-to-tmux/paste-path "~/.slime_paste")
 (defvar send-to-tmux/last-known-pane-length 0)
 
@@ -12,6 +29,8 @@
                (shell-command-on-region (region-beginning) (region-end) "pbcopy")
                "%paste\n")))
           (t (format "%s\n" contents-trimmed)))))
+
+
 
 (defun send-to-tmux/postprocess-difference-result (diff)
   "Add a leading newline to DIFF before giving it back."
@@ -76,18 +95,18 @@
   (shell-command (send-to-tmux/load-buffer-cmd))
   (shell-command (send-to-tmux/paste-buffer-cmd)))
 
-(defun send-to-tmux/set-config ()
+(defun send-to-tmux/get-config ()
   "Get send-to-tmux config."
   (interactive)
-  ())
+  (message
+   (prin1-to-string send-to-tmux/config)))
 
-;; https://superuser.com/questions/385472/get-current-window-number-for-bash-prompt
 (defun send-to-tmux/set-config ()
   "Configure send-to-tmux config."
   (interactive)
   (let* ((session (car send-to-tmux/config))
          (session-prompt "session name: ")
-         (pane (cadr send-to-tmux/config))
+         (pane (send-to-tmux/get-smart-target-pane-config))
          (pane-prompt "pane config: ")
          (diff-truncate (nth 2 send-to-tmux/config))
          (diff-truncate-prompt "diff truncate: ")
