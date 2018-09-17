@@ -77,6 +77,12 @@
   (shell-command (send-to-tmux/paste-buffer-cmd)))
 
 (defun send-to-tmux/set-config ()
+  "Get send-to-tmux config."
+  (interactive)
+  ())
+
+;; https://superuser.com/questions/385472/get-current-window-number-for-bash-prompt
+(defun send-to-tmux/set-config ()
   "Configure send-to-tmux config."
   (interactive)
   (let* ((session (car send-to-tmux/config))

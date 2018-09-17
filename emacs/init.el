@@ -275,10 +275,10 @@
   "c" 'comment-line
   "d" 'magit-log-buffer-file
   "e" 'eyebrowse-print-mode-line-indicator
-  ;; "f" 'projectile-find-file
-  ;; "F" 'projectile-find-file-in-known-projects
-  "f" 'projectile-find-file-in-known-projects
-  "F" 'projectile-find-file
+  "f" 'projectile-find-file
+  "F" 'projectile-find-file-in-known-projects
+  ;; "f" 'projectile-find-file-in-known-projects
+  ;; "F" 'projectile-find-file
   "h" 'helm-apropos
   "g" 'magit-status
   "l" 'helm-buffers-list
