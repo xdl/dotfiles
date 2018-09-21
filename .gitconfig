@@ -22,3 +22,4 @@
 [core]
 	autocrlf = input
 	editor = vim
+        excludesfile=~/dotfiles/.local_gitignore
