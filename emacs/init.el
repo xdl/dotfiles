@@ -241,6 +241,12 @@
 ;;========
 ;;Install these with e.g. M-x package-install RET evil RET
 
+;;Which key
+;;===
+(use-package which-key
+  :config
+  (which-key-mode))
+
 ;;Yaml
 ;;====
 (use-package yaml-mode
@@ -282,7 +288,8 @@
   "h" 'helm-apropos
   "g" 'magit-status
   "l" 'helm-buffers-list
-  "n" 'treemacs ;; Like NERDTree
+  ;; "n" 'treemacs ;; Like NERDTree
+  "n" 'dired-sidebar-toggle-sidebar ;; Like NERDTree
   "sc" 'send-to-tmux/set-config
   "sd" 'send-to-tmux/get-difference
   "sg" 'send-to-tmux/get-config
@@ -341,7 +348,7 @@
 ;;too much other crap going on to be worrying about evil here
 (evil-set-initial-state 'comint-mode 'emacs)
 (evil-set-initial-state 'sldb-mode 'emacs)
-(evil-set-initial-state 'treemacs-mode 'emacs)
+;; (evil-set-initial-state 'treemacs-mode 'emacs)
 (setq evil-move-cursor-back nil)
 (define-key evil-normal-state-map "\C-s" 'save-buffer)
 
@@ -366,20 +373,36 @@
 
 ;;Treemacs
 ;;========
-(use-package treemacs
+;; (use-package treemacs
+;;   :ensure t
+;;   :config
+;;   (progn
+;;     (use-package treemacs-projectile
+;;       :ensure t)
+;;     (use-package treemacs-evil
+;;       :ensure t)
+;;     (setq treemacs-follow-mode t
+;;           treemacs-git-mode 'simple)
+;;     (global-set-key (kbd "M-L") (lambda ()
+;;                                   (interactive)
+;;                                   (treemacs-find-file)
+;;                                   (treemacs-select-window)))))
+
+;; Dired sidebar
+(use-package dired-sidebar
+  :bind (("M-L" . dired-sidebar-toggle-sidebar))
   :ensure t
-  :config
-  (progn
-    (use-package treemacs-projectile
-      :ensure t)
-    (use-package treemacs-evil
-      :ensure t)
-    (setq treemacs-follow-mode t
-          treemacs-git-mode 'simple)
-    (global-set-key (kbd "M-L") (lambda ()
-                                  (interactive)
-                                  (treemacs-find-file)
-                                  (treemacs-select-window)))))
+  :commands (dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+            (lambda ()
+              (unless (file-remote-p default-directory)
+                (auto-revert-mode))))
+  ;; (setq dired-sidebar-use-term-integration t)
+  ;; (setq dired-sidebar-subtree-line-prefix "__")
+  (setq dired-sidebar-theme 'nerd)
+  )
+
 
 ;;Eyebrowse
 ;;---------
