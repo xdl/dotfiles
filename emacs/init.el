@@ -398,11 +398,12 @@
             (lambda ()
               (unless (file-remote-p default-directory)
                 (auto-revert-mode))))
-  ;; (setq dired-sidebar-use-term-integration t)
-  ;; (setq dired-sidebar-subtree-line-prefix "__")
+  :config
+  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
+  (setq dired-sidebar-use-term-integration t)
   (setq dired-sidebar-theme 'nerd)
   )
-
 
 ;;Eyebrowse
 ;;---------
@@ -453,7 +454,13 @@
         helm-candidate-number-limit 100)
   (helm-mode 1)
   (helm-flx-mode +1)
-  (helm-adaptive-mode 1))
+  (helm-adaptive-mode 1)
+  ;; interferes with dired-sidebar https://emacs.stackexchange.com/questions/17077/how-can-i-skip-helm-ido-when-i-want-to-open-dired?rq=1
+  (add-to-list 'helm-completing-read-handlers-alist
+               '(dired-do-copy . nil))
+  (add-to-list 'helm-completing-read-handlers-alist
+               '(dired-do-rename . nil))
+  )
 
 ;; Using Helm command completion instead of default
 
