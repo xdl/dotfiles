@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: var-new
+# key: varn
+# --
+var $1 = new ${1:$(upcase-initials yas-text)}($2);
+$0

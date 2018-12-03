@@ -402,8 +402,31 @@
   (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
   (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
   (setq dired-sidebar-use-term-integration t)
-  (setq dired-sidebar-theme 'nerd)
-  )
+  (setq dired-sidebar-theme 'nerd))
+
+;; Use subtree as context for when creating files
+;; https://www.reddit.com/r/emacs/comments/4agkye/how_do_you_customize_dired/
+(eval-after-load 'dired
+  '(progn
+     (defun my-dired-create-file (file)
+       "Create a file called FILE. If FILE already exists, signal an error."
+       (interactive
+        (list (read-file-name "Create file: " (dired-current-directory))))
+       (let* ((expanded (expand-file-name file)))
+         (message "%s: %s" "expanded" (prin1-to-string expanded))
+         (if (file-exists-p expanded)
+             (error "Cannot create file %s: file exists" expanded))
+
+         ;; Writes the file onto dired subdirectory
+         (write-region "" nil expanded t)
+         (dired-add-file expanded)
+         ;; Refreshes
+         (revert-buffer)
+
+         ;; Should goto the file
+         (find-file expanded)))
+     ;; This is shadowing dired-do-compress-to which I've never used, so should be fine!
+     (define-key dired-mode-map (kbd "c") #'my-dired-create-file)))
 
 ;;Eyebrowse
 ;;---------
