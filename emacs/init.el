@@ -261,13 +261,13 @@
   (interactive)
   (let ((to-replace (thing-at-point 'symbol)))
     (setq unread-command-events
-          (listify-key-sequence (format ":s/%s/" to-replace)))))
+          (listify-key-sequence (format ":%%s/%s/" to-replace)))))
 
 (defun leader-replace-word ()
   (interactive)
   (let ((to-replace (thing-at-point 'word)))
     (setq unread-command-events
-          (listify-key-sequence (format ":s/%s/" to-replace)))))
+          (listify-key-sequence (format ":%%s/%s/" to-replace)))))
 
 ;;Evil Leader
 (require 'evil-leader)
