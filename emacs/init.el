@@ -532,7 +532,9 @@
 (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
 ;;Graphviz Dot Mode
-(use-package graphviz-dot-mode)
+(use-package graphviz-dot-mode
+  :config
+  (setq graphviz-dot-indent-width 4))
 
 ;;Orgmode
 ;;-------
