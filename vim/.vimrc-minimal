@@ -1,0 +1,95 @@
+"SETUP
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible "uses Vim settings as opposed to Vi
+
+"TEXT FORMATTING
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"enables filetype detection, also loading the custom plugin and indent files of the filetype detected
+set tabstop=4 "how many spaces the tab key counts for in insert mode
+set shiftwidth=4 "how many spaces of text is indented when using the << and >> operations in normal mode
+set expandtab "tabs converted into spaces for all files
+set softtabstop=4 "how many spaces the backspace key can delete insert mode (and how many spaces the tab key counts for, as well)
+set autoindent
+set encoding=utf-8 "allows non-ASCII characters to be displayed
+
+"BEHAVIOUR
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set backspace=indent,eol,start "allow backspacing over everything in insert mode
+set incsearch "searches while typing
+set hlsearch "highlights all matched words
+set visualbell t_vb= "disable that annoying bell noise
+set lazyredraw "don't update screen when executing macros etc.
+
+set ignorecase "ignore case when searching...
+set smartcase "unless uppercase character used (toggle with \c)
+set wildmenu "opens up completion list for vim commands
+set hidden "allows buffers to be hidden that contain unwritten changes
+runtime macros/matchit.vim "enchanced use of % to jump around matching constructs
+if has("unix")
+    set directory=~/.vim/tmpfiles//
+else
+    set directory=~/vimfiles/tmpfiles//
+endif
+
+"CONVENIENT KEY MAPPINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"windows-esque quitting
+nnoremap <C-q> :x<CR>
+nnoremap <C-t> :tabnew<CR>
+
+"consistent <C-S> mappings
+noremap <C-S> :update<CR>
+vnoremap <C-S> <ESC>:update<CR>
+inoremap <C-S> <C-O>:update<CR><ESC>
+
+"escaping normal mode
+inoremap jk <Esc>
+
+"searching
+nnoremap <CR> :noh<CR>
+
+"Tab navigation
+nnoremap <A-1> 1gt
+nnoremap <A-2> 2gt
+nnoremap <A-3> 3gt
+nnoremap <A-4> 4gt
+nnoremap <A-5> 5gt
+nnoremap <A-6> 6gt
+nnoremap <A-7> 7gt
+nnoremap <A-8> 8gt
+nnoremap <A-9> 9gt
+nnoremap <A-0> 10gt
+
+"intuitive previous tab
+nnoremap tg gT
+
+"moving between windows easily
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+
+"Visually repeating operations
+vnoremap . :normal .<CR>
+vnoremap q :normal @q<CR>
+
+" For vim lookups: http://stackoverflow.com/questions/15867323/search-vim-help-for-subject-under-cursor
+set keywordprg=:help
+
+"AESTHETICS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set norelativenumber "set relative number to begin with. Disabling for perf
+set number "set number as well, so you get both
+set guioptions= "disable all guioptions
+set wrap "don't wrap lines
+set linebreak "break at whitespace if convenient
+
+set foldcolumn=1 "shows where folds are
+set display=lastline "Partially displays any long lines
+set nocursorline "highlights the whole active line. Disabling for perf
+set laststatus=2 "always show the status line (even if there is only one buffer in the window)
+
+"Colorscheming
+"----------------------------
+set background=dark "default background

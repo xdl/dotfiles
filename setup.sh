@@ -1,33 +1,52 @@
-#rm -f ~/.gitconfig;
-#ln -s ~/dotfiles/.gitconfig ~/.gitconfig;
+if  [ ! -f ~/.bashrc ]; then
+    echo "linking over .bashrc...";
+    ln -s ~/dotfiles/.bashrc ~/.bashrc;
+else
+    echo ".bashrc already exists; skipping";
+fi
 
-#echo "creating symbolic link for bashrc..."
-#rm -f ~/.bashrc;
-#ln -s ~/dotfiles/.bashrc ~/.bashrc;
+if  [ ! -f ~/.bash_profile ]; then
+    echo "linking over .bash_profile...";
+    ln -s ~/dotfiles/.bash_profile ~/.bash_profile;
+else
+    echo ".bash_profile already exists; skipping";
+fi
 
-#rm -f ~/.bash_profile;
-#ln -s ~/dotfiles/.bash_profile ~/.bash_profile;
+if  [ ! -f ~/.tmux.conf ]; then
+    echo "linking over .tmux.conf...";
+    ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf;
+else
+    echo ".tmux.conf already exists; skipping";
+fi
 
-cp ~/dotfiles/.gitconfig ~/.gitconfig
+if  [ ! -f ~/.vimrc ]; then
+    echo "linking over minimal .vimrc...";
+    ln -s ~/dotfiles/vim/.vimrc-minimal ~/.vimrc;
+else
+    echo ".vimrc already exists; skipping";
+fi
 
-echo "creating symbolic link for .tmux.conf..."
-rm -f ~/.tmux.conf;
-ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf;
-
-echo "creating symbolic link for .vimrc..."
-rm -f ~/.vimrc;
-ln -s ~/dotfiles/vim/.vimrc ~/.vimrc;
-
-echo "creating symbolic link for .tern-project..."
-rm -f ~/.tern-project;
-ln -s ~/dotfiles/.tern-project ~/.tern-project;
-
-echo "creating symbolic link for emacs..."
+if  [ ! -f ~/.tern-project ]; then
+    echo "linking over .tern-project...";
+    ln -s ~/dotfiles/.tern-project ~/.tern-project;
+else
+    echo ".tern-project already exists; skipping";
+fi
+  
 mkdir -p ~/.emacs.d;
-rm -f ~/.emacs.d/init.el;
-ln -s ~/dotfiles/emacs/init.el ~/.emacs.d/init.el;
 
-echo "copying over gitconfig... remember to set email address"
-cp ~/dotfiles/.gitconfig ~/.gitconfig;
+if  [ ! -f ~/.emacs.d/init.el ]; then
+    echo "linking over init.el...";
+    ln -s ~/dotfiles/emacs/init.el ~/.emacs.d/init.el;
+else
+    echo "init.el already exists; skipping";
+fi
 
-echo "done!"
+if  [ ! -f ~/.gitconfig ]; then
+    echo "copying over .gitconfig... remember to set email address!";
+    cp ~/dotfiles/.gitconfig ~/.gitconfig;
+else
+    echo ".gitconfig already exists; skipping";
+fi
+
+echo "Done!"
