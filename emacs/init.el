@@ -229,13 +229,20 @@
 (require 'thingatpt)
 ;;Relative numbers
 ;;----------------
-(require 'nlinum-relative)
-(nlinum-relative-setup-evil)                    ;; setup for evil
-(add-hook 'prog-mode-hook 'nlinum-relative-mode)
-(add-hook 'text-mode-hook 'nlinum-relative-mode)
-(setq nlinum-relative-redisplay-delay 0.1)      ;; delay
-(setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
-(setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
+(use-package nlinum-relative
+  :config
+
+  ;; setup for evil
+  (nlinum-relative-setup-evil)
+  (add-hook 'prog-mode-hook 'nlinum-relative-mode)
+  (add-hook 'text-mode-hook 'nlinum-relative-mode)
+  (setq nlinum-relative-redisplay-delay 0.1)
+
+  ;; or "" for display current line number
+  (setq nlinum-relative-current-symbol "")
+
+  ;; 1 if you want 0, 2, 3...
+  (setq nlinum-relative-offset 0))
 
 ;;Packages
 ;;========
@@ -253,9 +260,10 @@
   :mode
   (("\.yml" . yaml-mode)))
 
-(require 'exec-path-from-shell)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+   (exec-path-from-shell-initialize)))
 
 (defun leader-replace-symbol ()
   (interactive)
@@ -270,35 +278,35 @@
           (listify-key-sequence (format ":%%s/%s/" to-replace)))))
 
 ;;Evil Leader
-(require 'evil-leader)
-;;--------------------
-(global-evil-leader-mode)
-(evil-leader/set-leader ",")
-(evil-leader/set-key
-  "," 'evil-repeat-find-char-reverse
-  "a" 'projectile-ag
-  "b" 'helm-filtered-bookmarks
-  "c" 'comment-line
-  "d" 'magit-log-buffer-file
-  "e" 'eyebrowse-print-mode-line-indicator
-  "f" 'projectile-find-file
-  "F" 'projectile-find-file-in-known-projects
-  ;; "f" 'projectile-find-file-in-known-projects
-  ;; "F" 'projectile-find-file
-  "h" 'helm-apropos
-  "g" 'magit-status
-  "l" 'helm-buffers-list
-  ;; "n" 'treemacs ;; Like NERDTree
-  "n" 'dired-sidebar-toggle-sidebar ;; Like NERDTree
-  "sc" 'send-to-tmux/set-config
-  "sd" 'send-to-tmux/get-difference
-  "sg" 'send-to-tmux/get-config
-  "ss" 'send-to-tmux/send-snippet
-  "rs" 'leader-replace-symbol
-  "rw" 'leader-replace-word
-  "p" 'projectile-switch-project
-  "w" 'save-buffer
-  "y" 'show-copy-buffer-path)
+(use-package evil-leader
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader ",")
+  (evil-leader/set-key
+    "," 'evil-repeat-find-char-reverse
+    "a" 'projectile-ag
+    "b" 'helm-filtered-bookmarks
+    "c" 'comment-line
+    "d" 'magit-log-buffer-file
+    "e" 'eyebrowse-print-mode-line-indicator
+    "f" 'projectile-find-file
+    "F" 'projectile-find-file-in-known-projects
+    ;; "f" 'projectile-find-file-in-known-projects
+    ;; "F" 'projectile-find-file
+    "h" 'helm-apropos
+    "g" 'magit-status
+    "l" 'helm-buffers-list
+    ;; "n" 'treemacs ;; Like NERDTree
+    "n" 'dired-sidebar-toggle-sidebar ;; Like NERDTree
+    "sc" 'send-to-tmux/set-config
+    "sd" 'send-to-tmux/get-difference
+    "sg" 'send-to-tmux/get-config
+    "ss" 'send-to-tmux/send-snippet
+    "rs" 'leader-replace-symbol
+    "rw" 'leader-replace-word
+    "p" 'projectile-switch-project
+    "w" 'save-buffer
+    "y" 'show-copy-buffer-path))
 
 (use-package evil-numbers
   :requires evil
@@ -332,26 +340,30 @@
   (evil-normal-state)
   (save-buffer))
 
-;; Unbind C-a from evil-ex-completion; can (use C-l, C-d or TAB instead)
-(define-key evil-ex-completion-map "\C-a" nil)
 
-;; Can't seem to redefine these in evil-insert-state-bindings, so doing them here
-(define-key evil-insert-state-map "\C-e" 'move-end-of-line)
-(define-key evil-insert-state-map "\C-a" 'move-beginning-of-line)
-(define-key evil-insert-state-map "\C-d" 'delete-char)
-(define-key evil-insert-state-map "\C-s" 'evil-escape-and-save)
-;; Seems like I only use C-o for this
-(define-key evil-insert-state-map "\C-o" 'evil-open-above)
+(use-package evil
+  :config
+  (evil-mode 1)
 
-(require 'evil)
-(evil-mode 1)
-;;too much other crap going on to be worrying about evil here
-(evil-set-initial-state 'comint-mode 'emacs)
-(evil-set-initial-state 'sldb-mode 'emacs)
-;; (evil-set-initial-state 'treemacs-mode 'emacs)
-(setq evil-move-cursor-back nil)
-(define-key evil-normal-state-map "\C-s" 'save-buffer)
+  ;; Seems like I only use C-o for this
+  (define-key evil-insert-state-map "\C-o" 'evil-open-above)
 
+  ;;too much other crap going on to be worrying about evil here
+  (evil-set-initial-state 'comint-mode 'emacs)
+  (evil-set-initial-state 'sldb-mode 'emacs)
+  ;; (evil-set-initial-state 'treemacs-mode 'emacs)
+
+  ;; Unbind C-a from evil-ex-completion; can (use C-l, C-d or TAB instead)
+  (define-key evil-ex-completion-map "\C-a" nil)
+
+  (setq evil-move-cursor-back nil)
+  (define-key evil-normal-state-map "\C-s" 'save-buffer)
+  
+  ;; Can't seem to redefine these in evil-insert-state-bindings, so doing them here
+  (define-key evil-insert-state-map "\C-e" 'move-end-of-line)
+  (define-key evil-insert-state-map "\C-a" 'move-beginning-of-line)
+  (define-key evil-insert-state-map "\C-d" 'delete-char)
+  (define-key evil-insert-state-map "\C-s" 'evil-escape-and-save))
 
 ;;evil-surround
 ;;-------------
@@ -456,13 +468,15 @@
 
 ;;Expand Selection
 ;;----------------
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+(use-package expand-region
+  :config
+  (global-set-key (kbd "C-=") 'er/expand-region))
 
 ;; Slime
 ;;------
-(require 'slime)
-(setq inferior-lisp-program "/usr/local/bin/sbcl")
+(use-package slime
+  :config
+  (setq inferior-lisp-program "/usr/local/bin/sbcl"))
 
 ;; Helm
 ;;-----
@@ -500,36 +514,35 @@
 ;;   (flx-ido-mode t))
 
 ;;Flycheck
-
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-;; Flycheck overrides some timestamping keybindings of orgmode - hence disabling
-(setq flycheck-global-modes '(not org-mode))
-
-;; disable jshint since we prefer eslint checking
-(setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-	  '(javascript-jshint)))
-
-
-;; use eslint with web-mode for js files
-(flycheck-add-mode 'javascript-eslint 'web-mode)
-
-;; customize flycheck temp file prefix
-(setq-default flycheck-temp-prefix ".flycheck")
-
-;; use local eslint from node_modules before global
-;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-(defun my/use-eslint-from-node-modules ()
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+(use-package flycheck
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; Flycheck overrides some timestamping keybindings of orgmode - hence disabling
+  (setq flycheck-global-modes '(not org-mode))
+  
+  ;; disable jshint since we prefer eslint checking
+  (setq-default flycheck-disabled-checkers
+    (append flycheck-disabled-checkers
+  	  '(javascript-jshint)))
+  
+  ;; use eslint with web-mode for js files
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  
+  ;; customize flycheck temp file prefix
+  (setq-default flycheck-temp-prefix ".flycheck")
+  
+  ;; use local eslint from node_modules before global
+  ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+  (defun my/use-eslint-from-node-modules ()
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (eslint (and root
+                        (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                          root))))
+      (when (and eslint (file-executable-p eslint))
+        (setq-local flycheck-javascript-eslint-executable eslint))))
+  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules))
 
 ;;Graphviz Dot Mode
 (use-package graphviz-dot-mode
@@ -647,7 +660,6 @@
 
 ;;Smartparens
 ;;-----------
-
 (use-package smartparens
   :bind (
    ("C-M-f" . sp-forward-sexp)

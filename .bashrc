@@ -4,8 +4,8 @@ case $- in
       *) return;;
 esac
 
-HISTSIZE=2000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # some more ls aliases
 alias l='ls -lAFh' # hidden files, omit . and .. entries, append slashes to directories etc., human readable sizes
