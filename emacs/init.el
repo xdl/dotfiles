@@ -490,7 +490,9 @@
         helm-mode-fuzzy-match t
         helm-candidate-number-limit 100)
   (helm-mode 1)
-  (helm-flx-mode +1)
+  (use-package helm-flx
+    :config
+    (helm-flx-mode +1))
   (helm-adaptive-mode 1)
   ;; interferes with dired-sidebar https://emacs.stackexchange.com/questions/17077/how-can-i-skip-helm-ido-when-i-want-to-open-dired?rq=1
   (add-to-list 'helm-completing-read-handlers-alist
@@ -527,6 +529,10 @@
   
   ;; use eslint with web-mode for js files
   (flycheck-add-mode 'javascript-eslint 'web-mode)
+
+  ;; enable typescript-tslint checker
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
+  ;;(flycheck-add-next-checker 'tsx-tide '(warning . typescript-tslint) 'append)
   
   ;; customize flycheck temp file prefix
   (setq-default flycheck-temp-prefix ".flycheck")
@@ -726,8 +732,7 @@
 
 ;; Markdown-mode
 ;; -------------
-(use-package markdown-mode
-  :defer t)
+(use-package markdown-mode)
 
 ;; Company-mode
 ;; ------------
@@ -745,15 +750,16 @@
   (define-key company-active-map (kbd "C-l") 'company-show-location))
 
 ;; Company-tern
-(require 'company-tern)
-(add-to-list 'company-backends 'company-tern)
-(add-hook 'js2-mode-hook (lambda ()
+(use-package company-tern
+  :config
+  (add-to-list 'company-backends 'company-tern)
+  (add-hook 'js2-mode-hook (lambda ()
 			   (tern-mode)
-			   (company-mode)))
+			   (company-mode))))
 
 ;; js2-mode
 ;; --------
-(require 'js2-mode)
+(use-package js2-mode)
 
 ;; Using js2-mode with flow fork (Temporary React Native solution)
 ;; (load "~/dev/js2-mode/js2-mode.el")
@@ -763,13 +769,14 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 ;; xref-js2
-(require 'xref-js2)
 ;;https://github.com/nicolaspetton/xref-js2
 ;;https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html
-(define-key tern-mode-keymap (kbd "M-.") nil)
-(define-key tern-mode-keymap (kbd "M-,") nil)
-(add-hook 'js2-mode-hook (lambda ()
-  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+(use-package xref-js2
+  :config
+  (define-key tern-mode-keymap (kbd "M-.") nil)
+  (define-key tern-mode-keymap (kbd "M-,") nil)
+  (add-hook 'js2-mode-hook (lambda ()
+    (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
 
 ;; Indium
 (use-package indium
@@ -777,16 +784,18 @@
   (js-mode . indium-interaction-mode))
 
 ;; web-mode
-(require 'web-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 ;; adjust indents for web-mode to 2 spaces
-(defun my-web-mode-hook ()
-  "Hooks for Web mode. Adjust indents"
-  ;;; http://web-mode.org/
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
-(add-hook 'web-mode-hook  'my-web-mode-hook)
+(use-package web-mode
+  :init
+  (defun my-web-mode-hook ()
+    "Hooks for Web mode. Adjust indents"
+    ;;; http://web-mode.org/
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2))
+  :config
+  (add-hook 'web-mode-hook  'my-web-mode-hook))
 ;; ignoring tabs as well
 (setq-default indent-tabs-mode nil)
 
@@ -799,18 +808,19 @@
   :mode (("\\.js\\'" . rjsx-mode)))
 
 ;; Tide (TS, TSX)
-(require 'tide)
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  (define-key evil-normal-state-map(kbd "gd") 'tide-jump-to-definition)
-  (define-key evil-normal-state-map(kbd "gb") 'tide-jump-back)
-  (define-key evil-normal-state-map(kbd "gr") 'tide-rename-symbol)
-  (company-mode +1))
+(use-package tide
+  :init
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    (define-key evil-normal-state-map(kbd "gd") 'tide-jump-to-definition)
+    (define-key evil-normal-state-map(kbd "gb") 'tide-jump-back)
+    (define-key evil-normal-state-map(kbd "gr") 'tide-rename-symbol)
+    (company-mode +1)))
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
@@ -841,10 +851,6 @@
 ;;   (append flycheck-disabled-checkers
 ;; 	  '(tsx-tide)))
 
-;; enable typescript-tslint checker
-(flycheck-add-mode 'typescript-tslint 'web-mode)
-;;(flycheck-add-next-checker 'tsx-tide '(warning . typescript-tslint) 'append)
-
 ;; use local typescript-eslint from node_modules before global
 ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
 (defun my/use-tslint-from-node-modules ()
@@ -861,12 +867,13 @@
 
 ;; Elpy
 ;; ----
-(require 'elpy)
-(elpy-enable)
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
-;; Ensures that it uses the homebrew version, as set in .bashrc
-(setq elpy-rpc-python-command "python")
+(use-package elpy
+  :config
+  (elpy-enable)
+  (setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args "-i --simple-prompt")
+  ;; Ensures that it uses the homebrew version, as set in .bashrc
+  (setq elpy-rpc-python-command "python"))
 
 ;; Octave Mode
 ;; -----------
@@ -983,7 +990,7 @@
         (unload-feature 'funda-haxe-mode 'force))
     (require 'haxe-mode)
     (revert-buffer t t)))
-(require 'haxe-mode)
+(use-package haxe-mode)
 
 (defun reload-company-haxe ()
   "Reloads company-haxe for iterative development."
@@ -995,7 +1002,7 @@
     (if (featurep 'haxe-completion)
         (unload-feature 'haxe-completion 'force))
     (require 'company-haxe)))
-(require 'company-haxe)
+(use-package company-haxe)
 
 (defun reload-haxe-eldoc ()
   "Reloads haxe-eldoc for iterative development."
@@ -1006,7 +1013,7 @@
     (if (featurep 'haxe-completion)
         (unload-feature 'haxe-completion 'force))
     (require 'haxe-eldoc)))
-(require 'haxe-eldoc)
+(use-package haxe-eldoc)
 
 (defun rerun-haxe-tests ()
   "Reloads haxemacs-completion and re-runs the test suite for it."
@@ -1019,7 +1026,7 @@
     (ert-delete-all-tests)
     (require 'run-tests)
     (ert t)))
-(require 'run-tests)
+(use-package run-tests)
 
 (add-to-list 'load-path "/Volumes/SecondarySSD/dev/third_party/funda-haxe-mode")
 (defun reload-funda-haxe-mode ()
