@@ -25,7 +25,7 @@
 (setq column-number-mode t)
 
 ;;Nice-ish dark theme
-(load-theme 'wombat)
+(load-theme 'tsdh-dark)
 
 ;; Removes the curly arrows to denote word/line wraps
 (setq-default fringe-indicator-alist ())
@@ -67,8 +67,7 @@
   "Paste system clipboard contents at current point."
   (interactive)
   (shell-command "pbpaste" 1)
-  (message "system clipboard pasted")
-  )
+  (message "system clipboard pasted"))
 
 (defun copy-to-system-clipboard ()
   "Copy region (or buffer if no region selected) to the system clipboard."
@@ -83,6 +82,10 @@
       (shell-command-on-region (region-beginning) (region-end) "pbcopy")
       (deactivate-mark)
       (message "buffer copied to system clipboard"))))
+
+(use-package xclip
+  :config
+  (xclip-mode))
 
 ;;Behaviour
 ;;=========
