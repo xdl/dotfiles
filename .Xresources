@@ -1,3 +1,6 @@
+! Remember to run the following to update .Xresources changes:
+! xrdb -merge "$HOME/.Xresources"
+
 ! Nice Ubuntu font. Found using:
 ! fc-list :scalale=true:spacing=mono: family
 xterm*faceName: Ubuntu Mono
@@ -11,3 +14,14 @@ xterm*termName: xterm-256color
 ! https://invisible-island.net/scripts/sample-output/rman-xterm.html
 xterm*selectToClipboard: true
 xterm*disallowedWindowOps: 20,21,SetXProp
+
+! https://askubuntu.com/questions/442644/how-to-make-xterm-to-send-the-alt-key-to-emacs-as-meta
+xterm*metaSendsEscape: true
+
+! http://www.futurile.net/2016/06/14/xterm-setup-and-truetype-font-configuration/
+xterm*VT100.Translations: #override \
+    Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>C:    copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>): string(0x1b) string("[1;P1") \n\
+    Ctrl <Key>=: string(0x1b) string("[1;P2") \n\
+    Ctrl <Key>braceright: string(0x1b) string("[1;P3") \n
