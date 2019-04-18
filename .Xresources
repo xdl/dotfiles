@@ -1,0 +1,13 @@
+! Nice Ubuntu font. Found using:
+! fc-list :scalale=true:spacing=mono: family
+xterm*faceName: Ubuntu Mono
+xterm*faceSize: 12
+xterm*renderFont: true
+
+! Using 256 colors
+xterm*termName: xterm-256color
+
+! https://superuser.com/questions/1336762/how-do-i-copy-paste-from-the-system-clipboard-in-tmux-in-xterm-on-linux
+! https://invisible-island.net/scripts/sample-output/rman-xterm.html
+xterm*selectToClipboard: true
+xterm*disallowedWindowOps: 20,21,SetXProp

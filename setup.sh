@@ -26,6 +26,13 @@ else
     echo ".vimrc already exists; skipping";
 fi
 
+if  [ ! -f ~/.Xresources ]; then
+    echo "linking over .Xresources...";
+    ln -s ~/dotfiles/.Xresources ~/.Xresources;
+else
+    echo ".Xresources already exists; skipping";
+fi
+
 if  [ ! -f ~/.tern-project ]; then
     echo "linking over .tern-project...";
     ln -s ~/dotfiles/.tern-project ~/.tern-project;
