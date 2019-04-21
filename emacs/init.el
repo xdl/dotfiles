@@ -379,6 +379,18 @@
   :config
   (global-evil-visualstar-mode))
 
+;; https://github.com/7696122/evil-terminal-cursor-changer/issues/19
+(unless (display-graphic-p)
+  (use-package evil-terminal-cursor-changer
+    :init
+    (setq evil-motion-state-cursor 'box)  ; █
+    (setq evil-visual-state-cursor 'box)  ; █
+    (setq evil-normal-state-cursor 'box)  ; █
+    (setq evil-insert-state-cursor 'bar)  ; ⎸
+    (setq evil-emacs-state-cursor  'hbar) ; _
+    :config
+    (etcc-on)))
+
 ;;key-chord (For escaping normal mode)
 (use-package key-chord
   :ensure t
