@@ -19,9 +19,9 @@ xterm*disallowedWindowOps: 20,21,SetXProp
 xterm*metaSendsEscape: true
 
 ! http://www.futurile.net/2016/06/14/xterm-setup-and-truetype-font-configuration/
-xterm*VT100.Translations: #override \
+xterm*VT100.Translations: #override \n\
     Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
     Ctrl Shift <Key>C:    copy-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key>): string(0x1b) string("[1;P1") \n\
+    Ctrl <Key>): string(0x1b) string("[1;P1") \n\
     Ctrl <Key>=: string(0x1b) string("[1;P2") \n\
     Ctrl <Key>braceright: string(0x1b) string("[1;P3") \n
