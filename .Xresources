@@ -25,3 +25,7 @@ xterm*VT100.Translations: #override \n\
     Ctrl <Key>): string(0x1b) string("[1;P1") \n\
     Ctrl <Key>=: string(0x1b) string("[1;P2") \n\
     Ctrl <Key>braceright: string(0x1b) string("[1;P3") \n
+
+! https://forums.opensuse.org/showthread.php/459502-How-to-disable-alt-enter-maximize
+xterm*fullScreen: never
+xterm.omitTranslation: fullscreen
