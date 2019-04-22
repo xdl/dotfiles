@@ -835,19 +835,20 @@
     (define-key evil-normal-state-map(kbd "gd") 'tide-jump-to-definition)
     (define-key evil-normal-state-map(kbd "gb") 'tide-jump-back)
     (define-key evil-normal-state-map(kbd "gr") 'tide-rename-symbol)
-    (company-mode +1)))
+    (company-mode +1))
+  :config
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
 
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
+  ;; Always use tide from node_modules
+  ;; TODO: make this like how eslint falls back to system typescript
+  (setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
 
-;; Always use tide from node_modules
-;; TODO: make this like how eslint falls back to system typescript
-(setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
+  ;; formats the buffer before saving
+  (add-hook 'before-save-hook 'tide-format-before-save)
 
-;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
+  (add-hook 'typescript-mode-hook #'setup-tide-mode))
 
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; Adding typescript extensions to web mode
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
