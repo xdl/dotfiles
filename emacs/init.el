@@ -655,8 +655,9 @@
 (when (file-directory-p "~/pdotfiles")
   (load "~/pdotfiles/emacs/latex-classes.el"))
 
-;; Setting tags column to 1
+;; Setting tags column to left-aligned in both org and org-agenda view
 (setq org-tags-column 1)
+(setq org-agenda-tags-column 1)
 
 ;;Geiser
 ;;------
