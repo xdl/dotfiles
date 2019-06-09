@@ -268,17 +268,24 @@
   (when (memq window-system '(mac ns x))
    (exec-path-from-shell-initialize)))
 
-(defun leader-replace-symbol ()
+(defun leader-replace-in-buffer ()
+  "Replace word (or optionally visual selection) in entire buffer."
   (interactive)
-  (let ((to-replace (thing-at-point 'symbol)))
+  (let ((to-replace (if (use-region-p)
+                        (buffer-substring (region-beginning) (region-end))
+                      (thing-at-point 'word))))
     (setq unread-command-events
           (listify-key-sequence (format ":%%s/%s/" to-replace)))))
 
-(defun leader-replace-word ()
+(defun leader-replace-in-line ()
+  "Replace word (or optionally visual selection) in current line."
   (interactive)
-  (let ((to-replace (thing-at-point 'word)))
+  (let ((to-replace (if (use-region-p)
+                        (buffer-substring (region-beginning) (region-end))
+                      (thing-at-point 'word))))
+    (message "%s: %s" "(use-region-p)" (prin1-to-string (use-region-p)))
     (setq unread-command-events
-          (listify-key-sequence (format ":%%s/%s/" to-replace)))))
+          (listify-key-sequence (format ":s/%s/" to-replace)))))
 
 ;;Evil Leader
 (use-package evil-leader
@@ -294,19 +301,16 @@
     "e" 'eyebrowse-print-mode-line-indicator
     "f" 'projectile-find-file
     "F" 'projectile-find-file-in-known-projects
-    ;; "f" 'projectile-find-file-in-known-projects
-    ;; "F" 'projectile-find-file
     "h" 'helm-apropos
     "g" 'magit-status
     "l" 'helm-buffers-list
-    ;; "n" 'treemacs ;; Like NERDTree
     "n" 'dired-sidebar-toggle-sidebar ;; Like NERDTree
     "sc" 'send-to-tmux/set-config
     "sd" 'send-to-tmux/get-difference
     "sg" 'send-to-tmux/get-config
     "ss" 'send-to-tmux/send-snippet
-    "rs" 'leader-replace-symbol
-    "rw" 'leader-replace-word
+    "rl" 'leader-replace-in-line
+    "rb" 'leader-replace-in-buffer
     "p" 'projectile-switch-project
     "w" 'save-buffer
     "y" 'show-copy-buffer-path))
@@ -577,14 +581,14 @@
 (require 'ob-foobar)
 
 (defun reload-ob-foobar ()
-  "Reloads foobar for iterative development"
+  "Reloads foobar for iterative development."
   (interactive)
   (progn
     (unload-feature 'ob-foobar 'force)
     (require 'ob-foobar)))
 
 (defun reload-ob-core ()
-  "Reloads ob-core for iterative development"
+  "Reloads ob-core for iterative development."
   (interactive)
   (progn
     (unload-feature 'ob-foobar 'force)
@@ -993,10 +997,10 @@
 
 ;;Misc/Scrap
 ;;==========
-(add-to-list 'load-path "/Volumes/SecondarySSD/dev/zz-haxe/haxemacs/test")
+(add-to-list 'load-path "/home/xdl/dev/zz-haxe/haxemacs/test")
 
 ;; For the test suite
-(add-to-list 'load-path "/Volumes/SecondarySSD/dev/zz-haxe/haxemacs/src")
+(add-to-list 'load-path "/home/xdl/dev/zz-haxe/haxemacs/src")
 (defun reload-haxe-mode ()
   "Reloads haxe-mode for iterative development."
   (interactive)
