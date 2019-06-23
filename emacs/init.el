@@ -595,11 +595,13 @@
     (require 'ob-core)))
 
 
-;;from David O'Toole's tutorial: http://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
 (use-package org
   :config
   (use-package ox-reveal)
   (use-package htmlize)
+  ;; Regain normal template expansion functionality
+  (require 'org-tempo)
+  ;; Load Markdown exporter automatically
   (require 'ox-md nil t))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
