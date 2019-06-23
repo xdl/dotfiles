@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: require
-# key: req
+# key: r
 # --
-const $1 = require('$1')
+const $1 = require('$1');
 $0
