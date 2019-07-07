@@ -358,6 +358,7 @@
   ;;too much other crap going on to be worrying about evil here
   (evil-set-initial-state 'comint-mode 'emacs)
   (evil-set-initial-state 'sldb-mode 'emacs)
+  (evil-set-initial-state 'geiser-doc-mode 'emacs)
   ;; (evil-set-initial-state 'treemacs-mode 'emacs)
 
   ;; Unbind C-a from evil-ex-completion; can (use C-l, C-d or TAB instead)
