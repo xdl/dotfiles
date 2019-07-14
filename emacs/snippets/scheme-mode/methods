@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: methods
+# key: ms
+# --
+(interface->method-names (object-interface $1))$0

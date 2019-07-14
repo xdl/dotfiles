@@ -706,7 +706,7 @@
    ("C-}" . sp-forward-barf-sexp)
 
    ;; This is conflicting with pasting from the terminal
-   ;; ("M-[" . sp-backward-unwrap-sexp)
+   ("M-[" . sp-backward-unwrap-sexp)
    ("M-]" . sp-unwrap-sexp)
 
    ("C-M-k" . sp-kill-sexp)
