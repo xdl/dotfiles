@@ -692,23 +692,27 @@
 ;;-----------
 (use-package smartparens
   :bind (
+   ;; Traversal
    ("C-M-f" . sp-forward-sexp)
    ("C-M-b" . sp-backward-sexp)
 
-   ;; Forwards
+   ;; Traversal Depth Changing
+   ;; Forward
    ("C-M-d" . sp-down-sexp)
    ("C-M-e" . sp-up-sexp)
 
+   ;; Backward
    ("C-M-a" . sp-backward-up-sexp)
    ("C-M-u" . sp-backward-down-sexp)
 
+   ;; Modification
    ("C-)" . sp-forward-slurp-sexp)
    ("C-}" . sp-forward-barf-sexp)
 
-   ;; This is conflicting with pasting from the terminal
-   ("M-[" . sp-backward-unwrap-sexp)
+   ;; ("M-[" . sp-backward-unwrap-sexp)
    ("M-]" . sp-unwrap-sexp)
 
+   ;; This is conflicting with pasting from the terminal
    ("C-M-k" . sp-kill-sexp)
    ("M-k" . sp-kill-hybrid-sexp)
 
