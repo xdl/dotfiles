@@ -292,13 +292,27 @@
     (setq unread-command-events
           (listify-key-sequence (format ":s/%s/" to-replace)))))
 
+;; https://emacsredux.com/blog/2013/05/04/rename-file-and-buffer/
+(defun leader-rename-file-and-buffer ()
+  "Rename the current buffer and file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (message "Buffer is not visiting a file!")
+      (let ((new-name (read-file-name "New name: " filename)))
+        (cond
+         ((vc-backend filename) (vc-rename-file filename new-name))
+         (t
+          (rename-file filename new-name t)
+          (set-visited-file-name new-name t t)))))))
+
 ;;Evil Leader
 (use-package evil-leader
   :config
   (global-evil-leader-mode)
-  (evil-leader/set-leader ",")
+  (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
-    "," 'evil-repeat-find-char-reverse
+    ;; "," 'evil-repeat-find-char-reverse
     "a" 'projectile-ag
     "b" 'helm-filtered-bookmarks
     "c" 'comment-line
@@ -314,6 +328,7 @@
     "sd" 'send-to-tmux/get-difference
     "sg" 'send-to-tmux/get-config
     "ss" 'send-to-tmux/send-snippet
+    "rf" 'leader-rename-file-and-buffer
     "rl" 'leader-replace-in-line
     "rb" 'leader-replace-in-buffer
     "p" 'projectile-switch-project
