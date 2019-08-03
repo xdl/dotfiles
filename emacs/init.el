@@ -269,20 +269,25 @@
    (exec-path-from-shell-initialize)))
 
 (defun leader-replace-in-buffer ()
-  "Replace word (or optionally visual selection) in entire buffer."
+  "Replace symbol (or optionally evil visual selection) in entire buffer."
   (interactive)
-  (let ((to-replace (if (use-region-p)
-                        (buffer-substring (region-beginning) (region-end))
-                      (thing-at-point 'word))))
-    (setq unread-command-events
-          (listify-key-sequence (format ":%%s/%s/" to-replace)))))
+  (if (evil-visual-state-p)
+      (progn
+        (evil-exit-visual-state)
+        (let ((to-replace (thing-at-point 'symbol)))
+          (evil-visual-restore)
+          (setq unread-command-events
+                (listify-key-sequence (format ":'<,'>s/%s/" to-replace)))))
+    (let ((to-replace (thing-at-point 'word)))
+      (setq unread-command-events
+            (listify-key-sequence (format ":%%s/%s" to-replace))))))
 
 (defun leader-replace-in-line ()
-  "Replace word (or optionally visual selection) in current line."
+  "Replace symbol in current line."
   (interactive)
   (let ((to-replace (if (use-region-p)
                         (buffer-substring (region-beginning) (region-end))
-                      (thing-at-point 'word))))
+                      (thing-at-point 'symbol))))
     (message "%s: %s" "(use-region-p)" (prin1-to-string (use-region-p)))
     (setq unread-command-events
           (listify-key-sequence (format ":s/%s/" to-replace)))))
