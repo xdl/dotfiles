@@ -446,8 +446,8 @@
 ;; https://www.reddit.com/r/emacs/comments/4agkye/how_do_you_customize_dired/
 (eval-after-load 'dired
   '(progn
-     (defun my-dired-create-file (file)
-       "Create a file called FILE. If FILE already exists, signal an error."
+     (defun dired-create-file-relative (file)
+       "Create a file called FILE relative to the location of cursor in dired subtree. If FILE already exists, signal an error."
        (interactive
         (list (read-file-name "Create file: " (dired-current-directory))))
        (let* ((expanded (expand-file-name file)))
@@ -464,7 +464,7 @@
          ;; Should goto the file
          (find-file expanded)))
      ;; This is shadowing dired-do-compress-to which I've never used, so should be fine!
-     (define-key dired-mode-map (kbd "c") #'my-dired-create-file)))
+     (define-key dired-mode-map (kbd "c") #'dired-create-file-relative)))
 
 ;;Eyebrowse
 ;;---------
