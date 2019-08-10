@@ -165,11 +165,12 @@
 ;; http://pinpinchinese.com/blog/how-to-type-pinyin-tone-marks-mac-os-x-yosemite/
 (setq mac-right-option-modifier nil)
 
-;; For iTerm2 compatability: https://www.emacswiki.org/emacs/iTerm2
+;; For iTerm2 (and xterm) compatability: https://www.emacswiki.org/emacs/iTerm2
 
 (define-key input-decode-map "\e[1;P1" (kbd "C-)")) ;; smartparens slurp
 (define-key input-decode-map "\e[1;P2" (kbd "C-=")) ;; expand-region
 (define-key input-decode-map "\e[1;P3" (kbd "C-}")) ;; smartparens barf
+(define-key input-decode-map "\e[1;P4" (kbd "M-[")) ;; sp-backward-unwrap-sexp
 
 ;;Packages
 ;;========
@@ -729,7 +730,7 @@
    ("C-)" . sp-forward-slurp-sexp)
    ("C-}" . sp-forward-barf-sexp)
 
-   ;; ("M-[" . sp-backward-unwrap-sexp)
+   ("M-[" . sp-backward-unwrap-sexp)
    ("M-]" . sp-unwrap-sexp)
 
    ;; This is conflicting with pasting from the terminal
