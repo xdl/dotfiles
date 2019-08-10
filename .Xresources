@@ -5,6 +5,7 @@
 ! fc-list :scalale=true:spacing=mono: family
 xterm*faceName: DejaVu Sans Mono
 xterm*faceSize: 9
+xterm*faceNameDoublesize: WenQuanYi Bitmap Song
 xterm*renderFont: true
 
 ! Using 256 colors
