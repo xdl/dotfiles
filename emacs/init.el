@@ -277,7 +277,7 @@
         (let ((to-replace (thing-at-point 'symbol)))
           (evil-visual-restore)
           (setq unread-command-events
-                (listify-key-sequence (format ":'<,'>s/%s/" to-replace)))))
+                (listify-key-sequence (format ":s/%s/" to-replace)))))
     (let ((to-replace (thing-at-point 'word)))
       (setq unread-command-events
             (listify-key-sequence (format ":%%s/%s" to-replace))))))
