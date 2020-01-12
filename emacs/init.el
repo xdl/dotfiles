@@ -16,7 +16,7 @@
 (when (window-system)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono for Powerline-14")))
+  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono for Powerline-7")))
 
 ;; Get rid of menu bar regardless
 (menu-bar-mode -1)
@@ -208,7 +208,7 @@
 ;;==============
 
 (defun get-set-screenshot-location ()
-  "Prints the current location of where screenshots are kept."
+  "Prints the current location of where screenshots are kept (MacOS specific)."
   (interactive)
   (let* ((current-location (shell-command-to-string "defaults read com.apple.screencapture location"))
          (prompt (format "Current screenshot location is: %s\nNew location: " current-location))
@@ -222,9 +222,8 @@
   "Show and copy the full path to the current file in the minibuffer."
   (interactive)
   (let ((file-name (or (buffer-file-name) list-buffers-directory)))
-    (if file-name
-        (message "%s copied to clipboard" (kill-new file-name))
-      (error "Buffer not visiting a file"))))
+    (when file-name
+        (message "%s copied to clipboard" (kill-new file-name)))))
 
 ;; (global-display-line-numbers-mode t)
 ;; (setq display-line-numbers 'relative)
@@ -931,6 +930,9 @@
 
 ;;Misc
 ;;====
+
+;; csv-mode
+(use-package csv-mode)
 
 ;; Hunspell
 (when (executable-find "hunspell")

@@ -18,7 +18,8 @@
 	pom = "push origin master"
 [user]
 	name = "Eddie Li"
-    # email = "<fill in>"
+    email = "eddie@xiaodi.li"
+
 [core]
 	autocrlf = input
 	editor = vim

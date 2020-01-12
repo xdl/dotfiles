@@ -1,6 +1,7 @@
 "SETUP
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible "uses Vim settings as opposed to Vi
+"execute pathogen#infect() 
 
 "TEXT FORMATTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
