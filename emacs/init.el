@@ -159,7 +159,6 @@
 (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
-
 ;; For Chinese input
 ;; https://stackoverflow.com/questions/6344389/osx-emacs-unbind-just-the-right-alt
 ;; http://pinpinchinese.com/blog/how-to-type-pinyin-tone-marks-mac-os-x-yosemite/
@@ -228,6 +227,12 @@
 ;; (global-display-line-numbers-mode t)
 ;; (setq display-line-numbers 'relative)
 ;; (global-linum-mode 1)
+
+;; In Ubuntu bash
+;; https://stackoverflow.com/questions/5288213/how-can-i-paste-the-selected-region-outside-of-emacs/14659015#14659015
+(use-package xclip
+  :config
+  (xclip-mode 1))
 
 (require 'thingatpt)
 ;;Relative numbers
