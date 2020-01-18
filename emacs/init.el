@@ -780,7 +780,8 @@
 
 ;; Markdown-mode
 ;; -------------
-(use-package markdown-mode)
+(use-package markdown-mode
+  :ensure t)
 
 ;; Company-mode
 ;; ------------
