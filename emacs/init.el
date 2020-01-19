@@ -83,10 +83,6 @@
       (deactivate-mark)
       (message "buffer copied to system clipboard"))))
 
-(use-package xclip
-  :config
-  (xclip-mode))
-
 ;;Behaviour
 ;;=========
 
@@ -488,13 +484,13 @@
 
 ;;Eyebrowse
 ;;---------
-(use-package eyebrowse
-  :init
-  (setq eyebrowse-wrap-around 1)
-  (setq eyebrowse-new-workspace 1)
-  :config
-  (eyebrowse-mode t)
-  (eyebrowse-setup-opinionated-keys))
+;; (use-package eyebrowse
+;;   :init
+;;   (setq eyebrowse-wrap-around 1)
+;;   (setq eyebrowse-new-workspace 1)
+;;   :config
+;;   (eyebrowse-mode t)
+;;   (eyebrowse-setup-opinionated-keys))
 
 ;;Perspective
 ;;-----------
