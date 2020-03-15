@@ -57,16 +57,28 @@
 ;; Remapping from kill-region, which doesn't seem to be useful
 (define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word)
 
+(defun get-copy-command ()
+  "Assuming either Linux or MacOS for now."
+  (if (string-equal system-type "gnu/linux")
+      "xclip -selection clipboard"
+    "pbcopy"))
+
+(defun get-paste-command ()
+  "Assuming either Linux or MacOS for now."
+  (if (string-equal system-type "gnu/linux")
+      "xclip -selection clipboard -o"
+    "pbpaste"))
+
 ;; Used in yasnippet links (orgmode and markdown)
 (defun read-from-system-clipboard ()
   "Return system clipboard contents."
   (interactive)
-  (shell-command-to-string "pbpaste"))
+  (shell-command-to-string (get-paste-command)))
 
 (defun paste-from-system-clipboard ()
   "Paste system clipboard contents at current point."
   (interactive)
-  (shell-command "pbpaste" 1)
+  (shell-command (get-paste-command))
   (message "system clipboard pasted"))
 
 (defun copy-to-system-clipboard ()
@@ -74,12 +86,12 @@
   (interactive)
   (if (use-region-p)
       (progn
-        (shell-command-on-region (region-beginning) (region-end) "pbcopy")
+        (shell-command-on-region (region-beginning) (region-end) (get-copy-command))
         (deactivate-mark)
         (message "region copied to system clipboard"))
     (save-excursion
       (mark-whole-buffer)
-      (shell-command-on-region (region-beginning) (region-end) "pbcopy")
+      (shell-command-on-region (region-beginning) (region-end) (get-copy-commnd))
       (deactivate-mark)
       (message "buffer copied to system clipboard"))))
 
@@ -883,7 +895,6 @@
   (add-hook 'before-save-hook 'tide-format-before-save)
 
   (add-hook 'typescript-mode-hook #'setup-tide-mode))
-
 
 ;; Adding typescript extensions to web mode
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
