@@ -59,6 +59,7 @@
 
 (defun get-copy-command ()
   "Assuming either Linux or MacOS for now."
+  ;; http://ergoemacs.org/emacs/elisp_determine_OS_version.html
   (if (string-equal system-type "gnu/linux")
       "xclip -selection clipboard"
     "pbcopy"))
