@@ -531,7 +531,11 @@
 ;;------
 (use-package slime
   :config
-  (setq inferior-lisp-program "/usr/local/bin/sbcl"))
+  (setq inferior-lisp-program
+        (if (string-equal system-type "gnu/linux")
+            "/usr/bin/sbcl" ; Ubuntu
+          "/usr/local/bin/sbcl" ; MacOS
+	  )))
 
 ;; Helm
 ;;-----
@@ -733,10 +737,10 @@
    ;; Traversal Depth Changing
    ;; Forward
    ("C-M-d" . sp-down-sexp)
-   ("C-M-e" . sp-up-sexp)
+   ("C-M-e" . sp-up-sexp) ;; Shadowing slime-end-of-defun
 
    ;; Backward
-   ("C-M-a" . sp-backward-up-sexp)
+   ("C-M-a" . sp-backward-up-sexp) ;; Shadowing slime-beginning-of-defun
    ("C-M-u" . sp-backward-down-sexp)
 
    ;; Modification

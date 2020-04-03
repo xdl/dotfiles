@@ -2,9 +2,9 @@
 ! xrdb -merge "$HOME/.Xresources"
 
 ! Nice Ubuntu font. Found using:
-! fc-list :scalale=true:spacing=mono: family
+! fc-list :scalable=true:spacing=mono: family
 xterm*faceName: DejaVu Sans Mono
-xterm*faceSize: 9
+xterm*faceSize: 10
 xterm*faceNameDoublesize: WenQuanYi Bitmap Song
 xterm*renderFont: true
 
@@ -27,7 +27,7 @@ xterm*VT100.Translations: #override \n\
     Ctrl Shift <Key>C:    copy-selection(CLIPBOARD) \n\
     Ctrl <Key>): string(0x1b) string("[1;P1") \n\
     Ctrl <Key>=: string(0x1b) string("[1;P2") \n\
-    Ctrl Shift <Key>braceright: string(0x1b) string("[1;P3") \n
+    Ctrl <Key>}: string(0x1b) string("[1;P3") \n
 
 ! https://forums.opensuse.org/showthread.php/459502-How-to-disable-alt-enter-maximize
 xterm*fullScreen: never
