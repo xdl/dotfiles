@@ -845,10 +845,11 @@
   (add-hook 'js2-mode-hook (lambda ()
     (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
 
+;; Commenting this out; seems to interfere with org-export when not installed
 ;; Indium
-(use-package indium
-  :hook
-  (js-mode . indium-interaction-mode))
+;; (use-package indium
+;;   :hook
+;;   (js-mode . indium-interaction-mode))
 
 ;; web-mode
 ;; (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
