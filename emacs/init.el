@@ -175,10 +175,10 @@
 
 ;; For iTerm2 (and xterm) compatability: https://www.emacswiki.org/emacs/iTerm2
 
-;; (define-key input-decode-map "\e[1;P4" (kbd "M-[")) ;; sp-backward-unwrap-sexp
 (define-key input-decode-map "\e[1;P1" (kbd "C-)")) ;; smartparens slurp
 (define-key input-decode-map "\e[1;P2" (kbd "C-=")) ;; expand-region
 (define-key input-decode-map "\e[1;P3" (kbd "C-}")) ;; smartparens barf
+;; (define-key input-decode-map "\e[1;P4" (kbd "M-[")) ;; sp-backward-unwrap-sexp
 
 ;;Packages
 ;;========
@@ -192,7 +192,7 @@
 ;;===
 (setq css-indent-offset 2)
 
-;;Javascript
+;;JavaScript
 ;;==========
 (setq js-indent-level 2)
 
@@ -320,6 +320,14 @@
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
+(defun random-task ()
+  "Select randomly between list of tasks inputted by user."
+  (interactive)
+  (let* ((tasks-str (read-string "Enter task names to be chosen randomly: "))
+         (tasks (split-string tasks-str))
+         (task-idx (random (length tasks))))
+    (nth task-idx tasks)))
+
 ;;Evil Leader
 (use-package evil-leader
   :config
@@ -334,19 +342,23 @@
     "e" 'eyebrowse-print-mode-line-indicator
     "f" 'projectile-find-file
     "F" 'projectile-find-file-in-known-projects
-    "h" 'helm-apropos
     "g" 'magit-status
+    "h" 'helm-apropos
     "l" 'helm-buffers-list
     "n" 'dired-sidebar-toggle-sidebar ;; Like NERDTree
+
     "sc" 'send-to-tmux/set-config
     "sd" 'send-to-tmux/get-difference
     "sg" 'send-to-tmux/get-config
     "ss" 'send-to-tmux/send-snippet
+
+    "rt" 'random-task
+
     "rf" 'leader-rename-file-and-buffer
     "rl" 'leader-replace-in-line
     "rb" 'leader-replace-in-buffer
+
     "p" 'projectile-switch-project
-    "w" 'save-buffer
     "y" 'show-copy-buffer-path))
 
 (use-package evil-numbers
