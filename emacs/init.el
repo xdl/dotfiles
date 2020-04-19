@@ -547,7 +547,10 @@
         (if (string-equal system-type "gnu/linux")
             "/usr/bin/sbcl" ; Ubuntu
           "/usr/local/bin/sbcl" ; MacOS
-	  )))
+          ))
+  (slime-setup '(slime-fancy slime-company)))
+
+(use-package slime-company)
 
 ;; Helm
 ;;-----
