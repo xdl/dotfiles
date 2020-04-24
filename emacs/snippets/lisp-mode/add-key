@@ -1,0 +1,4 @@
+# key: ak
+# name: add-key
+# --
+(setf (gethash ${1:k} ${2:hash-table}) ${3:v})

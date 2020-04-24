@@ -1,0 +1,4 @@
+# key: gck
+# name: get-check-key
+# --
+(multiple-value-bind (value present) (gethash ${1:k} ${2:hash-table})$0)

@@ -1,0 +1,4 @@
+# key: fk
+# name: for-keys
+# --
+(loop :for ${1:k} :being :the :hash-keys :in ${2:hash-table}$0)

@@ -1,0 +1,4 @@
+# key: fkv
+# name: for-key-values
+# --
+(loop :for ${1:k} :being :the :hash-keys :in ${2:hash-table} :using (:hash-value ${3:v})$0)

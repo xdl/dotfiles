@@ -1,0 +1,4 @@
+# key: rk
+# name: remove-key
+# --
+(remhash ${1:k} ${2:hash-table})
