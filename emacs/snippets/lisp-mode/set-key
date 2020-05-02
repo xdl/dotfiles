@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: set-key
+# key: sk
+# --
+(setf (gethash ${1:k} ${2:hash-table}) ${3:v})
