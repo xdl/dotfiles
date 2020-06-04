@@ -61,7 +61,7 @@
   "Assuming either Linux or MacOS for now."
   ;; http://ergoemacs.org/emacs/elisp_determine_OS_version.html
   (if (string-equal system-type "gnu/linux")
-      "xclip -selection clipboard"
+      "xsel -i -b"
     "pbcopy"))
 
 (defun get-paste-command ()
@@ -199,6 +199,26 @@
 ;;R
 (use-package ess)
 (setq ess-indent-offset 2)
+
+;;Godot
+(use-package gdscript-mode
+  :hook (gdscript-mode . lsp))
+
+;;LSP
+(use-package lsp-mode)
+
+;; https://github.com/godotengine/godot/pull/32544
+(defun franco/godot-gdscript-lsp-ignore-error (original-function &rest args)
+  "Ignore the error message resulting from Godot not replying to the `JSONRPC' request."
+  (if (string-equal major-mode "gdscript-mode")
+      (let ((json-data (nth 0 args)))
+        (if (and (string= (gethash "jsonrpc" json-data "") "2.0")
+                 (not (gethash "id" json-data nil))
+                 (not (gethash "method" json-data nil)))
+            nil ; (message "Method not found")
+          (apply original-function args)))
+    (apply original-function args)))
+(advice-add #'lsp--get-message-type :around #'franco/godot-gdscript-lsp-ignore-error)
 
 ;;Lisp Development
 ;;================
@@ -1022,10 +1042,12 @@
 ;;     (push 'company-rtags company-backends)
 ;;     ))
 
+
 ;; Irony
 (use-package irony
   :config
   (progn
+    (setq company-clang-executable "/usr/bin/clang-10")
     ;; If irony server was never installed, install it.
     (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
     (add-hook 'c++-mode-hook 'irony-mode)
@@ -1033,10 +1055,10 @@
     ;; Use compilation database first, clang_complete as fallback.
     (setq-default irony-cdb-compilation-databases '(irony-cdb-libclang
                                                       irony-cdb-clang-complete))
-    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-    ))
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)))
 
-;; (use-package company-irony-c-headers)
+(use-package company-irony-c-headers)
+
 (use-package flycheck-irony
   :config
   (progn
@@ -1046,8 +1068,8 @@
  :config
  (progn
    (eval-after-load 'company '(add-to-list 'company-backends
-                                           ;; '(company-irony-c-headers company-irony)))))
-                                           '(company-irony)))))
+                                           '(company-irony-c-headers company-irony)
+                                           ))))
 
 (use-package irony-eldoc
   :config

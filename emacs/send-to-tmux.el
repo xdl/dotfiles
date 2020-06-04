@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+;; N.B. get-copy-command defined in init.el
+
 ;; For string-trim
 (require 'subr-x)
 
@@ -26,10 +28,9 @@
            (if (= (length (split-string contents-trimmed "\n")) 1)
                (format "%s\n" contents-trimmed)
              (progn
-               (shell-command-on-region (region-beginning) (region-end) "pbcopy")
+               (shell-command-on-region (region-beginning) (region-end) (get-copy-command))
                "%paste\n")))
           (t (format "%s\n" contents-trimmed)))))
-
 
 
 (defun send-to-tmux/postprocess-difference-result (diff)

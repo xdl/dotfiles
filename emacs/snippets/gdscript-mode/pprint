@@ -1,0 +1,4 @@
+# key: pp
+# name: pprint
+# --
+print_debug("$1:", $1)
