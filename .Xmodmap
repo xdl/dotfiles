@@ -1,0 +1,5 @@
+! For Magic Keyboard
+! https://help.ubuntu.com/community/AppleKeyboard
+! Eject → PrintScreen
+! xmodmap ~/.Xmodmap to run
+keycode 169 = Print
