@@ -264,22 +264,26 @@
   (xclip-mode 1))
 
 (require 'thingatpt)
+
 ;;Relative numbers
 ;;----------------
-(use-package nlinum-relative
-  :config
+;; (use-package nlinum-relative
+;;   :config
 
-  ;; setup for evil
-  (nlinum-relative-setup-evil)
-  (add-hook 'prog-mode-hook 'nlinum-relative-mode)
-  (add-hook 'text-mode-hook 'nlinum-relative-mode)
-  (setq nlinum-relative-redisplay-delay 0.1)
+;;   ;; setup for evil
+;;   (nlinum-relative-setup-evil)
+;;   (add-hook 'prog-mode-hook 'nlinum-relative-mode)
+;;   (add-hook 'text-mode-hook 'nlinum-relative-mode)
+;;   (setq nlinum-relative-redisplay-delay 0.1)
 
-  ;; or "" for display current line number
-  (setq nlinum-relative-current-symbol "")
+;;   ;; or "" for display current line number
+;;   (setq nlinum-relative-current-symbol "")
 
-  ;; 1 if you want 0, 2, 3...
-  (setq nlinum-relative-offset 0))
+;;   ;; 1 if you want 0, 2, 3...
+;;   (setq nlinum-relative-offset 0))
+
+;; Either use this or relative numbers; undecided
+(global-display-line-numbers-mode)
 
 ;;Packages
 ;;========
@@ -1005,6 +1009,10 @@
           (setq auto-mode-alist
                 (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
           (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))))))
+
+;;Rust
+;;====
+(use-package rust-mode)
 
 ;;Arduino
 ;;=======
