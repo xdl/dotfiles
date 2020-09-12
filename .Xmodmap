@@ -1,5 +1,14 @@
-! For Magic Keyboard
 ! https://help.ubuntu.com/community/AppleKeyboard
 ! Eject → PrintScreen
 ! xmodmap ~/.Xmodmap to run
-keycode 169 = Print
+
+! For Magic Keyboard
+! Remapping Eject
+! keycode 169 = Print
+
+
+! For Tecknet Wireless Keyboard
+! keycode 164 = Print
+
+! Remapping Alt-R
+keycode 108 = Print
