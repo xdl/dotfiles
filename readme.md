@@ -25,3 +25,9 @@ For fonts:
     
     # DeJaVu
     sudo apt-get install fonts-dejavu
+
+## Emacs dependencies
+
+Requires dot (graphviz) for orgmode
+
+    sudo apt install graphviz
