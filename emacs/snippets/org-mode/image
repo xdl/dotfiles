@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: image
+# key: img
+# --
+[[${1:./link/to/image.png}]]
+#+CAPTION: $2
