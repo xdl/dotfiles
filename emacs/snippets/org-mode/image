@@ -2,5 +2,7 @@
 # name: image
 # key: img
 # --
+#+ATTR_ORG: :width ${3:400}
 [[${1:./link/to/image.png}]]
 #+CAPTION: $2
+$0
