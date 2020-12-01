@@ -167,6 +167,8 @@
 (add-hook 'markdown-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'cider-mode-hook #'(lambda () (modify-syntax-entry ?- "w")))
+(add-hook 'emacs-lisp-mode-hook #'(lambda () (modify-syntax-entry ?- "w")))
 
 ;; For Chinese input
 ;; https://stackoverflow.com/questions/6344389/osx-emacs-unbind-just-the-right-alt
@@ -677,6 +679,7 @@
 (use-package org
   :config
   (use-package ox-reveal)
+  (use-package gnuplot-mode)
   (use-package htmlize)
   ;; Regain normal template expansion functionality
   (require 'org-tempo)
