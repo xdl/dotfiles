@@ -24,8 +24,12 @@
 ;; Show column numbers
 (setq column-number-mode t)
 
-;;Nice-ish dark theme
-(load-theme 'tsdh-dark)
+;;Nice-ish built-in dark theme
+;; (load-theme 'tsdh-dark)
+;; Otherwise:
+(use-package zenburn-theme
+  :config
+  (load-theme 'zenburn t))
 
 ;; Removes the curly arrows to denote word/line wraps
 (setq-default fringe-indicator-alist ())
@@ -1053,6 +1057,10 @@
 ;;     (push 'company-rtags company-backends)
 ;;     ))
 
+;; Rainbow delimiters
+(use-package rainbow-delimiters
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
 
 ;; Irony
 (use-package irony
@@ -1087,11 +1095,16 @@
   (progn
     (add-hook 'irony-mode-hook #'irony-eldoc)))
 
-;; Cider
+;; PHP
+(use-package php-mode)
 
+;; Clojure (Cider, Flycheck)
 (use-package cider
+  :defer t
   :config
   (helm-cider-mode 1))
+
+(use-package flycheck-clj-kondo)
 
 ;;Misc/Scrap
 ;;==========
