@@ -1059,8 +1059,8 @@
 
 ;; Rainbow delimiters
 (use-package rainbow-delimiters
-  :hook
-  (prog-mode . rainbow-delimiters-mode))
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 ;; Irony
 (use-package irony
