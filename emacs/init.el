@@ -1102,7 +1102,11 @@
 (use-package cider
   :defer t
   :config
-  (helm-cider-mode 1))
+  (helm-cider-mode 1)
+
+  ;; Keep sp backward up binding
+  :bind (("C-M-a" . sp-backward-up-sexp))
+  )
 
 (use-package flycheck-clj-kondo)
 

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: print-map
+# key: pm
+# --
+(print "$1: ") (pprint $1)

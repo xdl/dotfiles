@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: error-log-verbose
+# key: ell
+# --
+error_log("$1: " . $$1);
+$0

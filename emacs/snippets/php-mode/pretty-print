@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: pretty-print
+# key: pp
+# --
+print "$1: $1";
+$0

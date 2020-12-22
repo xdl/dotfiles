@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: error-log
+# key: el
+# --
+error_log("$1");
+$0
