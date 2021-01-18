@@ -1021,6 +1021,11 @@
 ;;====
 (use-package rust-mode)
 
+;;Kotlin
+;;====
+(use-package kotlin-mode)
+
+
 ;;Arduino
 ;;=======
 (use-package arduino-mode
