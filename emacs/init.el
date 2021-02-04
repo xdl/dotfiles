@@ -1111,7 +1111,10 @@
 
   ;; Keep sp backward up binding
   :bind (("C-M-a" . sp-backward-up-sexp))
-  )
+  
+  :hook
+  (cider-repl-mode-hook . eldoc-mode)
+  (cider-mode . eldoc-mode))
 
 (use-package flycheck-clj-kondo)
 
