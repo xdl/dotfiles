@@ -165,14 +165,25 @@
 
 ;; Playing around with syntax tables
 ;; https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
-(add-hook 'arduino-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-(add-hook 'org-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-(add-hook 'haxe-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-(add-hook 'markdown-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-(add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-(add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-(add-hook 'cider-mode-hook #'(lambda () (modify-syntax-entry ?- "w")))
-(add-hook 'emacs-lisp-mode-hook #'(lambda () (modify-syntax-entry ?- "w")))
+
+(defun underscore-as-word ()
+  "Set underscore as part of word (for evil-visualstar)."
+  (modify-syntax-entry ?_ "w"))
+
+(defun hyphen-as-word ()
+  "Set hyphen as part of word (for evil-visualstar)."
+  (modify-syntax-entry ?_ "w"))
+
+(add-hook 'arduino-mode-hook 'underscore-as-word)
+(add-hook 'org-mode-hook 'underscore-as-word)
+(add-hook 'haxe-mode-hook 'underscore-as-word)
+(add-hook 'markdown-mode-hook 'underscore-as-word)
+(add-hook 'python-mode-hook 'underscore-as-word)
+(add-hook 'js2-mode-hook 'underscore-as-word)
+(add-hook 'gdscript-mode-hook 'underscore-as-word)
+
+(add-hook 'cider-mode-hook 'hyphen-as-word)
+(add-hook 'emacs-lisp-mode-hook 'hyphen-as-word)
 
 ;; For Chinese input
 ;; https://stackoverflow.com/questions/6344389/osx-emacs-unbind-just-the-right-alt
