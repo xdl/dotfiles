@@ -224,8 +224,8 @@
 ;;LSP
 (use-package lsp-mode)
 
-;; https://github.com/godotengine/godot/pull/32544
-(defun franco/godot-gdscript-lsp-ignore-error (original-function &rest args)
+;; From https://github.com/godotengine/emacs-gdscript-mode#known-issues
+(defun lsp--gdscript-ignore-errors (original-function &rest args)
   "Ignore the error message resulting from Godot not replying to the `JSONRPC' request."
   (if (string-equal major-mode "gdscript-mode")
       (let ((json-data (nth 0 args)))
@@ -235,7 +235,8 @@
             nil ; (message "Method not found")
           (apply original-function args)))
     (apply original-function args)))
-(advice-add #'lsp--get-message-type :around #'franco/godot-gdscript-lsp-ignore-error)
+;; Runs the function `lsp--gdscript-ignore-errors` around `lsp--get-message-type` to suppress unknown notification errors.
+(advice-add #'lsp--get-message-type :around #'lsp--gdscript-ignore-errors)
 
 ;;Lisp Development
 ;;================

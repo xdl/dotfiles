@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: sum
+# key: sum
+# --
+var ${1:sum_var} = 0
+for ${2:elem} in ${3:source_array}:
+	$1 += $2

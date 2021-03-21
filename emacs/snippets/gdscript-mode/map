@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: map
+# key: map
+# --
+var ${1:output_array} = []
+for ${2:elem} in ${3:source_array}:
+	$1.append($2$0)

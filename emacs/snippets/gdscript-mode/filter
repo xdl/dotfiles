@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: filter
+# key: filter
+# --
+var ${1:output_array} = []
+for ${2:elem} in ${3:source_array}:
+	if $2$0:
+		$1.append($2)
