@@ -8,15 +8,21 @@
 (require 'subr-x)
 
 ;; https://superuser.com/questions/385472/get-current-window-number-for-bash-prompt
-(defun send-to-tmux/get-window-number-cmd ()
-  "Get the window number of the current Emacs instance."
-  "tmux display-message -p '#I'")
+;; Get the window number of the current Emacs instance.
+(defconst send-to-tmux/get-window-number-cmd "tmux display-message -p '#I'")
+;; (defconst send-to-tmux/display-panes-cmd "tmux display-panes")
+
+(defun send-to-tmux/get-window-number ()
+  "Get the tmux window number of where current Emacs process resides."
+  (string-trim (shell-command-to-string send-to-tmux/get-window-number-cmd)))
 
 (defun send-to-tmux/get-smart-target-pane-config ()
   "Get the target pane for most scenarios."
-  (format "%s.1" (string-trim (shell-command-to-string (send-to-tmux/get-window-number-cmd)))))
+  (format "%s.1" (string-trim (shell-command-to-string send-to-tmux/get-window-number-cmd))))
 
 ;; (defvar send-to-tmux/config '("default" "0.1" 1))
+;; Can tmux window number can change duing an Emacs instance? If so this needs to be a function.
+;; (session-name pane-config truncate-difference)
 (defvar send-to-tmux/config `("default" ,(send-to-tmux/get-smart-target-pane-config) 1))
 (defconst send-to-tmux/paste-path "~/.slime_paste")
 (defvar send-to-tmux/last-known-pane-length 0)
@@ -107,12 +113,12 @@
   (interactive)
   (let* ((session (car send-to-tmux/config))
          (session-prompt "session name: ")
-         (pane (send-to-tmux/get-smart-target-pane-config))
-         (pane-prompt "pane config: ")
+         (window-pane (send-to-tmux/get-smart-target-pane-config))
+         (window-pane-prompt "window.pane config: ")
          (diff-truncate (nth 2 send-to-tmux/config))
          (diff-truncate-prompt "diff truncate: ")
          (new-session (read-string session-prompt session))
-         (new-pane (read-string pane-prompt pane))
+         (new-pane (read-string window-pane-prompt window-pane))
          (new-diff-truncate (read-string diff-truncate-prompt
                                          (number-to-string diff-truncate))))
     (setq send-to-tmux/config (list new-session
@@ -120,5 +126,15 @@
                                     (string-to-number new-diff-truncate)))
     (message "tmux config set to: %s" (prin1-to-string send-to-tmux/config))))
 
-(provide 'send-to-tmux)
+(defun send-to-tmux/set-pane ()
+  "Shorthand for setting tmux pane."
+  (interactive)
+  (let* ((window-pane (format "%s." (send-to-tmux/get-window-number)))
+         (window-pane-prompt "window.pane config: ")
+         (new-pane (read-string window-pane-prompt window-pane)))
+    (setq send-to-tmux/config (list (nth 0 send-to-tmux/config)
+                                    new-pane
+                                    (nth 2 send-to-tmux/config)))
+    (message "tmux config set to: %s" (prin1-to-string send-to-tmux/config))))
 
+(provide 'send-to-tmux)
