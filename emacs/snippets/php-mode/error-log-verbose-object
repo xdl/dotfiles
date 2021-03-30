@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: error-log-verbose-object
+# key: elo
+# --
+error_log("$1: " . json_encode($$1));
+$0
