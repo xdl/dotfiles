@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-;; N.B. get-copy-command defined in init.el
+;; N.B. requires the get-copy-command defined in init.el
 
 ;; For string-trim
 (require 'subr-x)
@@ -106,7 +106,14 @@
   "Get send-to-tmux config."
   (interactive)
   (message
-   (prin1-to-string send-to-tmux/config)))
+   (send-to-tmux/config-str)))
+
+(defun send-to-tmux/config-str ()
+  "Return readable tmux config."
+  (format "{session name: %s, window.pane: %s, prompt-trim: %s}"
+          (nth 0 send-to-tmux/config)
+          (nth 1 send-to-tmux/config)
+          (nth 2 send-to-tmux/config)))
 
 (defun send-to-tmux/set-config ()
   "Configure send-to-tmux config."
@@ -124,7 +131,7 @@
     (setq send-to-tmux/config (list new-session
                                     new-pane
                                     (string-to-number new-diff-truncate)))
-    (message "tmux config set to: %s" (prin1-to-string send-to-tmux/config))))
+    (message "tmux config set to: %s" (send-to-tmux/config-str))))
 
 (defun send-to-tmux/set-pane ()
   "Shorthand for setting tmux pane."
@@ -135,6 +142,7 @@
     (setq send-to-tmux/config (list (nth 0 send-to-tmux/config)
                                     new-pane
                                     (nth 2 send-to-tmux/config)))
-    (message "tmux config set to: %s" (prin1-to-string send-to-tmux/config))))
+    (message "tmux config set to: %s" (send-to-tmux/config-str))))
 
 (provide 'send-to-tmux)
+;;; send-to-tmux ends here
