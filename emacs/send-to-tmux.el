@@ -110,7 +110,7 @@
 
 (defun send-to-tmux/config-str ()
   "Return readable tmux config."
-  (format "{session name: %s, window.pane: %s, prompt-trim: %s}"
+  (format "{session name: %s, window.pane: %s, difference-trim: %s}"
           (nth 0 send-to-tmux/config)
           (nth 1 send-to-tmux/config)
           (nth 2 send-to-tmux/config)))

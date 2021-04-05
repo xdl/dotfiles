@@ -325,7 +325,7 @@
    (exec-path-from-shell-initialize)))
 
 (defun leader-replace-symbol-in-buffer ()
-  "Replace symbol (or optionally svil visual selection) in entire buffer."
+  "Replace symbol in entire buffer."
   (interactive)
   (let ((to-replace (thing-at-point 'word)))
     (setq unread-command-events
@@ -383,7 +383,6 @@
     "b" 'helm-filtered-bookmarks
     "c" 'comment-line
     "d" 'magit-log-buffer-file
-    "e" 'eyebrowse-print-mode-line-indicator
     "f" 'projectile-find-file
     "F" 'projectile-find-file-in-known-projects
     "g" 'magit-status
