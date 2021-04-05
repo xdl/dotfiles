@@ -324,29 +324,29 @@
   (when (memq window-system '(mac ns x))
    (exec-path-from-shell-initialize)))
 
-(defun leader-replace-in-buffer ()
-  "Replace symbol (or optionally evil visual selection) in entire buffer."
+(defun leader-replace-symbol-in-buffer ()
+  "Replace symbol (or optionally svil visual selection) in entire buffer."
   (interactive)
-  (if (evil-visual-state-p)
-      (progn
-        (evil-exit-visual-state)
-        (let ((to-replace (thing-at-point 'symbol)))
-          (evil-visual-restore)
-          (setq unread-command-events
-                (listify-key-sequence (format ":s/%s/" to-replace)))))
-    (let ((to-replace (thing-at-point 'word)))
-      (setq unread-command-events
-            (listify-key-sequence (format ":%%s/%s" to-replace))))))
+  (let ((to-replace (thing-at-point 'word)))
+    (setq unread-command-events
+          (listify-key-sequence (format ":%%s/%s/" to-replace)))))
 
-(defun leader-replace-in-line ()
+(defun leader-replace-symbol-in-line ()
   "Replace symbol in current line."
   (interactive)
-  (let ((to-replace (if (use-region-p)
-                        (buffer-substring (region-beginning) (region-end))
-                      (thing-at-point 'symbol))))
-    (message "%s: %s" "(use-region-p)" (prin1-to-string (use-region-p)))
+  (let ((to-replace (thing-at-point 'symbol)))
     (setq unread-command-events
           (listify-key-sequence (format ":s/%s/" to-replace)))))
+
+(defun leader-replace-symbol-in-selection ()
+  "Replace symbol in evil visual selection."
+  (interactive)
+  (when (evil-visual-state-p)
+    (evil-exit-visual-state)
+    (let ((to-replace (thing-at-point 'symbol)))
+      (evil-visual-restore)
+      (setq unread-command-events
+            (listify-key-sequence (format ":s/%s/" to-replace))))))
 
 ;; https://emacsredux.com/blog/2013/05/04/rename-file-and-buffer/
 (defun leader-rename-file-and-buffer ()
@@ -362,13 +362,15 @@
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
-(defun random-task ()
-  "Select randomly between list of tasks inputted by user."
+(defun random-thing ()
+  "Select randomly between list of things inputted by user."
   (interactive)
-  (let* ((tasks-str (read-string "Enter task names to be chosen randomly: "))
-         (tasks (split-string tasks-str))
-         (task-idx (random (length tasks))))
-    (nth task-idx tasks)))
+  (let* ((things-str (read-string "Enter things to be chosen randomly (separated by space): "))
+         (things (split-string things-str))
+         (thing-idx (random (length things))))
+    (message
+     (format "Random thing chosen: %s"
+          (nth thing-idx things)))))
 
 ;;Evil Leader
 (use-package evil-leader
@@ -394,11 +396,13 @@
     "sg" 'send-to-tmux/get-config
     "ss" 'send-to-tmux/send-snippet
 
-    "rt" 'random-task
+    "rt" 'random-thing
 
     "rf" 'leader-rename-file-and-buffer
-    "rl" 'leader-replace-in-line
-    "rb" 'leader-replace-in-buffer
+
+    "rsb" 'leader-replace-symbol-in-buffer
+    "rsl" 'leader-replace-symbol-in-line
+    "rss" 'leader-replace-symbol-in-selection
 
     "p" 'projectile-switch-project
     "y" 'show-copy-buffer-path))
