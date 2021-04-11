@@ -393,6 +393,7 @@
     "sc" 'send-to-tmux/set-config
     "sd" 'send-to-tmux/get-difference
     "sg" 'send-to-tmux/get-config
+    "sp" 'send-to-tmux/set-pane
     "ss" 'send-to-tmux/send-snippet
 
     "rt" 'random-thing
