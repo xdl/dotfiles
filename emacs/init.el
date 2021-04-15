@@ -221,8 +221,15 @@
 (use-package gdscript-mode
   :hook (gdscript-mode . lsp))
 
+;;Scala
+(use-package scala-mode
+  :hook (scala-mode . lsp))
+
+(use-package lsp-metals)
+
 ;;LSP
 (use-package lsp-mode)
+
 
 ;; From https://github.com/godotengine/emacs-gdscript-mode#known-issues
 (defun lsp--gdscript-ignore-errors (original-function &rest args)
