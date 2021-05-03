@@ -5,10 +5,10 @@
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")))
+        ("org" . "https://orgmode.org/elpa/")))
 (package-initialize)
 
-;; update the package metadata is the local cache is missing
+;; update the package metadata if the local cache is missing
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -227,9 +227,18 @@
 
 (use-package lsp-metals)
 
-;;LSP
-(use-package lsp-mode)
+;;Java
+(use-package lsp-java
+  :hook (java-mode . lsp))
 
+(add-hook 'java-mode-hook
+          (lambda()
+            (setq c-basic-offset 2)))
+
+;;LSP
+(use-package lsp-mode
+  :hook (lsp-mode . lsp-enable-which-key-integration))
+(use-package lsp-ui)
 
 ;; From https://github.com/godotengine/emacs-gdscript-mode#known-issues
 (defun lsp--gdscript-ignore-errors (original-function &rest args)
