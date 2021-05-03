@@ -374,6 +374,7 @@
 
 ;;Evil Leader
 (use-package evil-leader
+  :after evil
   :config
   (global-evil-leader-mode)
   (evil-leader/set-leader "<SPC>")
@@ -408,7 +409,7 @@
     "y" 'show-copy-buffer-path))
 
 (use-package evil-numbers
-  :requires evil
+  :after evil
   :config
   (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
   (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt))
@@ -439,8 +440,11 @@
   (evil-normal-state)
   (save-buffer))
 
-
 (use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
 
@@ -448,10 +452,10 @@
   (define-key evil-insert-state-map "\C-o" 'evil-open-above)
 
   ;;too much other crap going on to be worrying about evil here
-  (evil-set-initial-state 'comint-mode 'emacs)
-  (evil-set-initial-state 'sldb-mode 'emacs)
-  (evil-set-initial-state 'geiser-doc-mode 'emacs)
-  (evil-set-initial-state 'geiser-debug-mode 'emacs)
+  ;; (evil-set-initial-state 'comint-mode 'emacs)
+  ;; (evil-set-initial-state 'sldb-mode 'emacs)
+  ;; (evil-set-initial-state 'geiser-doc-mode 'emacs)
+  ;; (evil-set-initial-state 'geiser-debug-mode 'emacs)
   ;; (evil-set-initial-state 'treemacs-mode 'emacs)
 
   ;; Unbind C-a from evil-ex-completion; can (use C-l, C-d or TAB instead)
@@ -465,6 +469,14 @@
   (define-key evil-insert-state-map "\C-a" 'move-beginning-of-line)
   (define-key evil-insert-state-map "\C-d" 'delete-char)
   (define-key evil-insert-state-map "\C-s" 'evil-escape-and-save))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init '(dired
+                          magit
+                          (package-menu package))))
 
 ;;evil-surround
 ;;-------------
@@ -529,12 +541,9 @@
   (setq dired-sidebar-use-term-integration t)
   (setq dired-sidebar-theme 'nerd))
 
-;; Use subtree as context for when creating files
-;; https://www.reddit.com/r/emacs/comments/4agkye/how_do_you_customize_dired/
-(eval-after-load 'dired
-  '(progn
-     (defun dired-create-file-relative (file)
-       "Create a file called FILE relative to the location of cursor in dired subtree. If FILE already exists, signal an error."
+;; Bind to this in evil-collection/modes/dired
+(defun dired-create-file-relative (file)
+       "Create a file called FILE relative to the location of cursor in dired subtree.  If FILE already exists, signal an error."
        (interactive
         (list (read-file-name "Create file: " (dired-current-directory))))
        (let* ((expanded (expand-file-name file)))
@@ -550,8 +559,6 @@
 
          ;; Should goto the file
          (find-file expanded)))
-     ;; This is shadowing dired-do-compress-to which I've never used, so should be fine!
-     (define-key dired-mode-map (kbd "c") #'dired-create-file-relative)))
 
 ;;Eyebrowse
 ;;---------
@@ -575,9 +582,6 @@
 (use-package magit
   :ensure t)
 ;;https://magit.vc/manual/magit/Getting-started.html#Getting-started
-(use-package evil-magit
-  :ensure t
-  :requires magit)
 
 ;;Expand Selection
 ;;----------------
