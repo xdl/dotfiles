@@ -21,6 +21,7 @@ fi
 
 if  [ ! -f ~/.vimrc ]; then
     echo "linking over minimal .vimrc...";
+    mkdir -p ~/.vim/tmpfiles
     ln -s ~/dotfiles/vim/.vimrc-minimal ~/.vimrc;
 else
     echo ".vimrc already exists; skipping";
