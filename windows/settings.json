@@ -18,12 +18,17 @@
         },
         {
             "command": "paste",
-            "keys": "ctrl+v"
+            "keys": "ctrl+shift+v"
         },
         // Press Ctrl+Shift+F to open the search box
         {
             "command": "find",
             "keys": "ctrl+shift+f"
+        },
+        // https://superuser.com/questions/601727/how-do-i-avoid-conflicting-hotkeys-between-windows-and-cygwin
+        {
+            "command": "null",
+            "keys": "alt+enter"
         },
         // Press Alt+Shift+D to open a new pane.
         // - "split": "auto" makes this pane open in the direction that provides the most surface area.
