@@ -62,6 +62,8 @@
 (define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word)
 
 (defun get-copy-command ()
+  ;; In WSL:
+  ;; "/mnt/c/Windows/System32/clip.exe"
   "Assuming either Linux or MacOS for now."
   ;; http://ergoemacs.org/emacs/elisp_determine_OS_version.html
   (if (string-equal system-type "gnu/linux")
