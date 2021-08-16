@@ -465,6 +465,7 @@
   (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
+  (evil-select-search-module 'evil-search-module 'evil-search)
 
   ;; Seems like I only use C-o for this
   (define-key evil-insert-state-map "\C-o" 'evil-open-above)
