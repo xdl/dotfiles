@@ -1,0 +1,5 @@
+# key: prod
+# name: prod_check
+# --
+if not Engine.editor_hint:
+    $1
