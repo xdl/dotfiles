@@ -35,6 +35,7 @@
                (format "%s\n" contents-trimmed)
              (progn
                (shell-command-on-region (region-beginning) (region-end) (get-copy-command))
+              ;; (format "%s\n\n" contents-trimmed)))) ;; WSL workaround/alternative https://stackoverflow.com/a/38419584
                "%paste\n")))
           (t (format "%s\n" contents-trimmed)))))
 
