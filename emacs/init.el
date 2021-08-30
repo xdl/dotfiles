@@ -241,6 +241,9 @@
 (use-package lsp-mode
   :hook (lsp-mode . lsp-enable-which-key-integration))
 (use-package lsp-ui)
+;; https://emacs-lsp.github.io/lsp-mode/page/performance/
+;; Up from 800000 (800KB) to 100MB
+(setq gc-cons-threshold 100000000)
 
 ;; From https://github.com/godotengine/emacs-gdscript-mode#known-issues
 (defun lsp--gdscript-ignore-errors (original-function &rest args)
