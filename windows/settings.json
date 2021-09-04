@@ -32,7 +32,7 @@
         },
         {
             "command": {
-
+              // https://docs.microsoft.com/en-us/windows/terminal/customize-settings/actions#send-input
                 "action": "sendInput",
                 "input": "\u001b[1;P1"
             },
