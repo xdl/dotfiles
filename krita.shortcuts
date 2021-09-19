@@ -1,3 +1,4 @@
 [Shortcuts]
-InteractionTool=V
+set_simple_brush_smoothing=Alt+B
+set_stabilizer_brush_smoothing=Alt+S
 wrap_around_mode=W
