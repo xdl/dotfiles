@@ -1,39 +1,51 @@
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    // Add custom actions and keybindings to this array.
-    // To unbind a key combination from your defaults.json, set the command to "unbound".
-    // To learn more about actions and keybindings, visit https://aka.ms/terminal-keybindings
     "actions": 
-    [
-        // Copy and paste are bound to Ctrl+Shift+C and Ctrl+Shift+V in your defaults.json.
-        // These two lines additionally bind them to Ctrl+C and Ctrl+V.
-        // To learn more about selection, visit https://aka.ms/terminal-selection
+  [
+    // Overriding defaults from https://github.com/microsoft/terminal/blob/6268a4779c9b3f49b7f3c30471bda7ae292ac423/src/cascadia/TerminalSettingsModel/defaults.json
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
-            "keys": "ctrl+c"
+            "keys": "ctrl+shift+c"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": "unbound",
+            "keys": ["ctrl+shift+down"]
+        },
+        {
+            "command": "unbound",
+            "keys": ["ctrl+shift+up"]
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+enter"
         },
         {
             "command": "paste",
             "keys": "ctrl+shift+v"
         },
-        // Press Ctrl+Shift+F to open the search box
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
+            "command": {
+              // https://docs.microsoft.com/en-us/windows/terminal/customize-settings/actions#send-input
+                "action": "sendInput",
+                "input": "\u001b[1;P1"
+            },
+            "keys": "ctrl+0"
         },
-        // https://superuser.com/questions/601727/how-do-i-avoid-conflicting-hotkeys-between-windows-and-cygwin
         {
-            "command": "null",
-            "keys": "alt+enter"
+            "command": {
+
+                "action": "sendInput",
+                "input": "\u001b[1;P3"
+            },
+            "keys": "ctrl+shift+}"
         },
-        // Press Alt+Shift+D to open a new pane.
-        // - "split": "auto" makes this pane open in the direction that provides the most surface area.
-        // - "splitMode": "duplicate" makes the new pane use the focused pane's profile.
-        // To learn more about panes, visit https://aka.ms/terminal-panes
         {
             "command": 
             {
@@ -73,9 +85,14 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
+                "bellStyle": "none",
+                "fontFace": "Lucida Console",
+                "fontSize": 11,
                 "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
                 "hidden": false,
                 "name": "Ubuntu-20.04",
+                "padding": "0",
+                "scrollbarState": "hidden",
                 "source": "Windows.Terminal.Wsl"
             }
         ]
