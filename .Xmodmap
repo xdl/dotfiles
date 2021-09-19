@@ -8,7 +8,10 @@
 
 
 ! For Tecknet Wireless Keyboard
-! keycode 164 = Print
-
-! Remapping Alt-R
+! (Check with xev)
+! Remapping Alt-R does print screen:
+! <Alt-R>: all screens to file (My Pictures)
+! <Alt + Alt-R>: current screen to file
+! <Shift + Alt-R>: snip to file
+! <Ctrl + Shift + Alt-R>: snip to clipboard
 keycode 108 = Print
