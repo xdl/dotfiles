@@ -383,6 +383,11 @@
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
+(defun leader-toggle-write-prose()
+  "Useful for prose writing."
+  (interactive)
+  (toggle-word-wrap))
+
 (defun random-thing ()
   "Select randomly between list of things inputted by user."
   (interactive)
@@ -427,7 +432,8 @@
     "rss" 'leader-replace-symbol-in-selection
 
     "p" 'projectile-switch-project
-    "y" 'show-copy-buffer-path))
+    "y" 'show-copy-buffer-path
+    "w" 'leader-toggle-write-prose))
 
 (use-package evil-numbers
   :after evil
@@ -896,6 +902,7 @@
   :init
   (global-company-mode)
   :config
+  (setq company-global-modes '(not org-mode markdown-mode))
   (setq company-selection-wrap-around t
         company-show-numbers t)
   (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
