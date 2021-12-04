@@ -1,0 +1,8 @@
+set hlsearch
+set incsearch
+set smartcase
+set showmode
+set surround
+set ideajoin
+set clipboard+=unnamed
+inoremap jk <Esc>
