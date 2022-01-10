@@ -244,6 +244,7 @@
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 ;; Up from 800000 (800KB) to 100MB
 (setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 ;; From https://github.com/godotengine/emacs-gdscript-mode#known-issues
 (defun lsp--gdscript-ignore-errors (original-function &rest args)
