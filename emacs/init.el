@@ -570,7 +570,8 @@
   (setq dired-sidebar-use-term-integration t)
   (setq dired-sidebar-theme 'nerd))
 
-;; Bind to this in evil-collection/modes/dired
+;; Bind dired-do-compress-to to this in evil-collection/modes/dired (L70)
+;; Then run emacs-lisp-byte-compile-and-load
 (defun dired-create-file-relative (file)
        "Create a file called FILE relative to the location of cursor in dired subtree.  If FILE already exists, signal an error."
        (interactive
@@ -876,7 +877,10 @@
   (helm-projectile-on))
 
 (use-package helm-ag
-  :ensure t)
+  :ensure t
+  :config
+  (custom-set-variables
+   '(helm-ag-use-agignore t)))
 (use-package ag
   :ensure t)
 
