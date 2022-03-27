@@ -1,4 +1,6 @@
 [Shortcuts]
 set_simple_brush_smoothing=Shift+B
 set_stabilizer_brush_smoothing=Shift+T
-wrap_around_mode=W
+KisToolSelectContiguous=W
+KisToolSelectOutline=Q
+KritaShape/KisToolMultiBrush=none
