@@ -2,6 +2,12 @@
 
 Configuration files/scripts for various tools and shells
 
+## Windows
+
+Current tmux/Emacs setup is through WSL, with graphics supplied by VcXsrv (https://parsethesource.com/articles/emacs-in-the-wsl/)
+
+* Enable higher DPI text scaling with letting the application perform scaling in C:\Program Files\VcXsrv\vcxsrv.exe (https://superuser.com/questions/1370361/blurry-fonts-on-using-windows-default-scaling-with-wsl-gui-applications-hidpi)
+
 ## {Li,U}nix
 
 Initial setup:
