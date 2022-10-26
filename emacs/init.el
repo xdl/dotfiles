@@ -45,6 +45,10 @@
 ;; Newline at end of file
 (setq require-final-newline t)
 
+;; Disable cursor blinking (required on Emacs 26 → 28 upgrade)
+;; https://www.emacswiki.org/emacs/NonBlinkingCursor
+(blink-cursor-mode 0)
+
 ;;Bindings
 ;;========
 
