@@ -350,22 +350,22 @@
   (when (memq window-system '(mac ns x))
    (exec-path-from-shell-initialize)))
 
-(defun leader-replace-symbol-in-buffer ()
-  "Replace symbol in entire buffer."
+(defun my/replace-symbol-in-buffer ()
+  "Replace symbol under cursor in entire buffer."
   (interactive)
   (let ((to-replace (thing-at-point 'word)))
     (setq unread-command-events
           (listify-key-sequence (format ":%%s/%s/" to-replace)))))
 
-(defun leader-replace-symbol-in-line ()
-  "Replace symbol in current line."
+(defun my/replace-symbol-in-line ()
+  "Replace symbol under cursor in current line."
   (interactive)
   (let ((to-replace (thing-at-point 'symbol)))
     (setq unread-command-events
           (listify-key-sequence (format ":s/%s/" to-replace)))))
 
-(defun leader-replace-symbol-in-selection ()
-  "Replace symbol in evil visual selection."
+(defun my/replace-symbol-in-selection ()
+  "Replace symbol under cursor in evil visual selection."
   (interactive)
   (when (evil-visual-state-p)
     (evil-exit-visual-state)
@@ -375,7 +375,7 @@
             (listify-key-sequence (format ":s/%s/" to-replace))))))
 
 ;; https://emacsredux.com/blog/2013/05/04/rename-file-and-buffer/
-(defun leader-rename-file-and-buffer ()
+(defun my/rename-file-and-buffer ()
   "Rename the current buffer and file it is visiting."
   (interactive)
   (let ((filename (buffer-file-name)))
@@ -388,12 +388,7 @@
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
-(defun leader-toggle-write-prose()
-  "Useful for prose writing."
-  (interactive)
-  (toggle-word-wrap))
-
-(defun random-thing ()
+(defun my/random-thing ()
   "Select randomly between list of things inputted by user."
   (interactive)
   (let* ((things-str (read-string "Enter things to be chosen randomly (separated by space): "))
@@ -420,6 +415,7 @@
     "g" 'magit-status
     "h" 'helm-apropos
     "l" 'helm-buffers-list
+
     "n" 'dired-sidebar-toggle-sidebar ;; Like NERDTree
 
     "sc" 'send-to-tmux/set-config
@@ -428,17 +424,17 @@
     "sp" 'send-to-tmux/set-pane
     "ss" 'send-to-tmux/send-snippet
 
-    "rt" 'random-thing
+    "rt" 'my/random-thing
 
-    "rf" 'leader-rename-file-and-buffer
+    "rf" 'my/rename-file-and-buffer
 
-    "rsb" 'leader-replace-symbol-in-buffer
-    "rsl" 'leader-replace-symbol-in-line
-    "rss" 'leader-replace-symbol-in-selection
+    "rsb" 'my/replace-symbol-in-buffer
+    "rsl" 'my/replace-symbol-in-line
+    "rss" 'my/replace-symbol-in-selection
 
     "p" 'projectile-switch-project
     "y" 'show-copy-buffer-path
-    "w" 'leader-toggle-write-prose))
+    "w" 'toggle-word-wrap))
 
 (use-package evil-numbers
   :after evil
@@ -576,23 +572,23 @@
 
 ;; Bind dired-do-compress-to to this in evil-collection/modes/dired (L70)
 ;; Then run emacs-lisp-byte-compile-and-load
-(defun dired-create-file-relative (file)
-       "Create a file called FILE relative to the location of cursor in dired subtree.  If FILE already exists, signal an error."
-       (interactive
-        (list (read-file-name "Create file: " (dired-current-directory))))
-       (let* ((expanded (expand-file-name file)))
-         (message "%s: %s" "expanded" (prin1-to-string expanded))
-         (if (file-exists-p expanded)
-             (error "Cannot create file %s: file exists" expanded))
+(defun my/dired-create-file-relative (file)
+  "Create a file called FILE relative to the location of cursor in dired subtree.  If FILE already exists, signal an error."
+  (interactive
+   (list (read-file-name "Create file: " (dired-current-directory))))
+  (let* ((expanded (expand-file-name file)))
+    (message "%s: %s" "expanded" (prin1-to-string expanded))
+    (if (file-exists-p expanded)
+        (error "Cannot create file %s: file exists" expanded))
 
-         ;; Writes the file onto dired subdirectory
-         (write-region "" nil expanded t)
-         (dired-add-file expanded)
-         ;; Refreshes
-         (revert-buffer)
+    ;; Writes the file onto dired subdirectory
+    (write-region "" nil expanded t)
+    (dired-add-file expanded)
+    ;; Refreshes
+    (revert-buffer)
 
-         ;; Should goto the file
-         (find-file expanded)))
+    ;; Should goto the file
+    (find-file expanded)))
 
 ;;Eyebrowse
 ;;---------
