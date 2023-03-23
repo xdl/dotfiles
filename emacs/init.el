@@ -31,6 +31,8 @@
   :config
   (load-theme 'zenburn t))
 
+(use-package rainbow-mode)
+
 ;; Removes the curly arrows to denote word/line wraps
 (setq-default fringe-indicator-alist ())
 ;; Set fringe width
@@ -535,7 +537,7 @@
   :ensure t
   :config
   (key-chord-mode 1)
-  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state))
+  (key-chord-define evil-insert-state-map "jj" 'evil-normal-state))
 
 ;;Treemacs
 ;;========
