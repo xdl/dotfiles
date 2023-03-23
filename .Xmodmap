@@ -9,7 +9,7 @@
 
 ! For Tecknet Wireless Keyboard
 ! (Check with xev)
-! Remapping Alt-R does print screen:
+! Remapping Alt-R to Print:
 ! <Alt-R>: all screens to file (My Pictures)
 ! <Alt + Alt-R>: current screen to file
 ! <Shift + Alt-R>: snip to file
