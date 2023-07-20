@@ -417,9 +417,11 @@
     "F" 'projectile-find-file-in-known-projects
     "g" 'magit-status
     "h" 'helm-apropos
+    "k" 'git-gutter:popup-hunk
     "l" 'helm-buffers-list
 
     "n" 'dired-sidebar-toggle-sidebar ;; Like NERDTree
+    "o" 'delete-other-windows
 
     "sc" 'send-to-tmux/set-config
     "sd" 'send-to-tmux/get-difference
