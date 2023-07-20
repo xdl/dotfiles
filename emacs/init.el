@@ -31,6 +31,7 @@
   :config
   (load-theme 'zenburn t))
 
+;; Previews hex colours in editor. Manually turn on for now
 (use-package rainbow-mode)
 
 ;; Removes the curly arrows to denote word/line wraps
@@ -61,8 +62,8 @@
 (global-set-key [(control h)]  'windmove-left)
 (global-set-key [(control l)]  'windmove-right)
 
-(global-set-key (kbd "<f2>") 'copy-to-system-clipboard)
-(global-set-key (kbd "<f3>") 'paste-from-system-clipboard)
+(global-set-key (kbd "<f2>") 'my/copy-to-system-clipboard)
+(global-set-key (kbd "<f3>") 'my/paste-from-system-clipboard)
 
 ;; Remapping from kill-region, which doesn't seem to be useful
 (define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word)
@@ -88,14 +89,14 @@
   (interactive)
   (shell-command-to-string (get-paste-command)))
 
-(defun paste-from-system-clipboard ()
+(defun my/paste-from-system-clipboard ()
   "Paste system clipboard contents at current point."
   (interactive)
   (shell-command (get-paste-command))
   (message "system clipboard pasted"))
 
-(defun copy-to-system-clipboard ()
-  "Copy region (or buffer if no region selected) to the system clipboard."
+(defun my/copy-to-system-clipboard ()
+  "Copy region (or while buffer if no region selected) to the system clipboard."
   (interactive)
   (if (use-region-p)
       (progn
@@ -969,6 +970,9 @@
 ;; ignoring tabs as well
 (setq-default indent-tabs-mode nil)
 
+;; emmet mode
+(use-package emmet-mode)
+
 ;; JSX
 ;; (use-package rjsx-mode
 ;;   :mode (("App.js" . rjsx-mode)
@@ -1173,6 +1177,12 @@
   (cider-mode . eldoc-mode))
 
 (use-package flycheck-clj-kondo)
+
+(use-package git-gutter
+  :hook (prog-mode . git-gutter-mode)
+  :config
+  (setq git-gutter:update-interval 1)
+  (global-git-gutter-mode t))
 
 ;;Misc/Scrap
 ;;==========
