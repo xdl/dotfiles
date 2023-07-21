@@ -418,6 +418,8 @@
     "g" 'magit-status
     "h" 'helm-apropos
     "k" 'git-gutter:popup-hunk
+    "." 'git-gutter:next-hunk
+    "," 'git-gutter:previous-hunk
     "l" 'helm-buffers-list
 
     "n" 'dired-sidebar-toggle-sidebar ;; Like NERDTree
@@ -1183,7 +1185,7 @@
 (use-package git-gutter
   :hook (prog-mode . git-gutter-mode)
   :config
-  (setq git-gutter:update-interval 1)
+  ;; (setq git-gutter:update-interval 1) ;; default is 0; update only on save
   (global-git-gutter-mode t))
 
 ;;Misc/Scrap
