@@ -408,6 +408,9 @@
   (global-evil-leader-mode)
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
+
+    "0" 'delete-window
+
     ;; "," 'evil-repeat-find-char-reverse
     "a" 'projectile-ag
     "b" 'helm-filtered-bookmarks
