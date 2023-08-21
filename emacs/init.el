@@ -63,49 +63,54 @@
 (global-set-key [(control l)]  'windmove-right)
 
 (global-set-key (kbd "<f2>") 'my/copy-to-system-clipboard)
-(global-set-key (kbd "<f3>") 'my/paste-from-system-clipboard)
 
 ;; Remapping from kill-region, which doesn't seem to be useful
 (define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word)
 
-(defun get-copy-command ()
-  ;; In WSL:
-  ;; "/mnt/c/Windows/System32/clip.exe"
-  "Assuming either Linux or MacOS for now."
-  ;; http://ergoemacs.org/emacs/elisp_determine_OS_version.html
+;; Used in send-to-tmux.el as well
+(defun my/get-copy-command ()
   (if (string-equal system-type "gnu/linux")
-      "xsel -i -b"
+      (if (string-match "-[Mm]icrosoft" operating-system-release)
+          ;; WSL (WSL1 has "-Microsoft", WSL2 has "-microsoft-standard")
+          "clip.exe"
+        ;; Linux
+        "xsel -i -b")
+    ;; MacOS
     "pbcopy"))
 
-(defun get-paste-command ()
-  "Assuming either Linux or MacOS for now."
-  (if (string-equal system-type "gnu/linux")
-      "xclip -selection clipboard -o"
-    "pbpaste"))
+;; https://emacs.stackexchange.com/a/59607/19600
+(defun wsl-paste ()
+  (interactive)
+  (let ((clipboard
+         (shell-command-to-string "powershell.exe -command 'Get-Clipboard' 2> /dev/null")))
+    (setq clipboard (replace-regexp-in-string "\r" "" clipboard)) ; Remove Windows ^M characters
+    (setq clipboard (substring clipboard 0 -1)) ; Remove newline added by Powershell
+    clipboard))
 
 ;; Used in yasnippet links (orgmode and markdown)
-(defun read-from-system-clipboard ()
+(defun my/get-clipboard-contents ()
   "Return system clipboard contents."
   (interactive)
-  (shell-command-to-string (get-paste-command)))
-
-(defun my/paste-from-system-clipboard ()
-  "Paste system clipboard contents at current point."
-  (interactive)
-  (shell-command (get-paste-command))
-  (message "system clipboard pasted"))
+  (if (string-equal system-type "gnu/linux")
+      (if (string-match "-[Mm]icrosoft" operating-system-release)
+          ;; WSL: WSL1 has "-Microsoft", WSL2 has "-microsoft-standard"
+          (wsl-paste)
+        ;; Linux
+        (shell-command-to-string "xclip -selection clipboard -o"))
+    ;; MacOS
+    (shell-command-to-string "pbpaste")))
 
 (defun my/copy-to-system-clipboard ()
   "Copy region (or while buffer if no region selected) to the system clipboard."
   (interactive)
   (if (use-region-p)
       (progn
-        (shell-command-on-region (region-beginning) (region-end) (get-copy-command))
+        (shell-command-on-region (region-beginning) (region-end) (my/get-copy-command))
         (deactivate-mark)
         (message "region copied to system clipboard"))
     (save-excursion
       (mark-whole-buffer)
-      (shell-command-on-region (region-beginning) (region-end) (get-copy-commnd))
+      (shell-command-on-region (region-beginning) (region-end) (my/get-copy-commnd))
       (deactivate-mark)
       (message "buffer copied to system clipboard"))))
 
@@ -137,6 +142,9 @@
 (show-paren-mode 1)
 ;;remove the delay
 (setq show-paren-delay 0)
+
+;; Use word-wrapping by default
+(global-visual-line-mode t)
 
 ;;highlight the current line (turning it off because it won't make the search highlighting show up)
 ;;(global-hl-line-mode 1)
@@ -1191,14 +1199,35 @@
   ;; (setq git-gutter:update-interval 1) ;; default is 0; update only on save
   (global-git-gutter-mode t))
 
+;; From https://www.emacswiki.org/emacs/NxmlMode#toc11
+(defun nxml-where ()
+  "Display the hierarchy of XML elements the point is on as a path."
+  (interactive)
+  (let ((path nil))
+    (save-excursion
+      (save-restriction
+        (widen)
+        (while (and (< (point-min) (point)) ;; Doesn't error if point is at beginning of buffer
+                    (condition-case nil
+                        (progn
+                          (nxml-backward-up-element) ; always returns nil
+                          t)
+                      (error nil)))
+          (setq path (cons (xmltok-start-tag-local-name) path)))
+        (if (called-interactively-p t)
+            (message "/%s" (mapconcat 'identity path "/"))
+          (format "/%s" (mapconcat 'identity path "/")))))))
+
 ;; Copilot spike (https://github.com/zerolfx/copilot.el)
 ;; Requires editorconfig (and s)
-;; (add-to-list 'load-path "/home/xdl/dev/third-party/copilot.el")
-;; (require 'copilot)
-;; ;; If copilot-mode is enabled:
-;; (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-;; (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
-;; ;; Otherwise, manual triggering:
-;; (bind-key "C-x ." 'copilot-complete)
-;; (bind-key "C-x ," 'copilot-clear-overlay)
+(add-to-list 'load-path "/home/xdl/dev/third-party/copilot.el")
+(require 'copilot)
+;; If copilot-mode is enabled:
+(define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+(define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+;; Otherwise, manual triggering:
+(bind-key "C-x ." 'copilot-complete)
+(bind-key "C-x ," 'copilot-clear-overlay)
+
+
 

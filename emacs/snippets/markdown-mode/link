@@ -1,4 +1,4 @@
 # name: link
 # key: yy
 # --
-[$1](${2:`(read-from-system-clipboard)`})$0
+[$1](${2:`(my/get-clipboard-contents)`})$0

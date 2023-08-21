@@ -2,4 +2,4 @@
 # name: hyperlink
 # key: yy
 # --
-[[${2:`(read-from-system-clipboard)`}][$1]]$0
+[[${2:`(my/get-clipboard-contents)`}][$1]]$0

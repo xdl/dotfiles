@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-;; N.B. requires the get-copy-command defined in init.el
+;; N.B. requires the my/get-copy-command defined in init.el
 
 ;; For string-trim
 (require 'subr-x)
@@ -34,9 +34,9 @@
            (if (= (length (split-string contents-trimmed "\n")) 1)
                (format "%s\n" contents-trimmed)
              (progn
-               (shell-command-on-region (region-beginning) (region-end) (get-copy-command))
               ;; (format "%s\n\n" contents-trimmed)))) ;; WSL workaround/alternative https://stackoverflow.com/a/38419584
                "%paste\n")))
+               (shell-command-on-region (region-beginning) (region-end) (my/get-copy-command))
           (t (format "%s\n" contents-trimmed)))))
 
 
