@@ -650,6 +650,7 @@
 
 (use-package slime-company)
 
+
 ;; Helm
 ;;-----
 (use-package helm
@@ -663,6 +664,8 @@
         helm-candidate-number-limit 100)
   (helm-mode 1)
   (use-package helm-flx
+    :init
+    (use-package flx)
     :config
     (helm-flx-mode +1))
   (helm-adaptive-mode 1)
@@ -670,8 +673,7 @@
   (add-to-list 'helm-completing-read-handlers-alist
                '(dired-do-copy . nil))
   (add-to-list 'helm-completing-read-handlers-alist
-               '(dired-do-rename . nil))
-  )
+               '(dired-do-rename . nil)))
 
 ;; Using Helm command completion instead of default
 
@@ -1218,6 +1220,39 @@
             (message "/%s" (mapconcat 'identity path "/"))
           (format "/%s" (mapconcat 'identity path "/")))))))
 
+(defun my/save-last-snipped ()
+  "Only implemented on WSL so far.
+   Moves last snipped png from Windows snip (<Win-Shift-S>) into dir specified by SNIPPED_DESTINATION keyword
+   Use while in org file with keyword of something like:
+   ,#+SNIPPED_DESTINATION: assets"
+  (interactive)
+  (let* ((snipped-directory "/mnt/c/Users/eddie/AppData/Local/Packages/MicrosoftWindows.Client.CBS_cw5n1h2txyewy/TempState/ScreenClip")
+         ;; https://stackoverflow.com/questions/26514437/emacs-sort-list-of-directories-files-by-modification-date
+         (dir-and-files-by-date (sort (directory-files-and-attributes snipped-directory)
+                                      #'(lambda (x y) (time-less-p (nth 6 y) (nth 6 x)))))
+         (images-by-date (seq-filter #'(lambda (attributes)
+                                         (string-suffix-p ".png" (car attributes)))
+                                     dir-and-files-by-date))
+         (snipped-destination-dir (file-name-concat
+                                   default-directory
+                                   (cadr (car (org-collect-keywords '("SNIPPED_DESTINATION"))))))
+         (most-recent-image-attributes (car images-by-date))
+         ;; "(\"{185B5151-6C0D-4EAB-9A86-749C99DD8C6B}.png\" nil 1 1000 1000 (25827 58047 771340 800000) (25824 47670 798102 300000) (25824 47670 798102 300000) 127696 \"-rwxrwxrwx\" t 26740122787601836 14)"
+         (image-name (car most-recent-image-attributes))
+         (image-path (file-name-concat snipped-directory image-name))
+         (destination-filename (read-file-name
+                                (concat "Copying over " image-name " as: ")
+                                (file-name-concat
+                                 snipped-destination-dir
+                                 (format-time-string "%Y-%m-%d-%H:%M:%S.png" (current-time)))))
+         ;; Links want a leading ./
+         (rel-destination-filename (concat
+                                    "./"
+                                    (file-relative-name destination-filename default-directory)))
+         (copy-command (concat "cp " image-path " " destination-filename)))
+    (shell-command copy-command)
+    rel-destination-filename))
+
 ;; Copilot spike (https://github.com/zerolfx/copilot.el)
 ;; Requires editorconfig (and s)
 (add-to-list 'load-path "/home/xdl/dev/third-party/copilot.el")
@@ -1228,6 +1263,4 @@
 ;; Otherwise, manual triggering:
 (bind-key "C-x ." 'copilot-complete)
 (bind-key "C-x ," 'copilot-clear-overlay)
-
-
 

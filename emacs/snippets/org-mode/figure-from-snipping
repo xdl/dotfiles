@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Figure from snipping
+# key: sf
+# expand-env: ((yas-after-exit-snippet-hook #'org-display-inline-images))
+# --
+[[`(my/save-last-snipped)`]]$0
