@@ -1,0 +1,17 @@
+" Have also set the following in vim extension's settings.json
+" {
+"     "vim.hlsearch": true,
+"     "vim.useSystemClipboard": true,
+"     "vim.visualstar": true,
+"     "vim.vimrc.enable": true,
+"     "vim.vimrc.path": "$HOME/.vimrc_vscode",
+"     "vim.handleKeys": {
+"         "<C-d>": true,
+"         "<C-s>": true,
+"         "<C-z>": false
+"     }
+" }
+
+inoremap jj <Esc>
+inoremap <C-S> <C-O>:update<CR><ESC>
+nnoremap <C-S> :update<CR><ESC>

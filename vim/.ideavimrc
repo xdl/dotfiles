@@ -5,7 +5,7 @@ set showmode
 set surround
 set ideajoin
 set clipboard+=unnamed
-inoremap jk <Esc>
+inoremap jj <Esc>
 noremap <C-S> :update<CR>
 vnoremap <C-S> <ESC>:update<CR>
 inoremap <C-S> <C-O>:update<CR><ESC>
