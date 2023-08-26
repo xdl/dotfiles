@@ -184,12 +184,12 @@
 ;; https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
 
 (defun underscore-as-word ()
-  "Set underscore as part of word (for evil-visualstar)."
+  "Set underscore as part of word (e.g. for evil-visualstar)."
   (modify-syntax-entry ?_ "w"))
 
 (defun hyphen-as-word ()
-  "Set hyphen as part of word (for evil-visualstar)."
-  (modify-syntax-entry ?_ "w"))
+  "Set hyphen as part of word (e.g. for evil-visualstar)."
+  (modify-syntax-entry ?- "w"))
 
 (add-hook 'arduino-mode-hook 'underscore-as-word)
 (add-hook 'org-mode-hook 'underscore-as-word)
@@ -251,6 +251,30 @@
 (add-hook 'java-mode-hook
           (lambda()
             (setq c-basic-offset 2)))
+
+(defun my/fix-ispell-contraction ()
+  "Fixes contractions (e.g. shouldn't) aren't not being checked properly.
+See https://github.com/casouri/lunarymacs/blob/master/star/checker.el#L44-L49."
+  (add-to-list 'ispell-dictionary-alist
+               '("en_GB" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_GB") nil utf-8)))
+
+;; Flyspell
+(use-package flyspell
+  :ensure nil
+  :config
+  (add-hook 'flyspell-mode-hook 'my/fix-ispell-contraction)
+  :hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode))
+  :custom
+
+  ;; Add correction to abbreviation table.
+  ;; (flyspell-abbrev-p t)
+
+  ;; Chosen from (prin1-to-string (ispell-valid-dictionary-list))
+  (flyspell-default-dictionary "en_GB")
+
+  (flyspell-issue-message-flag nil)
+  (flyspell-issue-welcome-flag nil))
 
 ;;LSP
 (use-package lsp-mode

@@ -15,3 +15,4 @@
 inoremap jj <Esc>
 inoremap <C-S> <C-O>:update<CR><ESC>
 nnoremap <C-S> :update<CR><ESC>
+vnoremap <C-S> <ESC>:update<CR>
