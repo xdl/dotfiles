@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: c
-# key: c
+# name: chord
+# key: ch
 # --
 \`<$1>\` $0
