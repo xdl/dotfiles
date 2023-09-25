@@ -450,13 +450,17 @@ See https://github.com/casouri/lunarymacs/blob/master/star/checker.el#L44-L49."
     "d" 'magit-log-buffer-file
     "f" 'projectile-find-file
     "F" 'projectile-find-file-in-known-projects
-    "g" 'magit-status
+
+    "g." 'git-gutter:next-hunk
+    "g," 'git-gutter:previous-hunk
+    "gp" 'git-gutter:popup-hunk
+    "gr" 'git-gutter:revert-hunk
+
     "h" 'helm-apropos
-    "k" 'git-gutter:popup-hunk
-    "." 'git-gutter:next-hunk
-    "," 'git-gutter:previous-hunk
+
     "l" 'helm-buffers-list
 
+    "m" 'magit-status
     "n" 'dired-sidebar-toggle-sidebar ;; Like NERDTree
     "o" 'delete-other-windows
 
