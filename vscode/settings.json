@@ -1,5 +1,59 @@
 {
-    "godot_tools.editor_path": "C:\\Users\\eddie\\Desktop\\Godot_v3.4.2-stable_win64.exe",
     "gut-extension.additionalOptions": "--path godot -d",
-    "python.pythonPath": "python3"
+    "python.pythonPath": "python3",
+    "editor.inlineSuggest.enabled": false,
+    "C_Cpp.formatting": "vcFormat",
+    "editor.wordWrap": "on",
+    "colorize.languages": [
+        "css",
+        "sass",
+        "scss",
+        "less",
+        "postcss",
+        "sss",
+        "stylus",
+        "xml",
+        "svg",
+        "gdscript"
+    ],
+    "debug.console.collapseIdenticalLines": false,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "gdscript": true
+    },
+    "godot_tools.gdscript_lsp_server_port": 6005,
+    "github.copilot.advanced": {
+    
+        
+
+
+    },
+    "godot_tools.editor_path": "C:\\Users\\eddie\\Downloads\\Godot_v4.2.1-stable_win64.exe\\Godot_v4.2.1-stable_win64.exe",
+    "editor.minimap.enabled": false,
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.visualstar": true,
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "$HOME/.vimrc_vscode",
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-s>": true,
+        "<C-z>": false
+    },
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<C-p>"
+            ],
+            "commands": [
+                "workbench.action.quickOpen",
+            ]
+        },
+    ],
+    "explorer.confirmDelete": false,
+    "terminal.integrated.allowChords": false,
+    "window.zoomLevel": 1
 }

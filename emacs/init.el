@@ -325,7 +325,7 @@ See https://github.com/casouri/lunarymacs/blob/master/star/checker.el#L44-L49."
     (message "New location set to %s" new-directory)))
 
 ;; https://stackoverflow.com/a/44489067/1010076
-(defun show-copy-buffer-path ()
+(defun my/show-copy-buffer-path ()
   "Show and copy the full path to the current file in the minibuffer."
   (interactive)
   (let ((file-name (or (buffer-file-name) list-buffers-directory)))
@@ -479,7 +479,7 @@ See https://github.com/casouri/lunarymacs/blob/master/star/checker.el#L44-L49."
     "rss" 'my/replace-symbol-in-selection
 
     "p" 'projectile-switch-project
-    "y" 'show-copy-buffer-path
+    "y" 'my/show-copy-buffer-path
     "w" 'toggle-word-wrap))
 
 (use-package evil-numbers
@@ -495,7 +495,7 @@ See https://github.com/casouri/lunarymacs/blob/master/star/checker.el#L44-L49."
 (defvar evil-insert-state-bindings
   '(("\C-v" . quoted-insert)
     ("\C-k" . evil-insert-digraph)
-    ;; ("\C-o" . evil-execute-in-normal-state)
+    ("\C-o" . evil-execute-in-normal-state)
     ("\C-r" . evil-paste-from-register)
     ("\C-y" . evil-copy-from-above)
     ;; ("\C-e" . move-end-of-line)
@@ -522,9 +522,6 @@ See https://github.com/casouri/lunarymacs/blob/master/star/checker.el#L44-L49."
   :config
   (evil-mode 1)
   (evil-select-search-module 'evil-search-module 'evil-search)
-
-  ;; Seems like I only use C-o for this
-  (define-key evil-insert-state-map "\C-o" 'evil-open-above)
 
   ;;too much other crap going on to be worrying about evil here
   ;; (evil-set-initial-state 'comint-mode 'emacs)
