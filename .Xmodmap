@@ -12,6 +12,6 @@
 ! Remapping Alt-R to Print:
 ! <Alt-R>: all screens to file (My Pictures)
 ! <Alt + Alt-R>: current screen to file
-! <Shift + Alt-R>: snip to file
-! <Ctrl + Shift + Alt-R>: snip to clipboard
+! <Shift + Alt-R>: snip area to file
+! <Ctrl + Shift + Alt-R>: snip area to clipboard
 keycode 108 = Print
